@@ -3,14 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página - Miguel</title>
+    <title>MAYUSO | Ethical Hacking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #0f0f0f; color: #00ff00; }
+        :root {
+            --bg: #0a1428;        /* Azul muy oscuro tenue */
+            --accent: #ff0033;     /* Rojo intenso */
+            --text: #e0f0ff;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(10, 20, 40, 0.85), rgba(10, 20, 40, 0.9)), 
+                        url('https://images.unsplash.com/photo-1558494949-ef0d38d3f9d2?ixlib=rb-4.0.3&auto=format&fit=crop&q=80') center/cover;
+            position: relative;
+        }
+        .hero-content h1 {
+            font-size: 4.2rem;
+            color: var(--accent);
+            text-shadow: 0 0 25px var(--accent);
+            margin-bottom: 15px;
+        }
+        .hero-content p {
+            font-size: 1.35rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        section {
+            padding: 90px 8%;
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 2.6rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: 1.15rem;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border: 1px solid rgba(255, 0, 51, 0.3);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            text-decoration: none;
+            margin-top: 30px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #05080f;
+        }
     </style>
 </head>
 <body>
-    <h1>Hola, soy Miguel</h1>
-    <p>Estudiante de ASIR | Entusiasta del Prepping y Hacking Ético</p>
-    <p>Esta página está alojada gratis en GitHub Pages.</p>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>MAYUSO ETHICAL HACKING</h1>
+            <p>Estudiante de ASIR • Futuro Pentester<br>
+            Hacking Ético • OSINT • CTFs</p>
+            <a href="#skills" class="btn">Ver mis habilidades</a>
+        </div>
+    </header>
+
+    <!-- BIENVENIDA -->
+    <section id="about">
+        <div class="content">
+            <h2>BIENVENIDO A MI REPOSITORIO WEB</h2>
+            <p>Actualmente estudio <strong>ASIR</strong> (Administración de Sistemas Informáticos en Red), especializándome en <strong>Hacking Ético</strong> con el objetivo de convertirme en Pentester.</p>
+            <br>
+            <p>En esta web encontrarás apuntes, writeups, herramientas, guías y mucho más contenido relacionado con ciberseguridad.</p>
+            <br>
+            <p>También tengo un <strong>reto CTF</strong> para que practiques. ¿Serás capaz de completarlo?</p>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" style="background: #05080f;">
+        <h2>SKILLS</h2>
+        <div class="skills">
+            <div class="skill-card">🎨 Diseño Gráfico y Web</div>
+            <div class="skill-card">🔎 OSINT - Inteligencia de Fuentes Abiertas</div>
+            <div class="skill-card">👨‍💻 Pentesting y Hacking Ético</div>
+            <div class="skill-card">🤖 Machine Learning e Inteligencia Artificial</div>
+            <div class="skill-card">💬 C1 Advanced English</div>
+            <div class="skill-card">🏳️ CTF Player</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Miguel Ángel Ayuso • Hecho con sangre, sudor y GitHub Pages</p>
+        <p><a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
+    </footer>
+
 </body>
 </html>
