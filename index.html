@@ -24,7 +24,6 @@
             overflow-x: hidden;
         }
 
-        /* Canvas Matrix */
         #matrix {
             position: fixed;
             top: 0; left: 0;
@@ -33,7 +32,6 @@
             opacity: 0.12;
         }
 
-        /* NAV */
         nav {
             position: fixed;
             top: 0;
@@ -58,7 +56,6 @@
             font-size: 1.05rem;
         }
 
-        /* HERO */
         .hero {
             height: 100vh;
             display: flex;
@@ -69,9 +66,9 @@
             padding-top: 80px;
         }
         .hero img {
-            width: 260px;
-            max-width: 70%;
-            filter: drop-shadow(0 0 30px var(--accent));
+            width: 240px;           /* Logo más pequeño aún */
+            max-width: 65%;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 51, 0.4)); /* Glow muy tenue */
             margin-bottom: 25px;
         }
         .hero h1 {
@@ -85,10 +82,7 @@
             color: var(--text);
         }
 
-        section {
-            padding: 100px 8%;
-        }
-
+        section { padding: 100px 8%; }
         h2 {
             color: var(--accent);
             text-align: center;
@@ -134,7 +128,6 @@
 </head>
 <body>
 
-    <!-- NAV -->
     <nav>
         <div class="logo-text">MAYUSO <span style="color:var(--accent)">ETHICAL HACKING</span></div>
         <div class="nav-links">
@@ -146,17 +139,14 @@
         </div>
     </nav>
 
-    <!-- Matrix Background -->
     <canvas id="matrix"></canvas>
 
-    <!-- HERO -->
     <header class="hero">
         <img src="assets/img/mayured.png" alt="Mayuso Logo">
         <h1>ETHICAL HACKING</h1>
         <p>ASIR • Pentesting • OSINT • CTF</p>
     </header>
 
-    <!-- SECCIÓN DE CATEGORÍAS -->
     <section>
         <h2>RECURSOS</h2>
         <div class="cards">
@@ -177,36 +167,23 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="footer-content">
             <div>
                 <strong>ENLACES RÁPIDOS</strong><br><br>
-                Home<br>
-                Menu<br>
-                Linux Terminal<br>
-                MS-DOS Console<br>
-                Hacking Music<br>
-                Navaja Negra
+                Home<br>Menu<br>Linux Terminal<br>MS-DOS Console<br>Hacking Music<br>Navaja Negra
             </div>
             <div>
                 <strong>MIS HERRAMIENTAS</strong><br><br>
-                Herramientas OSINT<br>
-                Herramientas Pentesting<br>
-                Herramientas IA
+                Herramientas OSINT<br>Herramientas Pentesting<br>Herramientas IA
             </div>
             <div>
                 <strong>APUNTES</strong><br><br>
-                Comandos Linux<br>
-                Comandos PowerShell<br>
-                Burp Suite<br>
-                SQL Injection
+                Comandos Linux<br>Comandos PowerShell<br>Burp Suite<br>SQL Injection
             </div>
             <div>
                 <strong>CTF</strong><br><br>
-                Writeups<br>
-                Mayuso CTF<br>
-                Hall of Fame
+                Writeups<br>Mayuso CTF<br>Hall of Fame
             </div>
         </div>
         <p>Contact: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
@@ -214,7 +191,6 @@
     </footer>
 
     <script>
-        // Matrix Rain
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -233,7 +209,6 @@
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
             ctx.fillStyle = '#00aaff';
             ctx.font = `${fontSize}px monospace`;
 
@@ -241,15 +216,11 @@
                 const text = chars[Math.floor(Math.random() * chars.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
-
         setInterval(draw, 35);
     </script>
-
 </body>
 </html>
