@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAYUSO | Ethical Hacking</title>
+    <title>MAYUSO ETHICAL HACKING</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --bg: #0a1428;        /* Azul muy oscuro tenue */
-            --accent: #ff0033;     /* Rojo intenso */
-            --text: #e0f0ff;
+            --bg: #0a0a0f;
+            --darkblue: #0f1b2e;
+            --accent: #ff0033;
+            --text: #c8d3e6;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,129 +18,187 @@
             font-family: 'Courier New', monospace;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* Hero */
+        /* Fondo Matrix sutil */
+        .matrix-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(15, 27, 46, 0.85), rgba(10, 10, 15, 0.95));
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* NAVEGACIÓN SUPERIOR */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #000;
+            border-bottom: 2px solid var(--accent);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: white;
+        }
+        .logo span {
+            color: var(--accent);
+        }
+        .nav-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: white;
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        /* HERO */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(10, 20, 40, 0.85), rgba(10, 20, 40, 0.9)), 
-                        url('https://images.unsplash.com/photo-1558494949-ef0d38d3f9d2?ixlib=rb-4.0.3&auto=format&fit=crop&q=80') center/cover;
             position: relative;
         }
-        .hero-content h1 {
-            font-size: 4.2rem;
-            color: var(--accent);
-            text-shadow: 0 0 25px var(--accent);
-            margin-bottom: 15px;
+        .hero h1 {
+            font-size: 4.5rem;
+            color: white;
+            text-shadow: 0 0 30px var(--accent);
         }
-        .hero-content p {
-            font-size: 1.35rem;
-            max-width: 800px;
-            margin: 0 auto 30px;
+        .hero p {
+            font-size: 1.4rem;
+            margin: 20px 0;
+            color: var(--text);
         }
 
         section {
-            padding: 90px 8%;
+            padding: 100px 8%;
         }
 
         h2 {
             color: var(--accent);
-            font-size: 2.6rem;
             text-align: center;
-            margin-bottom: 50px;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
         }
 
-        .content {
-            max-width: 1000px;
-            margin: 0 auto;
-            font-size: 1.15rem;
-        }
-
-        .skills {
+        .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
-        .skill-card {
-            background: rgba(255, 255, 255, 0.03);
+        .card {
+            background: var(--darkblue);
+            border: 1px solid rgba(255, 0, 51, 0.4);
+            border-radius: 12px;
             padding: 25px;
-            border: 1px solid rgba(255, 0, 51, 0.3);
-            border-radius: 8px;
-            transition: 0.3s;
+            transition: all 0.4s;
         }
-        .skill-card:hover {
+        .card:hover {
+            transform: translateY(-12px);
             border-color: var(--accent);
-            transform: translateY(-8px);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 35px;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            text-decoration: none;
-            margin-top: 30px;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            background: var(--accent);
-            color: #000;
+            box-shadow: 0 0 25px rgba(255, 0, 51, 0.25);
         }
 
         footer {
+            background: #000;
+            padding: 60px 8% 30px;
             text-align: center;
-            padding: 40px;
-            background: #05080f;
+            border-top: 1px solid var(--accent);
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
         }
     </style>
 </head>
 <body>
 
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <div class="logo">
+            <span>◼</span> MAYUSO ETHICAL HACKING
+        </div>
+        <div class="nav-links">
+            <a href="#">/HOME</a>
+            <a href="#">/MENU</a>
+            <a href="#">/PENTESTOOLS</a>
+            <a href="#">/MUSIC</a>
+            <a href="#">/WHOAMI</a>
+        </div>
+    </nav>
+
+    <div class="matrix-bg"></div>
+
     <!-- HERO -->
     <header class="hero">
-        <div class="hero-content">
-            <h1>MAYUSO ETHICAL HACKING</h1>
-            <p>Estudiante de ASIR • Futuro Pentester<br>
-            Hacking Ético • OSINT • CTFs</p>
-            <a href="#skills" class="btn">Ver mis habilidades</a>
+        <div>
+            <h1>MAYUSO</h1>
+            <p>ETHICAL HACKING • PENTESTING • OSINT</p>
         </div>
     </header>
 
-    <!-- BIENVENIDA -->
-    <section id="about">
-        <div class="content">
-            <h2>BIENVENIDO A MI REPOSITORIO WEB</h2>
-            <p>Actualmente estudio <strong>ASIR</strong> (Administración de Sistemas Informáticos en Red), especializándome en <strong>Hacking Ético</strong> con el objetivo de convertirme en Pentester.</p>
-            <br>
-            <p>En esta web encontrarás apuntes, writeups, herramientas, guías y mucho más contenido relacionado con ciberseguridad.</p>
-            <br>
-            <p>También tengo un <strong>reto CTF</strong> para que practiques. ¿Serás capaz de completarlo?</p>
-        </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills" style="background: #05080f;">
-        <h2>SKILLS</h2>
-        <div class="skills">
-            <div class="skill-card">🎨 Diseño Gráfico y Web</div>
-            <div class="skill-card">🔎 OSINT - Inteligencia de Fuentes Abiertas</div>
-            <div class="skill-card">👨‍💻 Pentesting y Hacking Ético</div>
-            <div class="skill-card">🤖 Machine Learning e Inteligencia Artificial</div>
-            <div class="skill-card">💬 C1 Advanced English</div>
-            <div class="skill-card">🏳️ CTF Player</div>
+    <!-- SECCIÓN DE CONTENIDO -->
+    <section>
+        <h2>RECURSOS Y HERRAMIENTAS</h2>
+        <div class="cards">
+            <div class="card"><strong>Herramientas OSINT</strong></div>
+            <div class="card"><strong>Herramientas Pentesting</strong></div>
+            <div class="card"><strong>Comandos Linux</strong></div>
+            <div class="card"><strong>Herramientas Kali Linux</strong></div>
+            <div class="card"><strong>Comandos PowerShell</strong></div>
+            <div class="card"><strong>Inteligencia Artificial</strong></div>
+            <div class="card"><strong>EJPT Exam Prep</strong></div>
+            <div class="card"><strong>Writeups</strong></div>
+            <div class="card"><strong>Mayuso CTF</strong></div>
+            <div class="card"><strong>Wallpapers</strong></div>
+            <div class="card"><strong>Parches & Exploits</strong></div>
+            <div class="card"><strong>Hacking Music</strong></div>
+            <div class="card"><strong>Linux Terminal</strong></div>
+            <div class="card"><strong>MS-DOS Console</strong></div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Miguel Ángel Ayuso • Hecho con sangre, sudor y GitHub Pages</p>
-        <p><a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
+        <div class="footer-content">
+            <div>
+                <strong>ENLACES RÁPIDOS</strong><br><br>
+                Home<br>Menu<br>Linux Terminal<br>MS-DOS Console<br>Hacking Music
+            </div>
+            <div>
+                <strong>MIS HERRAMIENTAS</strong><br><br>
+                Herramientas OSINT<br>Pentesting<br>Enumeración<br>IA Tools
+            </div>
+            <div>
+                <strong>APUNTES</strong><br><br>
+                Comandos Linux<br>PowerShell<br>SQL Injection<br>Burp Suite
+            </div>
+            <div>
+                <strong>CTF</strong><br><br>
+                Writeups<br>Mayuso CTF<br>Hall of Fame
+            </div>
+        </div>
+        <p>Contact: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
+        <p>&copy; 2026 Miguel Ángel Ayuso • Hecho con sangre y GitHub Pages</p>
     </footer>
 
 </body>
