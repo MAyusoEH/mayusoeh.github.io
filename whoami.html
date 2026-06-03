@@ -6,7 +6,6 @@
     <title>WHOAMI - MAYUSO ETHICAL HACKING</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
     <style>
         :root {
             --bg: #0a0a12;
@@ -14,18 +13,16 @@
             --text: #a0c8ff;
             --card-bg: #0f1626;
         }
-        
+    
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+    
         body {
             font-family: 'Roboto Mono', monospace;
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
-            line-height: 1.5;
-            font-size: 0.97rem;
+            line-height: 1.6;
         }
-
         #matrix {
             position: fixed;
             top: 0; left: 0;
@@ -33,34 +30,32 @@
             z-index: -1;
             opacity: 0.12;
         }
-
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(5, 7, 15, 0.85);
+            background: rgba(5, 7, 15, 0.80);
             border-bottom: 2px solid var(--accent);
             z-index: 1000;
-            padding: 14px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
-
         .logo-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.42rem;
+            font-size: 1.35rem;
+            font-weight: 400;
         }
-
         .nav-links a {
             color: var(--accent);
             text-decoration: none;
-            margin-left: 22px;
-            font-size: 1.0rem;
+            margin-left: 25px;
+            font-size: 1.05rem;
         }
-
         .hero {
-            height: 38vh;
+            height: 45vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -68,30 +63,26 @@
             text-align: center;
             padding-top: 70px;
         }
-
         .content {
-            padding: 50px 8% 80px;
-            max-width: 1050px;
+            padding: 70px 8%;
+            max-width: 1100px;
             margin: 0 auto;
         }
-
         h1, h2 {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
         }
-
         .about-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 35px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
-
         .photo-placeholder {
             width: 100%;
-            max-width: 280px;
-            height: 320px;
+            max-width: 290px;
+            height: 340px;
             background: #1a2333;
             border: 2px solid var(--accent);
             border-radius: 12px;
@@ -100,26 +91,22 @@
             justify-content: center;
             color: #666;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
-
         .section {
-            margin-bottom: 45px;
+            margin-bottom: 50px;
         }
-
         ul {
-            padding-left: 18px;
+            padding-left: 20px;
         }
         ul li {
-            margin-bottom: 6px;
+            margin-bottom: 7px;
         }
-
         .cert-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
         }
-
         .cert-card {
             background: var(--card-bg);
             border: 1px solid rgba(255, 0, 51, 0.4);
@@ -129,15 +116,14 @@
             transition: 0.3s;
         }
         .cert-card:hover {
-            transform: scale(1.04);
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.35);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
         }
         .cert-card img {
             width: 100%;
-            height: 155px;
+            height: 160px;
             object-fit: cover;
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -149,40 +135,61 @@
             justify-content: center;
         }
         .modal-content {
-            max-width: 88%;
-            max-height: 88%;
+            max-width: 90%;
+            max-height: 90%;
         }
         .close {
             position: absolute;
             top: 20px;
             right: 30px;
             color: white;
-            font-size: 38px;
+            font-size: 40px;
             cursor: pointer;
         }
-
         .back-to-top {
             position: fixed;
             bottom: 30px;
             right: 30px;
             background: var(--accent);
             color: #000;
-            width: 48px;
-            height: 48px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             cursor: pointer;
             box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
             z-index: 2000;
+            transition: all 0.3s;
         }
-        .back-to-top:hover { transform: scale(1.1); }
+        .back-to-top:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        footer {
+            background: #05070f;
+            padding: 50px 6% 80px;
+            text-align: center;
+            border-top: 1px solid var(--accent);
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 35px;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+        .footer-small {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo-text">
             ❰ <span style="color: white;">MAYUSO</span>
@@ -194,7 +201,6 @@
             <a href="whoami.html">/WHOAMI</a>
         </div>
     </nav>
-
     <canvas id="matrix"></canvas>
 
     <header class="hero">
@@ -203,7 +209,6 @@
     </header>
 
     <div class="content">
-
         <div class="about-grid">
             <div>
                 <h2>SOBRE MÍ</h2>
@@ -255,7 +260,7 @@
         <div class="section">
             <h2>CERTIFICACIONES Y LOGROS</h2>
             <div class="cert-grid">
-                <!-- Aquí pondrás tus certificados reales -->
+                <!-- Añade aquí tus diplomas (ejemplo) -->
                 <div class="cert-card" onclick="openModal('assets/img/cert1.jpg')">
                     <img src="https://via.placeholder.com/300x160/1a2333/ffffff?text=Certificado+1" alt="Certificado">
                 </div>
@@ -264,7 +269,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <footer>
@@ -297,17 +301,19 @@
                 <a href="https://www.youtube.com/@SF01Ghost" target="_blank" style="color:var(--accent);">Youtube</a>
             </div>
         </div>
-      
+     
         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
         <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-       
+      
         <p class="footer-small">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
         <p class="footer-small">&copy; 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0</p>
     </footer>
 
-    <!-- Botón Subir Arriba -->
-    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-        ↑
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</div>
+
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">×</span>
+        <img id="modal-image" class="modal-content" onclick="closeModal()">
     </div>
 
     <script>
@@ -319,12 +325,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-
+     
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-
+     
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
