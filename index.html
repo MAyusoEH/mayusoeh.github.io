@@ -6,7 +6,7 @@
     <title>MAYUSO ETHICAL HACKING</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-   
+  
     <style>
         :root {
             --bg: #0a0a12;
@@ -14,9 +14,9 @@
             --text: #a0c8ff;
             --card-bg: #0f1626;
         }
-       
+      
         * { margin: 0; padding: 0; box-sizing: border-box; }
-       
+      
         body {
             font-family: 'Roboto Mono', monospace;
             background: var(--bg);
@@ -107,11 +107,13 @@
             text-align: center;
             transition: all 0.3s;
             font-size: 1.0rem;
-            height: 70px;           /* Altura fija */
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 70px;
+            color: var(--text);
+            text-decoration: none;
         }
         .card:hover {
             border-color: var(--accent);
@@ -139,18 +141,6 @@
             opacity: 0.75;
             margin-top: 20px;
         }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .logo-text { font-size: 1.35rem; }
-            .nav-links a { margin-left: 15px; font-size: 0.98rem; }
-            .hero img { width: 180px; }
-            .hero h1 { font-size: 2.1rem; }
-            .hero p { font-size: 1.05rem; }
-            section { padding: 70px 5%; }
-            h2 { font-size: 2.1rem; }
-            .card { height: 100px; font-size: 0.95rem; }
-        }
     </style>
 </head>
 <body>
@@ -159,7 +149,7 @@
         <div class="logo-text">MAYUSO <span style="color:var(--accent)">ETHICAL HACKING</span></div>
         <div class="nav-links">
             <a href="#">/HOME</a>
-            <a href="#">/MUSIC</a>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank">/MUSIC</a>
             <a href="#">/WHOAMI</a>
         </div>
     </nav>
@@ -175,22 +165,22 @@
     <section>
         <h2 style="font-family: 'Orbitron';">RECURSOS</h2>
         <div class="cards">
-            <div class="card">OSINT Tools</div>
-            <div class="card">Pentesting Tools</div>
-            <div class="card">Google Dorks</div>
-            <div class="card">Repositorio Linux</div>
-            <div class="card">Repositorio Windows</div>
-            <div class="card">EJPTv2</div>
-            <div class="card">Inteligencia Artificial</div>
-            <div class="card">Guía de Ataque</div>
-            <div class="card">Autoprotección Informática</div>
-            <div class="card">Writeups</div>
-            <div class="card">Mi CTF</div>
-            <div class="card">Wallpapers</div>
-            <div class="card">Parches</div>
-            <div class="card">Hacking Music</div>
-            <div class="card">Terminal Linux</div>
-            <div class="card">Whoami</div>
+            <a href="#" class="card">OSINT Tools</a>
+            <a href="#" class="card">Pentesting Tools</a>
+            <a href="#" class="card">Google Dorks</a>
+            <a href="#" class="card">Repositorio Linux</a>
+            <a href="#" class="card">Repositorio Windows</a>
+            <a href="#" class="card">EJPTv2</a>
+            <a href="#" class="card">Inteligencia Artificial</a>
+            <a href="#" class="card">Guía de Ataque</a>
+            <a href="#" class="card">Autoprotección Informática</a>
+            <a href="#" class="card">Writeups</a>
+            <a href="#" class="card">Mi CTF</a>
+            <a href="#" class="card">Wallpapers</a>
+            <a href="#" class="card">Parches</a>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="card">Hacking Music</a>
+            <a href="#" class="card">Terminal Linux</a>
+            <a href="#" class="card">Whoami</a>
         </div>
     </section>
 
@@ -205,15 +195,21 @@
                 OSINT Tools<br>Pentesting Tools<br>Enumeration Report
             </div>
             <div>
+                <strong>MISCELÁNEA</strong><br><br>
+                Mi CTF<br>Wallpapers<br>Parches<br>Hacking Music
+            </div>
+            <div>
                 <strong>REDES SOCIALES</strong><br><br>
-                Linkedin<br>GitHub<br>Youtube
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" style="color:var(--accent);">Linkedin</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" style="color:var(--accent);">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" style="color:var(--accent);">Youtube</a>
             </div>
         </div>
-        
+       
         <!-- Ko-fi Widget -->
         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
         <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
+        
         <p class="footer-small">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
         <p class="footer-small">&copy; 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0</p>
     </footer>
@@ -227,12 +223,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-        
+       
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-        
+       
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
