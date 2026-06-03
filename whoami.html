@@ -59,7 +59,7 @@
         }
 
         .hero {
-            height: 60vh;
+            height: 45vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,7 +69,7 @@
         }
 
         .content {
-            padding: 100px 8%;
+            padding: 80px 8%;
             max-width: 1100px;
             margin: 0 auto;
         }
@@ -84,6 +84,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 50px;
             align-items: center;
+            margin-bottom: 80px;
         }
 
         .photo-placeholder {
@@ -97,15 +98,17 @@
             align-items: center;
             justify-content: center;
             color: #555;
-            font-size: 1.1rem;
             text-align: center;
+        }
+
+        .section {
+            margin-bottom: 70px;
         }
 
         .cert-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
-            margin-top: 40px;
         }
 
         .cert-card {
@@ -126,7 +129,6 @@
             object-fit: cover;
         }
 
-        /* Modal para ampliar imágenes */
         .modal {
             display: none;
             position: fixed;
@@ -148,6 +150,45 @@
             color: white;
             font-size: 40px;
             cursor: pointer;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+            z-index: 2000;
+        }
+        .back-to-top:hover { transform: scale(1.1); background: white; }
+
+        footer {
+            background: #05070f;
+            padding: 50px 6% 80px;
+            text-align: center;
+            border-top: 1px solid var(--accent);
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 35px;
+            margin-bottom: 35px;
+            text-align: left;
+        }
+        .footer-small {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -173,31 +214,117 @@
     </header>
 
     <div class="content">
+
         <div class="about-grid">
             <div>
                 <h2>SOBRE MÍ</h2>
                 <p>Estudiante de ASIR con fuerte vocación hacia el Hacking Ético y el Pentesting. Apasionado de la ciberseguridad ofensiva, OSINT, CTFs y todo lo relacionado con la defensa y ataque a sistemas.</p>
-                <br>
-                <p>Actualmente formándome para convertirme en un profesional de la ciberseguridad, combinando estudios técnicos con proyectos personales y retos reales.</p>
             </div>
-            
-            <!-- Hueco para tu foto -->
             <div>
                 <div class="photo-placeholder">
-                    <p>[ AQUÍ VA TU FOTO ]<br><br>
-                    Sube tu foto aquí como "foto-perfil.jpg" en assets/img/</p>
+                    <p>[ TU FOTO AQUÍ ]<br><br>
+                    Sube tu foto como <strong>foto-perfil.jpg</strong><br>en la carpeta assets/img/</p>
                 </div>
             </div>
         </div>
 
-        <h2 style="margin-top: 80px; text-align:center;">CERTIFICACIONES Y LOGROS</h2>
-        <div class="cert-grid" id="cert-grid">
-            <!-- Aquí irán tus diplomas (ejemplos) -->
-            <!-- Puedes añadir más fácilmente -->
+        <!-- SKILLS -->
+        <div class="section">
+            <h2>SKILLS</h2>
+            <ul>
+                <li>Diseño gráfico y web</li>
+                <li>Inteligencia de fuentes abiertas (OSINT)</li>
+                <li>Sistemas operativos Windows y Linux</li>
+                <li>Pentesting de redes y equipos</li>
+                <li>Pentesting web</li>
+                <li>Machine learning e inteligencia artificial</li>
+                <li>CTF player</li>
+            </ul>
         </div>
+
+        <!-- FORMACIÓN -->
+        <div class="section">
+            <h2>FORMACIÓN</h2>
+            <ul>
+                <li>Conocimientos autodidactas de hacking ético</li>
+                <li>Certificado de Nivel Avanzado C1 en idioma Inglés</li>
+                <li>Título de Bachiller en la modalidad de Artes</li>
+                <li>Cursando Grado Superior de Administración de Sistemas Informáticos en Red</li>
+                <li>Preparando la obtención de la certificación eJPTv2</li>
+            </ul>
+        </div>
+
+        <!-- SOFT SKILLS -->
+        <div class="section">
+            <h2>SOFT SKILLS</h2>
+            <ul>
+                <li>Creativo y resolutivo</li>
+                <li>Iniciativa y capacidad para anticipar necesidades y proponer soluciones</li>
+                <li>Comunicación escrita efectiva y experiencia en la elaboración de informes detallados</li>
+                <li>Colaborador eficaz y orientado al trabajo en equipo</li>
+                <li>Experiencia en la coordinación y liderazgo de equipos de trabajo</li>
+            </ul>
+        </div>
+
+        <!-- CERTIFICACIONES -->
+        <div class="section">
+            <h2>CERTIFICACIONES Y LOGROS</h2>
+            <div class="cert-grid" id="cert-grid">
+                <!-- Ejemplos - Puedes copiar y pegar más tarjetas -->
+                <div class="cert-card" onclick="openModal('assets/img/cert1.jpg')">
+                    <img src="assets/img/cert1.jpg" alt="Certificado 1">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert2.jpg')">
+                    <img src="assets/img/cert2.jpg" alt="Certificado 2">
+                </div>
+                <!-- Añade más aquí -->
+            </div>
+        </div>
+
     </div>
 
-    <!-- Modal para ver imágenes grandes -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <strong>REPOSITORIOS PRINCIPALES</strong><br><br>
+                <a href="replinux.html" target="_blank" style="color:var(--accent);">Linux</a><br>
+                <a href="repowindows.html" target="_blank" style="color:var(--accent);">Windows</a><br>
+                <a href="ejpt.html" target="_blank" style="color:var(--accent);">EJPTv2</a><br>
+                <a href="ia.html" target="_blank" style="color:var(--accent);">Inteligencia Artificial</a><br>
+                <a href="howtoattack.html" target="_blank" style="color:var(--accent);">Guía de Ataque</a>
+            </div>
+            <div>
+                <strong>MIS HERRAMIENTAS</strong><br><br>
+                <a href="osintools.html" target="_blank" style="color:var(--accent);">OSINT Tools</a><br>
+                <a href="pentestools.html" target="_blank" style="color:var(--accent);">Pentesting Tools</a><br>
+                <a href="enumreport.html" target="_blank" style="color:var(--accent);">Enumeration Report</a>
+            </div>
+            <div>
+                <strong>MISCELÁNEA</strong><br><br>
+                <a href="https://sf01web.wixsite.com/mayusoeh/ctf-lobby" target="_blank" style="color:var(--accent);">Mi CTF</a><br>
+                <a href="wallpapers.html" target="_blank" style="color:var(--accent);">Wallpapers</a><br>
+                <a href="parches.html" target="_blank" style="color:var(--accent);">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" style="color:var(--accent);">Hacking Music</a>
+            </div>
+            <div>
+                <strong>REDES SOCIALES</strong><br><br>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" style="color:var(--accent);">Linkedin</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" style="color:var(--accent);">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" style="color:var(--accent);">Youtube</a>
+            </div>
+        </div>
+      
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
+       
+        <p class="footer-small">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
+        <p class="footer-small">&copy; 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0</p>
+    </footer>
+
+    <!-- Botón Subir -->
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</div>
+
+    <!-- Modal -->
     <div id="modal" class="modal">
         <span class="close" onclick="closeModal()">×</span>
         <img id="modal-image" class="modal-content" onclick="closeModal()">
@@ -233,7 +360,7 @@
         }
         setInterval(draw, 35);
 
-        // Lightbox para certificados
+        // Modal
         function openModal(src) {
             document.getElementById('modal-image').src = src;
             document.getElementById('modal').style.display = 'flex';
