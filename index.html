@@ -6,7 +6,7 @@
     <title>MAYUSO ETHICAL HACKING</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+   
     <style>
         :root {
             --bg: #0a0a12;
@@ -14,9 +14,9 @@
             --text: #a0c8ff;
             --card-bg: #0f1626;
         }
-        
+       
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+       
         body {
             font-family: 'Roboto Mono', monospace;
             background: var(--bg);
@@ -46,6 +46,7 @@
             align-items: center;
             flex-wrap: wrap;
         }
+
         .logo-text {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.55rem;
@@ -128,19 +129,24 @@
             text-align: left;
         }
 
+        /* Texto pequeño del footer */
+        .footer-small {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            margin-top: 20px;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .logo-text { font-size: 1.35rem; }
             .nav-links a { margin-left: 15px; font-size: 0.98rem; }
-            
+           
             .hero img { width: 180px; }
             .hero h1 { font-size: 2.1rem; }
             .hero p { font-size: 1.05rem; }
-
             section { padding: 70px 5%; }
             h2 { font-size: 2.1rem; }
         }
-
         @media (max-width: 480px) {
             .nav-links a { margin: 0 8px; }
             .hero img { width: 160px; }
@@ -207,36 +213,38 @@
                 Writeups<br>Mi CTF<br>Autoprotección Informática
             </div>
         </div>
-        <p>ContactO: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
-        <p>&copy; 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0</p>
+        
+        <!-- Ko-fi Widget -->
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
+
+        <p class="footer-small">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
+        <p class="footer-small">&copy; 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0</p>
     </footer>
 
     <script>
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
-
         function resize() {
             canvas.height = window.innerHeight;
             canvas.width = window.innerWidth;
         }
         resize();
         window.addEventListener('resize', resize);
-
+        
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-
+        
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = '#00aaff';
             ctx.font = `${fontSize}px monospace`;
-
             for (let i = 0; i < drops.length; i++) {
                 const text = chars[Math.floor(Math.random() * chars.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
