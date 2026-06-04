@@ -17,14 +17,13 @@
      
         * { margin: 0; padding: 0; box-sizing: border-box; }
      
-        body {
+body {
             font-family: 'Roboto Mono', monospace;
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
         }
-
         #matrix {
             position: fixed;
             top: 0; left: 0;
@@ -32,7 +31,7 @@
             z-index: -1;
             opacity: 0.12;
         }
-
+        
         nav {
             position: fixed;
             top: 0;
@@ -61,10 +60,10 @@
             font-weight: 500;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
         }
-
+        
         .logo-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.35rem;           /* Más fino */
+            font-size: 1.35rem;
             font-weight: 400;
         }
 
@@ -77,9 +76,9 @@
         .logo-link:hover {
             color: var(--text);
         }
-
+        
         .hero {
-            height: 100vh;
+            height: 45vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -87,59 +86,90 @@
             text-align: center;
             padding-top: 70px;
         }
-        .hero img {
-            width: 220px;
-            max-width: 65%;
-            filter: drop-shadow(0 0 15px rgba(255, 0, 51, 0.2));
-            margin-bottom: 20px;
+        .content {
+            padding: 70px 8%;
+            max-width: 1100px;
+            margin: 0 auto;
         }
-        .hero h1 {
+        h1, h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.6rem;
-            color: white;
-        }
-        .hero p {
-            font-size: 1.15rem;
-            margin-top: 8px;
-            color: var(--text);
-        }
-
-        section { padding: 90px 6%; }
-        h2 {
             color: var(--accent);
-            text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 45px;
         }
-
-        .cards {
+        .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
         }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 0, 51, 0.35);
-            border-radius: 10px;
-            padding: 14px 8px;
-            text-align: center;
-            transition: all 0.3s;
-            font-size: 1.0rem;
-            height: 70px;
+        .photo-placeholder {
+            width: 100%;
+            max-width: 220px;
+            height: 280px;
+            background: #1a2333;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 70px;
-            color: var(--text);
-            text-decoration: none;
+            color: #666;
+            text-align: center;
+            font-size: 0.95rem;
+            margin-left: 50px;
         }
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-8px);
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
+        .section {
+            margin-bottom: 50px;
         }
-
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 7px;
+        }
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+        .cert-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 0, 51, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cert-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
+        }
+        .cert-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -162,7 +192,6 @@
             transform: scale(1.1);
             background: white;
         }
-
         footer {
             background: #05070f;
             padding: 50px 6% 80px;
