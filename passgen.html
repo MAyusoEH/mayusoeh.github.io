@@ -206,29 +206,31 @@
         <div class="cards">
 
         <!-- PASSGEN -->
-<div class="password-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 22px; max-width: 420px; margin: 0 auto; box-shadow: 0 0 20px rgba(255, 0, 51, 0.15);">
+            
+<div class="password-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 25px; max-width: 520px; margin: 0 auto; box-shadow: 0 0 20px rgba(255, 0, 51, 0.15);">
     
-    <div class="input-group" style="margin: 12px 0;">
+    <div class="input-group" style="margin: 13px 0;">
         <label for="passwordLength" style="color: #a0c8ff; display: block; margin-bottom: 5px; font-size: 0.95rem;">Longitud (10-30):</label>
-        <input type="number" id="passwordLength" value="16" min="10" max="30" 
+        <input type="number" id="passwordLength" value="15" min="10" max="30" 
                style="background: #1a2333; border: 1px solid #555; color: white; padding: 7px 10px; width: 100%; border-radius: 5px; font-size: 1rem;">
     </div>
 
-    <div class="input-group" style="margin: 12px 0;">
+    <div class="input-group" style="margin: 13px 0;">
         <label style="color: #a0c8ff; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="includeNumbers" checked style="accent-color: #ff0033; width: 18px; height: 18px; transform: scale(1.15);"> 
+            <br>
+            <input type="checkbox" id="includeNumbers" checked style="accent-color: #ff0033; width: 16px; height: 16px;"> 
             Incluir números
         </label>
     </div>
-    <div class="input-group" style="margin: 12px 0;">
+    <div class="input-group" style="margin: 13px 0;">
         <label style="color: #a0c8ff; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="includeSymbols" checked style="accent-color: #ff0033; width: 18px; height: 18px; transform: scale(1.15);"> 
+            <input type="checkbox" id="includeSymbols" checked style="accent-color: #ff0033; width: 16px; height: 16px;"> 
             Incluir signos !@#$%^&*()-_+
         </label>
     </div>
-    <div class="input-group" style="margin: 12px 0;">
+    <div class="input-group" style="margin: 13px 0;">
         <label style="color: #a0c8ff; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="includeEnye" checked style="accent-color: #ff0033; width: 18px; height: 18px; transform: scale(1.15);"> 
+            <input type="checkbox" id="includeEnye" checked style="accent-color: #ff0033; width: 16px; height: 16px;"> 
             Incluir ñ/Ñ
         </label>
     </div>
@@ -236,14 +238,14 @@
     <div id="errorMessage" class="error" style="color: #ff6666; text-align: center; min-height: 20px; margin: 8px 0; font-size: 0.9rem;"></div>
     
     <div id="passwordOutput" 
-         style="background: #000; border: 1px solid #ff0033; padding: 14px; margin: 16px 0; 
-                text-align: center; font-size: 1.3rem; word-break: break-all; border-radius: 6px; 
-                min-height: 52px; letter-spacing: 1.5px; color: #fff;">
+         style="background: #000; border: 1px solid #ff0033; padding: 14px; margin: 18px 0; 
+                text-align: center; font-size: 1.15rem; word-break: break-all; border-radius: 6px; 
+                min-height: 52px; letter-spacing: 1px; color: #fff; width: 100%; box-sizing: border-box;">
         Pulsa en Generar
     </div>
 
     <button id="generateButton" onclick="generatePassword()" 
-            style="width: 100%; background: #ff0033; color: #000; border: none; padding: 12px; 
+            style="width: 100%; background: #ff0033; color: #000; border: none; padding: 13px; 
                    font-size: 1.05rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s;">
         GENERAR CONTRASEÑA
     </button>
