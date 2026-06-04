@@ -6,7 +6,6 @@
     <title>PASSGEN - MAYUSO ETHICAL HACKING</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
- 
     <style>
         :root {
             --bg: #0a0a12;
@@ -14,9 +13,9 @@
             --text: #a0c8ff;
             --card-bg: #0f1626;
         }
-     
+    
         * { margin: 0; padding: 0; box-sizing: border-box; }
-     
+    
         body {
             font-family: 'Roboto Mono', monospace;
             background: var(--bg);
@@ -24,7 +23,6 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
-
         #matrix {
             position: fixed;
             top: 0; left: 0;
@@ -32,7 +30,6 @@
             z-index: -1;
             opacity: 0.12;
         }
-
         nav {
             position: fixed;
             top: 0;
@@ -44,94 +41,124 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
         }
-
         .logo-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.35rem;           /* Más fino */
+            font-size: 1.35rem;
             font-weight: 400;
         }
-
-        .logo-link {
-            text-decoration: none;
-            color: inherit;
-            transition: 0.3s;
-        }
-        
-        .logo-link:hover {
-            color: var(--text);
-        }
-        
         .nav-links a {
             color: var(--accent);
             text-decoration: none;
             margin-left: 25px;
             font-size: 1.05rem;
         }
-
         .hero {
-            height: 100vh;
+            height: 50vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding-top: 70px;
-        }
-        .hero img {
-            width: 220px;
-            max-width: 65%;
-            filter: drop-shadow(0 0 15px rgba(255, 0, 51, 0.2));
-            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 0, 51, 0.25);
         }
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             color: white;
+            margin-bottom: 10px;
         }
         .hero p {
-            font-size: 1.15rem;
-            margin-top: 8px;
+            font-size: 1.2rem;
             color: var(--text);
         }
-
-        section { padding: 90px 6%; }
-        h2 {
-            color: var(--accent);
-            text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 45px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 0, 51, 0.35);
-            border-radius: 10px;
-            padding: 14px 8px;
-            text-align: center;
-            transition: all 0.3s;
-            font-size: 1.0rem;
-            height: 70px;
+        section {
+            padding: 80px 6%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            min-height: 70px;
-            color: var(--text);
-            text-decoration: none;
         }
-        .card:hover {
+        .password-box {
+            background: var(--card-bg);
+            border: 2px solid rgba(255, 0, 51, 0.4);
+            border-radius: 12px;
+            padding: 35px 40px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 0 30px rgba(255, 0, 51, 0.15);
+            transition: all 0.3s;
+        }
+        .password-box:hover {
             border-color: var(--accent);
-            transform: translateY(-8px);
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
+            box-shadow: 0 0 40px rgba(255, 0, 51, 0.25);
         }
-
+        .password-box h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+        }
+        .input-group {
+            margin: 18px 0;
+            text-align: left;
+        }
+        .input-group label {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        .input-group input[type="number"] {
+            background: #1a1f2e;
+            border: 1px solid #444;
+            color: white;
+            padding: 8px;
+            width: 70px;
+            border-radius: 5px;
+        }
+        .input-group input[type="checkbox"] {
+            accent-color: var(--accent);
+            margin-right: 8px;
+        }
+        #passwordOutput {
+            background: #000;
+            border: 1px solid var(--accent);
+            padding: 18px;
+            margin: 25px 0;
+            font-size: 1.35rem;
+            text-align: center;
+            word-break: break-all;
+            min-height: 58px;
+            border-radius: 6px;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+        #generateButton {
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #generateButton:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+        .error {
+            color: #ff6666;
+            text-align: center;
+            margin-top: 8px;
+            min-height: 20px;
+        }
+        footer {
+            background: #05070f;
+            padding: 50px 6% 70px;
+            text-align: center;
+            border-top: 1px solid var(--accent);
+        }
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -148,37 +175,10 @@
             cursor: pointer;
             box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
             z-index: 2000;
-            transition: all 0.3s;
-        }
-        .back-to-top:hover {
-            transform: scale(1.1);
-            background: white;
-        }
-
-        footer {
-            background: #05070f;
-            padding: 50px 6% 80px;
-            text-align: center;
-            border-top: 1px solid var(--accent);
-        }
-        .footer-content {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 35px;
-            margin-bottom: 35px;
-            text-align: left;
-        }
-
-        .footer-small {
-            font-size: 0.85rem;
-            opacity: 0.75;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo-text">
             <a href="index.html" class="logo-link">
@@ -195,107 +195,136 @@
 
     <canvas id="matrix"></canvas>
 
-    <header>
-      <br>
+    <header class="hero">
+        <h1>PASSGEN</h1>
+        <p>Generador de Contraseñas Seguras</p>
     </header>
 
     <section>
-        <h2 style="font-family: 'Orbitron';">GENERADOR DE CONTRASEÑAS</h2>
-        <p style="text-align: center;">Crea combinaciones aleatorias únicas. Cuantos más caracteres y mayor complejidad, mayor seguridad.</p>
-        <br><br>
-        <div class="cards">
+        <div class="password-box">
+            <h2>🔐 Generador de Contraseñas</h2>
+            
+            <div class="input-group">
+                <label for="passwordLength">Longitud (10-30 caracteres):</label>
+                <input type="number" id="passwordLength" value="18" min="10" max="30">
+            </div>
 
+            <div class="input-group">
+                <label><input type="checkbox" id="includeNumbers" checked> Incluir números</label>
+            </div>
+            <div class="input-group">
+                <label><input type="checkbox" id="includeSymbols" checked> Incluir símbolos (!@#$%^&*()-_+)</label>
+            </div>
+            <div class="input-group">
+                <label><input type="checkbox" id="includeEnye" checked> Incluir ñ / Ñ</label>
+            </div>
 
-<div class="password-container">
-    <h3>🔒 Generador de Contraseñas</h3>
-    <div class="input-group">
-      <label for="passwordLength">Longitud (10-30):</label>
-      <input type="number" id="passwordLength" value="15" min="10" max="30">
+            <div id="errorMessage" class="error"></div>
+            
+            <div id="passwordOutput">Pulsa en Generar</div>
+            
+            <button id="generateButton" onclick="generatePassword()">
+                <i class="fas fa-dice"></i> GENERAR CONTRASEÑA
+            </button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Miguel Ángel Ayuso Jiménez • MAYUSO ETHICAL HACKING</p>
+        <p class="footer-small">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color: var(--accent);">sf01ghost@gmail.com</a></p>
+    </footer>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+        ↑
     </div>
-    <div class="input-group">
-      <label><input type="checkbox" id="includeNumbers" checked> Incluir números</label>
-    </div>
-    <div class="input-group">
-      <label><input type="checkbox" id="includeSymbols" checked> Incluir signos !@#$%^&*()-_+</label>
-    </div>
-    <div class="input-group">
-      <label><input type="checkbox" id="includeEnye" checked> Incluir ñ/Ñ</label>
-    </div>
-    <div id="errorMessage" class="error"></div>
-    <div id="passwordOutput">Contraseña</div>
-    <button id="generateButton" onclick="generatePassword()">Generar Contraseña</button>
-  </div>
 
-  <script>
-    function generatePassword() {
-      const lengthInput = document.getElementById('passwordLength').value;
-      let length = parseInt(lengthInput);
-      const includeSymbols = document.getElementById('includeSymbols').checked;
-      const includeEnye = document.getElementById('includeEnye').checked;
-      const includeNumbers = document.getElementById('includeNumbers').checked;
-      const errorMessage = document.getElementById('errorMessage');
+    <script>
+        // Matrix Rain
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+        }
+        resize();
+        window.addEventListener('resize', resize);
 
-      // Validar longitud mínima según requisitos seleccionados
-      const minLength = 2 + (includeSymbols ? 1 : 0) + (includeEnye ? 1 : 0) + (includeNumbers ? 1 : 0);
-      if (isNaN(length) || length < Math.max(10, minLength) || length > 30) {
-        errorMessage.textContent = `La longitud debe ser entre ${Math.max(10, minLength)} y 30 caracteres.`;
-        return;
-      } else {
-        errorMessage.textContent = '';
-      }
+        const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const fontSize = 13;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
 
-      const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-      const numbers = '0123456789';
-      const symbols = '!@#$%^&*()-_+';
-      const enyeChars = 'ñÑ';
-      let allChars = uppercase + lowercase;
-      if (includeNumbers) allChars += numbers;
-      if (includeSymbols) allChars += symbols;
-      if (includeEnye) allChars += enyeChars;
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 18, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00aaff';
+            ctx.font = `${fontSize}px monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 35);
 
-      // Función para generar un carácter aleatorio seguro
-      function getRandomChar(str) {
-        const array = new Uint8Array(1);
-        crypto.getRandomValues(array);
-        return str[array[0] % str.length];
-      }
+        // Password Generator
+        function generatePassword() {
+            const lengthInput = document.getElementById('passwordLength').value;
+            let length = parseInt(lengthInput);
+            const includeNumbers = document.getElementById('includeNumbers').checked;
+            const includeSymbols = document.getElementById('includeSymbols').checked;
+            const includeEnye = document.getElementById('includeEnye').checked;
+            const errorMessage = document.getElementById('errorMessage');
 
-      let password = '';
-      // Asegurar al menos 1 mayúscula y 1 minúscula
-      password += getRandomChar(uppercase);
-      password += getRandomChar(lowercase);
-      // Asegurar al menos 1 de cada tipo seleccionado
-      if (includeSymbols) password += getRandomChar(symbols);
-      if (includeEnye) password += getRandomChar(enyeChars);
-      if (includeNumbers) password += getRandomChar(numbers);
+            const minLength = 2 + (includeSymbols ? 1 : 0) + (includeEnye ? 1 : 0) + (includeNumbers ? 1 : 0);
+            
+            if (isNaN(length) || length < Math.max(10, minLength) || length > 30) {
+                errorMessage.textContent = `Longitud debe estar entre ${Math.max(10, minLength)} y 30.`;
+                return;
+            } else {
+                errorMessage.textContent = '';
+            }
 
-      // Completar el resto de la contraseña
-      for (let i = password.length; i < length; i++) {
-        password += getRandomChar(allChars);
-      }
+            const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()-_+';
+            const enyeChars = 'ñÑ';
 
-      // Mezclar la contraseña para mayor aleatoriedad
-      password = password.split('').sort(() => crypto.getRandomValues(new Uint8Array(1))[0] / 255 - 0.5).join('');
+            let allChars = uppercase + lowercase;
+            if (includeNumbers) allChars += numbers;
+            if (includeSymbols) allChars += symbols;
+            if (includeEnye) allChars += enyeChars;
 
-      // Verificar que los caracteres requeridos están presentes
-      if (includeEnye && !password.includes('ñ') && !password.includes('Ñ')) {
-        const randomIndex = Math.floor(crypto.getRandomValues(new Uint8Array(1))[0] / 255 * password.length);
-        password = password.substring(0, randomIndex) + getRandomChar(enyeChars) + password.substring(randomIndex + 1);
-      }
-      if (includeSymbols && !password.match(/[!@#$%^&*()-_+]/)) {
-        const randomIndex = Math.floor(crypto.getRandomValues(new Uint8Array(1))[0] / 255 * password.length);
-        password = password.substring(0, randomIndex) + getRandomChar(symbols) + password.substring(randomIndex + 1);
-      }
-      if (includeNumbers && !password.match(/[0-9]/)) {
-        const randomIndex = Math.floor(crypto.getRandomValues(new Uint8Array(1))[0] / 255 * password.length);
-        password = password.substring(0, randomIndex) + getRandomChar(numbers) + password.substring(randomIndex + 1);
-      }
+            function getRandomChar(str) {
+                const array = new Uint8Array(1);
+                crypto.getRandomValues(array);
+                return str[array[0] % str.length];
+            }
 
-      // Mostrar la contraseña
-      document.getElementById('passwordOutput').textContent = password;
-    }
-  </script>
+            let password = getRandomChar(uppercase) + getRandomChar(lowercase);
+            
+            if (includeSymbols) password += getRandomChar(symbols);
+            if (includeEnye) password += getRandomChar(enyeChars);
+            if (includeNumbers) password += getRandomChar(numbers);
+
+            for (let i = password.length; i < length; i++) {
+                password += getRandomChar(allChars);
+            }
+
+            // Mezclar
+            password = password.split('').sort(() => crypto.getRandomValues(new Uint8Array(1))[0] / 255 - 0.5).join('');
+
+            document.getElementById('passwordOutput').textContent = password;
+        }
+
+        // Generar una al cargar
+        window.onload = () => {
+            generatePassword();
+        };
+    </script>
 
 
 
