@@ -48,6 +48,17 @@
             font-size: 1.35rem;
             font-weight: 400;
         }
+
+        .logo-link {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+        
+        .logo-link:hover {
+            color: var(--text);
+        }
+        
         .nav-links a {
             color: var(--accent);
             text-decoration: none;
@@ -193,12 +204,14 @@
 <body>
     <nav>
         <div class="logo-text">
-            ❰ <span style="color: white;">MAYUSO</span>
-            <span style="color: var(--accent);">ETHICAL HACKING</span> ❱
+            <a href="index.html" class="logo-link">
+                ❰ <span style="color: white;">MAYUSO</span>
+                <span style="color: var(--accent);">ETHICAL HACKING</span> ❱
+            </a>
         </div>
         <div class="nav-links">
             <a href="index.html">/HOME</a>
-            <a href="pentestools.html" target="_blank">/PENTESTOOLS</a>
+            <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
         </div>
     </nav>
