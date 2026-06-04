@@ -324,9 +324,11 @@
     <p class="footer-small">&copy; 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0</p>
 </footer>
 
-    <!-- Botón Subir Arriba -->
-    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-        ↑
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</div>
+
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">×</span>
+        <img id="modal-image" class="modal-content" onclick="closeModal()">
     </div>
 
     <script>
@@ -338,12 +340,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+     
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+     
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -357,6 +359,14 @@
             }
         }
         setInterval(draw, 35);
+
+        function openModal(src) {
+            document.getElementById('modal-image').src = src;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
