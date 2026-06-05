@@ -165,15 +165,17 @@
 
         footer {
             background: #05070f;
-            padding: 50px 6% 80px;
+            padding: 40px 20px 20px;
             text-align: center;
-            border-top: 1px solid var(--accent);
+            border-top:1px solid #cc2525;
             
         .footer-content {
+            max-width:1200px;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 35px;
+            gap:30px;
+            margin:0 auto;
             margin-bottom: 35px;
             text-align: left;
         }
@@ -333,43 +335,57 @@
         </div>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div>
-                <strong>REPOSITORIOS PRINCIPALES</strong><br><br>
-                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-                <a href="ia.html" class="footer-link">Inteligencia Artificial</a><br>
-                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-                <a href="writeups.html" class="footer-link">Writeups</a>
-            </div>
-            <div>
-                <strong>MIS HERRAMIENTAS</strong><br><br>
-                <a href="osintools.html" class="footer-link">OSINT Tools</a><br>
-                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-                <a href="terminal.html" class="footer-link">Terminal Linux</a>
-            </div>
-            <div>
-                <strong>MISCELÁNEA</strong><br><br>
-                <a href="https://sf01web.wixsite.com/mayusoeh/ctf-lobby" target="_blank" class="footer-link">Mi CTF</a><br>
-                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-                <a href="parches.html" class="footer-link">Parches</a><br>
-                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a>
-            </div>
-            <div>
-                <strong>REDES SOCIALES</strong><br><br>
-                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">Linkedin</a><br>
-                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Youtube</a>
-            </div>
+<footer>
+    <div class="footer-content">
+        
+        <div>
+            <strong style="color:#cc2525; display:block; margin-bottom:12px;">REPOSITORIOS PRINCIPALES</strong>
+            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+            <a href="ia.html" class="footer-link">Inteligencia Artificial</a><br>
+            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+            <a href="writeups.html" class="footer-link">Writeups</a>
         </div>
-     
-    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-    <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-      
-    <p class="footer-small">Contacto: <a href="mailto:sf01ghost@gmail.com" class="footer-link">sf01ghost@gmail.com</a></p>
-    <p class="footer-small">&copy; 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0</p>
+
+        <div>
+            <strong style="color:#cc2525; display:block; margin-bottom:12px;">MIS HERRAMIENTAS</strong>
+            <a href="osintools.html" class="footer-link">OSINT Tools</a><br>
+            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+            <a href="terminal.html" class="footer-link">Terminal Linux</a>
+        </div>
+
+        <div>
+            <strong style="color:#cc2525; display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+            <a href="https://sf01web.wixsite.com/mayusoeh/ctf-lobby" target="_blank" class="footer-link">Mi CTF</a><br>
+            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+            <a href="parches.html" class="footer-link">Parches</a><br>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a>
+        </div>
+
+        <div>
+            <strong style="color:#cc2525; display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+        </div>
+    </div>
+
+    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
+
+        <div>
+            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+        </div>
+    </div>
+
+    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+    </p>
+    <br>
 </footer>
 
     <!-- Botón Subir Arriba -->
