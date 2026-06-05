@@ -182,6 +182,20 @@
             transform: scale(1.1);
             background: white;
         }
+
+        .info {
+            margin-bottom: 6px;
+            color: #00ff9d;
+        }
+    
+        .cursor {
+            display: inline-block;
+            background: #00ff9d;
+            width: 8px;
+            height: 16px;
+            vertical-align: middle;
+            animation: blink 0.6s step-end infinite;
+        }
         
         footer {
             background: #05070f;
@@ -251,7 +265,8 @@
         <br><br>
 
 <!-- ------------- SCRIPT ------------- -->
-<script>  
+<div id="output" style="background:#000; border:1px solid var(--accent); padding:20px; min-height:280px; max-width:800px; margin:30px auto; font-family:'Roboto Mono', monospace; white-space: pre-wrap; overflow-y:auto; color:#00ff9d;"></div>
+    <script>  
         const outputDiv = document.getElementById('output');
         const flags = ['NORMAS:', '‎ ','[1] No realizar ataques de fuerza bruta en la web ni en las terminales simuladas.', '[2] Las contraseñas estan compuestas de letras y números.', '[3] Las contraseñas son "case sensitive" (distingue entre mayúsculas/minúsculas).', '[4] No abuses de la IA si quieres ponerte a prueba, úsala sólo como último recurso.', '[5] No publiques writeups ni las contraseñas descubiertas.', '[!] La web NO guarda el progreso del participante, por lo que se recomienda apuntar las contraseñas descubiertas.', '‎ ', '> M4y th3 c0de b3 w1th y0u'];
        
@@ -279,6 +294,7 @@
             typeText();
         };
     </script>
+</div>
     <!-- ------------- SCRIPT ------------- -->
     
 <div class="cards" style="grid-template-columns: repeat(3, 1fr); gap: 18px;">
