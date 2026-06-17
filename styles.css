@@ -188,6 +188,7 @@ h3 {
     border-bottom: 1px solid var(--accent);
 }
 .terminal-frame {
+    text-align: center;
     width: 100%;
     height: 620px;
     border: none;
