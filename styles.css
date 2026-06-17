@@ -16,22 +16,149 @@ body {
     line-height: 1.6;
 }
 
-/* Matrix + Nav + Footer (mantenemos lo que ya tenías) */
-#matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.12; }
+/* Matrix Background */
+#matrix {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    opacity: 0.12;
+}
 
-nav { /* ... tu nav actual ... */ }
+/* Navegación */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(5, 7, 15, 0.95);
+    border-bottom: 2px solid var(--accent);
+    z-index: 1000;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-/* Contenido centrado */
+.nav-links a {
+    color: var(--accent);
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+}
+
+/* Logo */
+.logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+.logo-link:hover {
+    color: var(--text);
+}
+
+/* Hero (Index) */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.hero img {
+    width: 220px;
+    max-width: 65%;
+    filter: drop-shadow(0 0 15px rgba(255, 0, 51, 0.2));
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text);
+    max-width: 700px;
+}
+
+/* Contenido general */
 .content {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 6%;
 }
 
-/* ====================== WHOAMI ====================== */
+/* Secciones */
+section, .section {
+    padding: 80px 0;
+}
+
+/* Títulos */
+h2 {
+    color: var(--accent);
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 50px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* ====================== CARDS PRINCIPALES (INDEX) ====================== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    padding: 30px 0;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 0, 51, 0.35);
+    border-radius: 10px;
+    padding: 25px 15px;
+    transition: all 0.3s ease;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 135px;
+    font-size: 0.95rem;
+    line-height: 1.35;
+}
+
+.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(255, 0, 51, 0.45);
+}
+
+/* ====================== WHOAMI - ABOUT GRID ====================== */
 .about-grid {
     display: grid;
-    grid-template-columns: 1fr 1.7fr;
+    grid-template-columns: 1fr 1.8fr;
     gap: 60px;
     align-items: center;
     margin: 60px 0 80px 0;
@@ -44,7 +171,6 @@ nav { /* ... tu nav actual ... */ }
     border: 3px solid var(--accent);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 0 25px rgba(255, 0, 51, 0.4);
 }
 
 .photo-placeholder img {
@@ -53,33 +179,12 @@ nav { /* ... tu nav actual ... */ }
     object-fit: cover;
 }
 
-/* Secciones */
-.section {
-    margin-bottom: 70px;
-}
-
-.section h2 {
-    color: var(--accent);
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 35px;
-    font-family: 'Orbitron', sans-serif;
-}
-
-.section ul {
-    padding-left: 25px;
-    line-height: 1.7;
-}
-
-.section ul li {
-    margin-bottom: 10px;
-}
-
-/* ====================== CERTIFICADOS ====================== */
+/* ====================== GALERÍAS (Wallpapers, Parches, Certificados) ====================== */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 25px;
+    margin-top: 30px;
 }
 
 .cert-card {
@@ -97,7 +202,7 @@ nav { /* ... tu nav actual ... */ }
 
 .cert-card:hover {
     border-color: var(--accent);
-    transform: scale(1.08);
+    transform: scale(1.06);
     box-shadow: 0 0 30px rgba(255, 0, 51, 0.5);
 }
 
@@ -105,38 +210,65 @@ nav { /* ... tu nav actual ... */ }
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 18px;
-    transition: transform 0.5s ease;
+    padding: 20px;
 }
 
-.cert-card:hover img {
-    transform: scale(1.15);
+/* ====================== FOOTER ====================== */
+footer {
+    background: #05070f;
+    padding: 40px 20px 20px;
+    text-align: center;
+    border-top: 1px solid var(--accent);
 }
 
-/* Modal */
-.modal {
-    display: none;
+.footer-content {
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.footer-content strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+}
+
+.footer-link {
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+/* Back to top */
+.back-to-top {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95);
-    z-index: 3000;
+    bottom: 30px;
+    right: 30px;
+    background: var(--accent);
+    color: #000;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.modal-content {
-    max-width: 90%;
-    max-height: 90%;
-    border: 2px solid var(--accent);
-}
-
-.close {
-    position: absolute;
-    top: 25px;
-    right: 40px;
-    color: white;
-    font-size: 50px;
+    font-size: 1.8rem;
     cursor: pointer;
-    z-index: 3100;
+    box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+    z-index: 2000;
+    transition: all 0.3s;
+}
+
+.back-to-top:hover {
+    transform: scale(1.1);
+    background: white;
 }
