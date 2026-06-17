@@ -241,23 +241,32 @@
     <canvas id="matrix"></canvas>
 
     <!-- ---------- CONTENIDO MARKDOWN ---------- -->
-<section class="content">
+
     <br>
-    <h2>INSTALAR KALI LINUX</h2>
+    <h2>DFDFDFDFDFDF</h2>
+
+<div id="contenido-kali"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-        fetch('https://raw.githubusercontent.com/MAyusoEH/PruebaMarkdown/refs/heads/main/KaliInstall.md')
-            .then(response => response.text())
-            .then(text => {
-                document.getElementById('contenido-kali').innerHTML = marked.parse(text);
-            })
-            .catch(err => {
-                console.error('Error cargando Markdown:', err);
-                document.getElementById('contenido-kali').innerHTML = 
-                    '<p style="color:red;">Error al cargar el contenido. Inténtalo más tarde.</p>';
-            });
-    </script>
+<script>
+    fetch('https://raw.githubusercontent.com/MAyusoEH/PruebaMarkdown/refs/heads/main/KaliInstall.md')
+        .then(response => {
+            if (!response.ok) throw new Error('Error al descargar');
+            return response.text();
+        })
+        .then(text => {
+            document.getElementById('contenido-kali').innerHTML = marked.parse(text);
+        })
+        .catch(err => {
+            console.error('Error:', err);
+            document.getElementById('contenido-kali').innerHTML = 
+                `<p style="color: red; padding: 20px;">
+                    ⚠️ No se pudo cargar el contenido.<br>
+                    Prueba recargar la página.
+                </p>`;
+        });
+</script>
+    
 
 <footer>
     <div class="footer-content">
