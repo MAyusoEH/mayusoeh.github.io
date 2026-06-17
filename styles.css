@@ -107,6 +107,13 @@ nav {
 }
 
 /* Secciones generales */
+content {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 70px;
+}
+
 section {
     padding: 90px 6%;
 }
