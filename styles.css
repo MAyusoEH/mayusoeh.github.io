@@ -141,7 +141,7 @@ h2 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 100px;
+    height: 100px;
     font-size: 0.95rem;
     line-height: 1.35;
 }
