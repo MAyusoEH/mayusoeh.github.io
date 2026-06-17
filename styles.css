@@ -167,8 +167,7 @@ h3 {
     margin-bottom: 10px;
     color: var(--accent);
 }
-
-/* Terminal */
+/* Footer */
 .terminal-box {
     background: #0a0f1a;
     border: 2px solid var(--accent);
@@ -179,7 +178,6 @@ h3 {
     max-height: 900px;
     box-shadow: 0 0 25px rgba(255, 0, 51, 0.2);
 }
-
 .terminal-header {
     background: #1a2333;
     padding: 8px 15px;
@@ -189,20 +187,11 @@ h3 {
     color: var(--accent);
     border-bottom: 1px solid var(--accent);
 }
-
 .terminal-frame {
     width: 100%;
     height: 620px;
     border: none;
     border-radius: 0 0 8px 8px;
-}
-
-.terminal-frame {
-    width: 100%;
-    height: 620px;
-    border: none;
-    border-radius: 0 0 8px 8px;
-    background: #000;
 }
 
 /* Footer */
