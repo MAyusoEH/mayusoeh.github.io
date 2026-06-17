@@ -6,11 +6,7 @@
     --card-bg: #0f1626;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Roboto Mono', monospace;
@@ -20,7 +16,7 @@ body {
     line-height: 1.6;
 }
 
-/* Matrix Background */
+/* Matrix */
 #matrix {
     position: fixed;
     top: 0; left: 0;
@@ -75,7 +71,7 @@ nav {
     color: var(--text);
 }
 
-/* Cabeza del Index */
+/* Hero */
 .hero {
     height: 100vh;
     display: flex;
@@ -95,86 +91,131 @@ nav {
 
 .hero h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 2.8rem;
+    font-size: 2.6rem;
     color: white;
-    margin-bottom: 15px;
 }
 
 .hero p {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+    margin-top: 8px;
     color: var(--text);
-    max-width: 700px;
 }
 
-/* Secciones generales */
+/* Contenido */
 .content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 6%;
-    text-align: center;
 }
 
-section {
-    padding: 80px 0;
+/* Secciones */
+section, .section {
+    padding: 90px 0;
 }
 
-p {
-    font-size: 0.95rem;
-}
-
+/* Títulos */
 h2 {
     color: var(--accent);
     text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 50px;
+    font-size: 1.6rem;
+    margin-bottom: 45px;
     font-family: 'Orbitron', sans-serif;
 }
+
 h3 {
     color: #ffffff;
     margin: 35px 0 15px 0;
     font-size: 1.20rem;
 }
 
-/* Cards = Botones */
+/* Cards Index */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 22px;
-    padding: 30px 0;
-    align-items: stretch;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
 }
 
 .card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 0, 51, 0.35);
     border-radius: 10px;
-    padding: 25px 15px;
-    transition: all 0.3s ease;
-    color: var(--text);
-    text-decoration: none;
+    padding: 14px 8px;
+    text-align: center;
+    transition: all 0.3s;
+    font-size: 1.0rem;
+    height: 70px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    height: 65px;
-    font-size: 0.95rem;
-    line-height: 1.35;
+    color: var(--text);
+    text-decoration: none;
 }
 
 .card:hover {
     border-color: var(--accent);
     transform: translateY(-8px);
-    box-shadow: 0 0 25px rgba(255, 0, 51, 0.45);
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
 }
 
-/* Iconos más grandes y centrados */
-.card i {
-    font-size: 2.1rem;
-    margin-bottom: 10px;
-    color: var(--accent);
+/* Galerías (Wallpapers, Parches, Certificados) */
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
 }
-/* Footer */
+
+.cert-card {
+    background: var(--card-bg);
+    border: 2px solid rgba(255, 0, 51, 0.35);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cert-card:hover {
+    border-color: var(--accent);
+    transform: scale(1.06);
+    box-shadow: 0 0 30px rgba(255, 0, 51, 0.5);
+}
+
+.cert-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 20px;
+}
+
+/* Whoami */
+.about-grid-whoami {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    gap: 60px;
+    align-items: center;
+    margin: 60px 0 80px 0;
+}
+
+.photo-placeholder-whoami {
+    width: 100%;
+    max-width: 340px;
+    height: 340px;
+    border: 3px solid var(--accent);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.photo-placeholder-whoami img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Terminal */
 .terminal-box {
     background: #0a0f1a;
     border: 2px solid var(--accent);
@@ -182,9 +223,9 @@ h3 {
     padding: 15px;
     margin: 30px auto;
     max-width: 750px;
-    max-height: 900px;
     box-shadow: 0 0 25px rgba(255, 0, 51, 0.2);
 }
+
 .terminal-header {
     background: #1a2333;
     padding: 8px 15px;
@@ -194,8 +235,8 @@ h3 {
     color: var(--accent);
     border-bottom: 1px solid var(--accent);
 }
+
 .terminal-frame {
-    text-align: center;
     width: 100%;
     height: 620px;
     border: none;
@@ -217,19 +258,19 @@ footer {
     flex-wrap: wrap;
     gap: 30px;
     margin: 0 auto;
+    margin-bottom: 35px;
     text-align: left;
 }
 
 .footer-content strong {
     color: var(--accent);
-    display: block;
-    margin-bottom: 12px;
 }
 
 .footer-link {
     color: var(--text);
     text-decoration: none;
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .footer-link:hover {
