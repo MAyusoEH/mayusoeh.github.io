@@ -247,7 +247,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        fetch('https://raw.githubusercontent.com/MAyusoEH/PruebaMarkdown/main/KaliInstall.md')
+        fetch('https://raw.githubusercontent.com/MAyusoEH/PruebaMarkdown/refs/heads/main/KaliInstall.md')
             .then(response => response.text())
             .then(text => {
                 document.getElementById('contenido-kali').innerHTML = marked.parse(text);
