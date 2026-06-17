@@ -75,7 +75,7 @@ nav {
     color: var(--text);
 }
 
-/* Hero */
+/* Hero (solo para index) */
 .hero {
     height: 100vh;
     display: flex;
@@ -106,15 +106,19 @@ nav {
     max-width: 700px;
 }
 
-/* Secciones generales */
-section {
-    padding: 90px 6%;
+/* Contenido general */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 6%;
 }
 
-p {
-    font-size: 0.95rem;
+/* Secciones */
+section, .section {
+    padding: 80px 0;
 }
 
+/* Títulos */
 h2 {
     color: var(--accent);
     text-align: center;
@@ -122,19 +126,13 @@ h2 {
     margin-bottom: 50px;
     font-family: 'Orbitron', sans-serif;
 }
-h3 {
-    color: #ffffff;
-    margin: 35px 0 15px 0;
-    font-size: 1.20rem;
-}
 
-/* Cards */
+/* ====================== CARDS PRINCIPALES (INDEX) ====================== */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 22px;
     padding: 30px 0;
-    align-items: stretch;
 }
 
 .card {
@@ -150,7 +148,7 @@ h3 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 75px;
+    height: 135px;
     font-size: 0.95rem;
     line-height: 1.35;
 }
@@ -161,41 +159,72 @@ h3 {
     box-shadow: 0 0 25px rgba(255, 0, 51, 0.45);
 }
 
-/* Iconos más grandes y centrados */
-.card i {
-    font-size: 2.1rem;
-    margin-bottom: 10px;
-    color: var(--accent);
+/* ====================== GALERÍAS (Wallpapers, Parches, Certificados) ====================== */
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
 }
 
-/* TERMINAL */
-.terminal-box {
-    background: #0a0f1a;
-    border: 2px solid var(--accent);
-    border-radius: 10px;
-    padding: 15px;
-    margin: 30px auto;
-    max-width: 750px;
-    max-height: 900px;
-    box-shadow: 0 0 25px rgba(255, 0, 51, 0.2);
+.cert-card {
+    background: var(--card-bg);
+    border: 2px solid rgba(255, 0, 51, 0.35);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.terminal-header {
-    background: #1a2333;
-    padding: 8px 15px;
-    border-radius: 6px 6px 0 0;
-    text-align: center;
-    font-size: 1.1rem;
-    color: var(--accent);
-    border-bottom: 1px solid var(--accent);
+
+.cert-card:hover {
+    border-color: var(--accent);
+    transform: scale(1.06);
+    box-shadow: 0 0 30px rgba(255, 0, 51, 0.5);
 }
-.terminal-frame {
+
+.cert-card img {
     width: 100%;
-    height: 620px;
-    border: none;
-    border-radius: 0 0 8px 8px;
+    height: 100%;
+    object-fit: contain;
+    padding: 20px;
+    transition: transform 0.5s ease;
 }
 
-/* Footer */
+.cert-card:hover img {
+    transform: scale(1.12);
+}
+
+/* ====================== WHOAMI ====================== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    gap: 50px;
+    align-items: center;
+    margin: 40px 0 60px 0;
+}
+
+.photo-placeholder {
+    width: 100%;
+    max-width: 320px;
+    height: 320px;
+    background: #1a2333;
+    border: 3px solid var(--accent);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
+}
+
+.photo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ====================== FOOTER ====================== */
 footer {
     background: #05070f;
     padding: 40px 20px 20px;
@@ -253,4 +282,12 @@ footer {
 .back-to-top:hover {
     transform: scale(1.1);
     background: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
 }
