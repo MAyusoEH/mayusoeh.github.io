@@ -124,38 +124,31 @@ h2 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 22px;
-    padding: 20px 0;
+    padding: 30px 0;
 }
 
 .card {
-    background: var(--card-bg);
-    border: 1px solid rgba(255, 0, 51, 0.35);
-    border-radius: 10px;
-    padding: 28px 20px;
-    transition: all 0.3s ease;
-    color: var(--text);
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 130px;           /* Altura mínima igual para todas */
-    font-size: 1.02rem;          /* Un poco más pequeño para que quepa mejor */
-    line-height: 1.4;
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(255, 0, 51, 0.35) !important;
+    border-radius: 10px !important;
+    padding: 28px 18px !important;
+    transition: all 0.3s ease !important;
+    color: var(--text) !important;
+    text-decoration: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 140px !important;     /* Altura fija */
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
 }
 
 .card:hover {
-    border-color: var(--accent);
-    transform: translateY(-8px);
-    box-shadow: 0 0 20px rgba(255, 0, 51, 0.35);
-}
-
-/* Para los iconos + texto */
-.card i {
-    font-size: 1.8rem;
-    margin-bottom: 12px;
-    color: var(--accent);
+    border-color: var(--accent) !important;
+    transform: translateY(-8px) !important;
+    box-shadow: 0 0 25px rgba(255, 0, 51, 0.45) !important;
 }
 
 /* Footer */
