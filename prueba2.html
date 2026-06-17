@@ -243,22 +243,21 @@
     <!-- ---------- CONTENIDO MARKDOWN ---------- -->
 <section class="content">
     <br>
-    <h2>INSTALAR ACTIVE DIRECTORY Y DNS</h2>
-    <br>
-        <div id="markdown-content"></div>
-    <br>
-</section>
-    <!-- ---------- SCRIPT al final ---------- -->
-<script>
-    // Cambia la ruta por tu archivo markdown
-    fetch('assets/mkds/mkd_installADyDNS.md')
-        .then(response => response.text())
-        .then(text => {
-            const html = marked.parse(text);
-            document.getElementById('markdown-content').innerHTML = html;
-        })
-        .catch(err => console.error('Error cargando MD:', err));
-</script>
+    <h2>INSTALAR KALI LINUX</h2>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        fetch('https://raw.githubusercontent.com/MAyusoEH/PruebaMarkdown/main/KaliInstall.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('contenido-kali').innerHTML = marked.parse(text);
+            })
+            .catch(err => {
+                console.error('Error cargando Markdown:', err);
+                document.getElementById('contenido-kali').innerHTML = 
+                    '<p style="color:red;">Error al cargar el contenido. Inténtalo más tarde.</p>';
+            });
+    </script>
 
 <footer>
     <div class="footer-content">
