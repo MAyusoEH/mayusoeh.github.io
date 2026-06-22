@@ -3,10 +3,10 @@
 #### Definición:  
 Kali Linux es una distribución de Linux basada en Debian bajo licencia GNU GLP, diseñada específicamente para pruebas de penetración avanzadas y auditorías de seguridad. Proporciona herramientas, configuraciones y automatizaciones que permiten al usuario centrarse en la tarea a completar. La primera versión la crearon Devon Kearns y Mati Aharoni en 2013 bajo el nombre "BackTrack".  
   
-Objetivos:  
+#### Objetivos:  
 Se utiliza principalmente para realizar pruebas de seguridad en sistemas y redes informáticas, identificar y explotar vulnerabilidades para mejorar la seguridad. Sus áreas de uso incluyen pruebas de penetración, análisis forense, recopilación de información y hacking ético.  
   
-Características Destacadas de Kali Linux  
+#### Características Destacadas de Kali Linux  
   
 Amplia Selección de Herramientas:  
 Incluye más de 600 herramientas de seguridad y hacking ético, cubriendo diversos aspectos de la seguridad informática.  
@@ -20,7 +20,7 @@ Tiene un buen soporte de hardware, siendo compatible con una amplia gama de disp
 Actualizaciones Regulares:  
 La distribución se actualiza periódicamente para incluir nuevas herramientas y actualizaciones de seguridad, garantizando que los usuarios siempre tengan acceso a las últimas soluciones de seguridad.  
   
-Aplicaciones Principales de Kali Linux  
+#### Aplicaciones Principales de Kali Linux  
   
 Pruebas de Penetración:  
 Proporciona una amplia gama de herramientas para simular ataques y evaluar la resistencia de los sistemas y redes a dichos ataques, ayudando a identificar posibles vulnerabilidades y puntos débiles.  
@@ -38,7 +38,7 @@ Importancia de Kali Linux en la Ciberseguridad.
 Uso en Dispositivos de Red y Seguridad:  
 Linux, y por ende Kali Linux, es el sistema operativo utilizado en la mayoría de los dispositivos de red y de seguridad, incluyendo routers, firewalls, dispositivos NGFW, gateways UTM, concentradores VPN, sistemas IDS, IPS, dispositivos SIEM, WAP, entre otros. Esto subraya la necesidad de entender Linux para recopilar datos relacionados con la seguridad de estos dispositivos o realizar endurecimiento de seguridad.  
 
-### 📦 INSTALACIÓN SO COMO MÁQUINA VIRTUAL EN VIRTUAL BOX, PASO POR PASO  
+## 📦 INSTALACIÓN SO COMO MÁQUINA VIRTUAL EN VIRTUAL BOX, PASO POR PASO  
 
 ![1.png](https://static.wixstatic.com/media/afa158_c0b9cf6c964140e094f1bd5cfe2682bb~mv2.png/v1/fill/w_311,h_97,al_c,q_85,enc_avif,quality_auto/1.png)
 
@@ -90,7 +90,7 @@ Linux, y por ende Kali Linux, es el sistema operativo utilizado en la mayoría d
 
 ### FIN DE LA INSTALACIÓN  
 
-### 🔄 ACTUALIZACIÓN DE KALI LINUX  
+## 🔄 ACTUALIZACIÓN DE KALI LINUX  
   
 Actualizar Sistema Operativo:  
 sudo apt update (ver paquetes de actualización disponibles y actualizar repositorios)  
@@ -98,7 +98,7 @@ sudo apt list --upgradable (listar actualizaciones en detalle)
 sudo apt upgrade (iniciar actualización standard del sistema en Linux)  
 sudo apt full-upgrade (iniciar actualización que asegura que todas las herramientas de seguridad y dependencias estén actualizadas)  
 
-### 💽 INSTALAR PROGRAMAS / APLICACIONES  
+## 💽 INSTALAR PROGRAMAS / APLICACIONES  
   
 Instalar/Actualizar aplicaciones disponibles en el repositorio del sistema (actualizar repositorios primero):  
 sudo apt install [aplicación]  
@@ -130,14 +130,13 @@ sudo snap install [aplicación] -- classic (instalar aplicaciones por nombre)
 sudo snap list (ver listado de aplicaciones instaladas de Snap)  
 sudo snap remove [aplicación] (desinstalar aplicación de Snap)  
 
-### ⚙️ CONFIGURACIÓN  
+## ⚙️ CONFIGURACIÓN  
   
 🔹 En Virtual Box, portapapeles compartido de arrastrar y soltar Bidireccional:  
 
 ![bidirecc.png](https://static.wixstatic.com/media/afa158_190963eb75b242e59a6ca632c947dbe9~mv2.png/v1/crop/x_0,y_0,w_895,h_609/fill/w_786,h_535,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/bidirecc.png)
 
-###   
-DIFERENCIA DE AJUTES DE RED EN VIRTUAL BOX:  
+### DIFERENCIA DE AJUTES DE RED EN VIRTUAL BOX:  
   
 NAT (Network Address Translation):  
 En esta configuración, la máquina virtual (VM) usa la dirección IP del host para acceder a Internet. La VM no es visible en la red local, lo que proporciona un entorno más seguro y sencillo. Sin embargo, no permite que otros dispositivos de la red accedan a la VM a menos que se configuren reglas de reenvío de puertos. Ejemplo de IP local: 10.0.2.0  
@@ -147,15 +146,6 @@ La VM se conecta directamente a la red local como si fuera otro dispositivo fís
   
 RED NAT o Red Interna:  
 Similar a NAT, pero permite que múltiples VMs compartan una red privada interna mientras acceden a Internet a través del host. Las VMs pueden comunicarse entre sí dentro de esta red privada, lo que facilita configuraciones de laboratorio o entornos de prueba donde se requiere interacción entre varias VMs. Ejemplo de IP local: 10.10.10.7  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 🔹 En Virtual Box, recomendado adaptador de red como Adaptador Puente:  
 
@@ -203,7 +193,7 @@ kali-undercover
 
 ![desktop.png](https://static.wixstatic.com/media/afa158_646f66f73cdb45ff8d65a664600fcca7~mv2.png/v1/fill/w_651,h_441,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/desktop.png)
 
-### ✅ OPTIMIZAR VIRTUAL BOX PARA KALI LINUX  
+## ✅ OPTIMIZAR VIRTUAL BOX PARA KALI LINUX  
   
 Algunas versiones de Kali Linux, concretamente a partir de 2024, requieren de una configuración en Virtual Box de mayor capacidad, de lo contrario podríamos experimentar problemas de rendimiento, parpadeos de pantalla e imprecisión en el cursor, entre otros. Para solucionarlo solo hay que seguir estos pasos:  
   
@@ -219,7 +209,7 @@ Algunas versiones de Kali Linux, concretamente a partir de 2024, requieren de un
   
 5.  Ve a Sistema → Procesador y  si puedes, sube los procesadores/núcleos a 2 o más para mejor rendimiento.  
 
-### ❌ TROUBLESHOOTING  
+## ❌ TROUBLESHOOTING  
   
 Importar la GPG KEY de Kali de forma manual (versiones anteriores a 2024):  
 wget -q -O -  [https://archive.kali.org/archive-key.asc](https://archive.kali.org/archive-key.asc)  | sudo apt-key add -  
@@ -227,7 +217,7 @@ wget -q -O -  [https://archive.kali.org/archive-key.asc](https://archive.kali.or
 Importar la GPG KEY de Kali de forma manual (versiones de 2024 o posteriores):  
 wget -q -O -  [https://archive.kali.org/archive-key.asc](https://archive.kali.org/archive-key.asc)  | sudo gpg --dearmor -o /usr/share/keyrings/kali-archive-keyring.gpg
 
-### 🗃️ EXTRAS  
+## 🗃️ EXTRAS  
   
 Aplicaciones de Interfaz:  
 sudo apt install flameshot (Capturas de pantalla)  
