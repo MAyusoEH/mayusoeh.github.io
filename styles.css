@@ -114,6 +114,7 @@ p { font-size: 0.95rem; }
 h1, h2 {
     font-family: 'Orbitron', sans-serif;
     color: var(--accent);
+	text-align: center;
 }
 
 .about-grid {
