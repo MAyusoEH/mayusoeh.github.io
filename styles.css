@@ -115,7 +115,7 @@ h1, h2 {
     font-family: 'Orbitron', sans-serif;
     color: var(--accent);
 	text-align: center !important;
-    margin-bottom: 45px !important;
+    margin-bottom: 0px;  /* cambio */
 }
 
 .about-grid {
