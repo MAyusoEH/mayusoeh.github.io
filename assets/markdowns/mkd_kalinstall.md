@@ -119,7 +119,9 @@ sudo flatpak install [aplicación]  (instalar aplicación Flatpack con el reposi
 sudo flatpak uninstall [aplicación]  (desinstalar aplicación Flatpack)  
 sudo flatpak uninstall --unused  (desinstalar remanentes de apliacionesn desinstaladas)  
   
-SNAP (herramienta asistente de instalación. aplicaciones en: [https://snapcraft.io](https://snapcraft.io/)):  
+SNAP (herramienta asistente de instalación. aplicaciones en: [https://snapcraft.io](https://snapcraft.io/)):
+
+```bash
 sudo apt update (ver paquetes de actualización disponibles y actualizar repositorios del sistema)  
 sudo apt install snapd (instalar Snap)  
 sudo ln -s /var/lib/snapd/snap /snap (para que las aplicaciones de Snap sean visibles en el menú del sistema)  
@@ -128,7 +130,8 @@ sudo systemctl status snapd (ver estado del servicio Snap, si se encuentra o no 
 sudo systemctl start snapd (iniciar servicio Snap si no se encuentra en ejecución)  
 sudo snap install [aplicación] -- classic (instalar aplicaciones por nombre)  
 sudo snap list (ver listado de aplicaciones instaladas de Snap)  
-sudo snap remove [aplicación] (desinstalar aplicación de Snap)  
+sudo snap remove [aplicación] (desinstalar aplicación de Snap)
+```
 
 ## ⚙️ CONFIGURACIÓN  
   
