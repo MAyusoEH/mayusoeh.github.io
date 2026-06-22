@@ -1,6 +1,4 @@
-![kalii.png](https://static.wixstatic.com/media/afa158_11e04ad2d5574d6296f3c749c2b56159~mv2.png/v1/fill/w_383,h_102,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/kalii.png)
- 
- ## ¿Qué es Kali Linux?  
+## ¿Qué es Kali Linux?  
   
 #### Definición:  
 Kali Linux es una distribución de Linux basada en Debian bajo licencia GNU GLP, diseñada específicamente para pruebas de penetración avanzadas y auditorías de seguridad. Proporciona herramientas, configuraciones y automatizaciones que permiten al usuario centrarse en la tarea a completar. La primera versión la crearon Devon Kearns y Mati Aharoni en 2013 bajo el nombre "BackTrack".  
