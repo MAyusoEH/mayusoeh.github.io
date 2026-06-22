@@ -1,4 +1,6 @@
-﻿## ¿Qué es Kali Linux?  
+![kalii.png](https://static.wixstatic.com/media/afa158_11e04ad2d5574d6296f3c749c2b56159~mv2.png/v1/fill/w_383,h_102,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/kalii.png)
+ 
+ ## ¿Qué es Kali Linux?  
   
 #### Definición:  
 Kali Linux es una distribución de Linux basada en Debian bajo licencia GNU GLP, diseñada específicamente para pruebas de penetración avanzadas y auditorías de seguridad. Proporciona herramientas, configuraciones y automatizaciones que permiten al usuario centrarse en la tarea a completar. La primera versión la crearon Devon Kearns y Mati Aharoni en 2013 bajo el nombre "BackTrack".  
@@ -38,7 +40,7 @@ Importancia de Kali Linux en la Ciberseguridad.
 Uso en Dispositivos de Red y Seguridad:  
 Linux, y por ende Kali Linux, es el sistema operativo utilizado en la mayoría de los dispositivos de red y de seguridad, incluyendo routers, firewalls, dispositivos NGFW, gateways UTM, concentradores VPN, sistemas IDS, IPS, dispositivos SIEM, WAP, entre otros. Esto subraya la necesidad de entender Linux para recopilar datos relacionados con la seguridad de estos dispositivos o realizar endurecimiento de seguridad.  
 
-## 📦 INSTALACIÓN SO COMO MÁQUINA VIRTUAL EN VIRTUAL BOX, PASO POR PASO  
+## 📦 INSTALAR S.O. COMO MÁQUINA VIRTUAL EN VIRTUAL BOX:  
 
 ![1.png](https://static.wixstatic.com/media/afa158_c0b9cf6c964140e094f1bd5cfe2682bb~mv2.png/v1/fill/w_311,h_97,al_c,q_85,enc_avif,quality_auto/1.png)
 
