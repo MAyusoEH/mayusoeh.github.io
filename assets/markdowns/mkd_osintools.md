@@ -1,15 +1,10 @@
 ﻿## 🔧 UTILIDADES
 
 💊 [Google Dorks](https://sf01web.wixsite.com/mayusoeh/googledorks)
-
 🌐 [OSINT Framework](https://osintframework.com/)
-
 🔧 [Brian Arroyo's Tools](https://start.me/p/wMkNoN/osint-fuentes-abiertas-ciberinteligencia)
-
 🔧 [Lorando Bodo's Tools](https://start.me/p/7kxyy2/osint-tools-curated-by-lorand-bodo)
-
 💀 [ARP Syndicate Resources](https://asm.arpsyndicate.io/intelligence.html)
-
 📚 [Securiters Wiki](https://wiki.securiters.com/securiters-wiki)
 
 ​
