@@ -1,5 +1,4 @@
 ## MAYUSO ETHICAL HACKING 
-### PENTESTING & CYBERSECURITY • PERSONAL REPOSITORY
 
 https://mayusoeh.github.io/
 
