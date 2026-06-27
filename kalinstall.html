@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALI INSTALL - MAYUSO ETHICAL HACKING</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo-text">
+            <a href="index.html" class="logo-link">
+                ❰ <span style="color: white;">MAYUSO</span>
+                <span style="color: var(--accent);">ETHICAL HACKING</span> ❱
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">/HOME</a>
+            <a href="pentestools.html">/PENTESTOOLS</a>
+            <a href="whoami.html">/WHOAMI</a>
+        </div>
+    </nav>
+
+    <canvas id="matrix"></canvas>
+
+    <!-- ---------- CONTENIDO MARKDOWN ---------- -->
+
+    <br><br><br><br><br>
+
+    <img src="assets/img/kalinstall.avif" 
+     alt="Banner" 
+     style="display: block; margin: 0 auto; height: 130px; max-width: 100%;">
+
+    <section class="markdowns">
+
+    <div id="kalinstall"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+            async function cargarMarkdown() {
+                const contenedor = document.getElementById('kalinstall');
+            
+                try {
+                    const response = await fetch('https://raw.githubusercontent.com/MAyusoEH/mayusoeh.github.io/refs/heads/main/assets/markdowns/mkd_kalinstall.md');
+                
+                    if (!response.ok) throw new Error('Error al descargar el archivo');
+
+                    const text = await response.text();
+                    contenedor.innerHTML = marked.parse(text);
+                
+                } catch (err) {
+                    console.error('Error:', err);
+                    contenedor.innerHTML = `
+                        <p style="color: red; padding: 20px;">
+                            ⚠️ No se pudo cargar el contenido.<br>
+                            Prueba recargar la página.
+                        </p>`;
+                }
+            }
+
+            // Ejecutar cuando cargue la página
+            window.onload = cargarMarkdown;
+    </script>
+
+    </section>
+    
+<br><br><br>
+
+<footer>
+    <div class="footer-content">
+
+        <div>
+            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+            <a href="aitools.html" class="footer-link">AI tTools</a>
+        </div>
+        
+        <div>
+            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+        </div>
+
+        <div>
+            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+            <a href="parches.html" class="footer-link">Parches</a><br>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+            <a href="whoami.html" class="footer-link">Whoami</a>
+        </div>
+
+        <div>
+            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+        </div>
+    </div>
+
+    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
+
+        <div>
+            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+        </div>
+    </div>
+
+    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+    </p>
+    <br>
+</footer>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+        ↑
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+      
+        const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const fontSize = 13;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+      
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00aaff';
+            ctx.font = `${fontSize}px monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 35);
+    </script>
+</body>
+</html>

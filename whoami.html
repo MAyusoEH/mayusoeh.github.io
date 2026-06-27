@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOAMI - MAYUSO ETHICAL HACKING</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+    
+<body>
+    <nav>
+        <div class="logo-text">
+            <a href="index.html" class="logo-link">
+                ❰ <span style="color: white;">MAYUSO</span>
+                <span style="color: var(--accent);">ETHICAL HACKING</span> ❱
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">/HOME</a>
+            <a href="pentestools.html">/PENTESTOOLS</a>
+            <a href="whoami.html">/WHOAMI</a>
+        </div>
+    </nav>
+    <canvas id="matrix"></canvas>
+
+    <header>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </header>
+
+    <div class="content">
+        <div class="about-grid">
+            <div>
+                <div class="photo-placeholder">
+                <img src="assets/img/medistort.gif" alt="Photo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+            </div>
+            </div>
+            <div>
+                        <div style="text-align: center; margin-bottom: 0px;">
+                            <i class="ti ti-user" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+                            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">WHO AM I</h2>
+                        </div>
+                <br>
+                <p>Estudiante de segundo año del Grado Superior en Administración de Sistemas Informáticos en Red (ASIR). Apasionado por la ciberseguridad ofensiva, con especial interés en Pentesting, OSINT, explotación de vulnerabilidades y CTFs. Combino formación académica con aprendizaje autodidacta a través de cursos especializados y asistencia regular a conferencias de ciberseguridad. Actualmente preparando la certificación eJPTv2.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW -->
+
+<div class="terminal-box" style="max-width: 820px; padding: 0; overflow: hidden; position: relative;">
+
+    <!-- Barra superior -->
+    <div style="background: #1a2333; padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid var(--accent);">
+        <div style="display: flex; gap: 8px;">
+            <div style="width: 12px; height: 12px; background: #ff5f56; border-radius: 50%;"></div>
+            <div style="width: 12px; height: 12px; background: #ffbd2e; border-radius: 50%;"></div>
+            <div style="width: 12px; height: 12px; background: #27c93f; border-radius: 50%;"></div>
+        </div>
+        <div style="margin-left: auto; color: #888; font-size: 0.85rem;">RESUMEN CV</div>
+    </div>
+
+    <!-- Pestañas -->
+    <div style="background: #0f1626; display: flex; border-bottom: 1px solid #333;">
+        <button onclick="showTab(0)" class="tab-btn" style="padding: 12px 22px; background: transparent; border: none; color: #888; cursor: pointer;">FORMACIÓN</button>
+        <button onclick="showTab(1)" class="tab-btn active" style="padding: 12px 22px; background: transparent; border: none; color: var(--accent); cursor: pointer; border-bottom: 2px solid var(--accent);">SKILLS</button>
+        <button onclick="showTab(2)" class="tab-btn" style="padding: 12px 22px; background: transparent; border: none; color: #888; cursor: pointer;">SOFT SKILLS</button>
+    </div>
+
+    <!-- Contenido -->
+    <div id="tab-content" style="padding: 22px; font-family: 'Roboto Mono', monospace; font-size: 0.82rem; line-height: 2.3; min-height: 385px; color: #b6d8ff; white-space: pre-line;"></div>
+</div>
+
+<script>
+const contents = [
+    // FORMACIÓN
+    `❱ Título de Bachiller en la modalidad de Artes
+❱ Certificado de Nivel Avanzado C1 en idioma Inglés
+❱ Cursando Grado Superior de Administración de Sistemas Informáticos en Red (ASIR)
+❱ Completado el curso de AWS Academy Cloud Foundations
+❱ Completado el curso de Iron Hack de Aplicaciones Industriales del Aprendizaje Automático y la IA
+❱ Cursados los módulos CCNA1, CCNA2 y CCNA3 de Cisco Networking Academy
+• Conocimientos autodidactas en hacking ético a través de cursos como los impartidos por
+  "Marcelo Vázquez" y "Mario Álvarez"
+• Preparando la obtención de la certificación eJPTv2
+• Asistente habitual a Conferencias de Ciberseguridad (varias ediciones C1b3rwall y Navaja Negra)`,
+    // SKILLS
+    `→ Familiarizado con sistemas operativos Windows y Linux
+→ Pentesting en redes y equipos con las principales herramientas de Kali Linux
+→ Experiencia en el uso de inteligencia de fuentes abiertas (OSINT)
+→ Familiarizado con Oracle SQL Developer
+→ Pentesting web con Burpsuite
+→ Familiarizado con Sistemas y Redes de Cisco
+→ Machine learning (Google Colab) y familiarizado en el uso de modelos LLM de inteligencia artificial
+→ Familiarizado con el ordenamiento jurídico español
+→ Habilidades en diseño gráfico y manejo de editores de imagen
+→ CTF player`,
+
+    // SOFT SKILLS
+    `✔ Creativo y resolutivo
+✔ Iniciativa y capacidad para anticipar necesidades y proponer soluciones
+✔ Comunicación escrita efectiva y experiencia en la elaboración de informes detallados
+✔ Colaborador eficaz y orientado al trabajo en equipo
+✔ Experiencia en la coordinación y liderazgo de equipos de trabajo`
+];
+
+let currentTimeout = null;
+
+function showTab(n) {
+    if (currentTimeout) clearTimeout(currentTimeout);
+
+    const contentDiv = document.getElementById('tab-content');
+    contentDiv.innerHTML = '';
+
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === n);
+        btn.style.color = i === n ? 'var(--accent)' : '#888';
+        btn.style.borderBottom = i === n ? '2px solid var(--accent)' : 'none';
+    });
+
+    let i = 0;
+    const text = contents[n];
+
+    function type() {
+        if (i < text.length) {
+            contentDiv.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+            i++;
+            currentTimeout = setTimeout(type, 0.2);
+        }
+    }
+    type();
+}
+
+window.onload = () => showTab(0);
+</script>
+
+<!-- NEW END -->
+
+<br>
+
+<div class="content">
+    <div class="section" style="text-align: center">
+            <h2>CERTIFICACIONES Y DIPLOMAS</h2>
+            <br>
+            <div class="cert-grid">
+                <div class="cert-card" onclick="openModal('assets/img/cert_bach.png')">
+                    <img src="assets/img/cert_bach.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_c1.png')">
+                    <img src="assets/img/cert_c1.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_linux1.png')">
+                    <img src="assets/img/cert_linux1.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_linux2.png')">
+                    <img src="assets/img/cert_linux2.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_ia.png')">
+                    <img src="assets/img/cert_ia.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_aws.png')">
+                    <img src="assets/img/cert_aws.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_thm.png')">
+                    <img src="assets/img/cert_thm.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_nn23.png')">
+                    <img src="assets/img/cert_nn23.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_nn24.png')">
+                    <img src="assets/img/cert_nn24.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_cw24.png')">
+                    <img src="assets/img/cert_cw24.png" alt="Certificado">
+                </div>
+                <div class="cert-card" onclick="openModal('assets/img/cert_cw25.png')">
+                    <img src="assets/img/cert_cw25.png" alt="Certificado">
+                </div>
+                <div class="cert-card">
+                    <p style="text-align: center; margin-top: 50px; padding: 20px;";>Certificado próximamente<p>
+                </div>
+                <br>
+            </div>
+    </div>
+</div>
+
+<br><br>
+
+<footer>
+    <div class="footer-content">
+
+        <div>
+            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+            <a href="aitools.html" class="footer-link">AI tTools</a>
+        </div>
+        
+        <div>
+            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+        </div>
+
+        <div>
+            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+            <a href="parches.html" class="footer-link">Parches</a><br>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+            <a href="whoami.html" class="footer-link">Whoami</a>
+        </div>
+
+        <div>
+            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+        </div>
+    </div>
+
+    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
+
+        <div>
+            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+        </div>
+    </div>
+
+    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+    </p>
+    <br>
+</footer>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</div>
+
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">×</span>
+        <img id="modal-image" class="modal-content" onclick="closeModal()">
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+     
+        const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const fontSize = 13;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+     
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00aaff';
+            ctx.font = `${fontSize}px monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 35);
+
+        function openModal(src) {
+            document.getElementById('modal-image').src = src;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
