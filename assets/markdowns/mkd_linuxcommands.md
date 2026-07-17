@@ -315,9 +315,7 @@ Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que c
 find / -perm -4000 2>/dev/null
 ```
 Buscar binarios vulnerables en GTFOBins:
-```bash
 🌐 [https://gtfobins.github.io](https://gtfobins.github.io/)
-```
 
 ### 📝 LISTAR CONTENIDO  
   
@@ -401,54 +399,55 @@ Asociar archivo con nº de indicativo:
 
 ### 📑 CAT Y SIMILARES  
   
-Ejecutar ejecutables (.sh):  
-./[archivo]                           (ejecutar el archivo)  
+Ejecutar ejecutables (.sh):
+| #️⃣ Comando       | 📝 Descripción              |
+|------------------|-----------------------------|
+| `./[archivo]`    | Ejecutar el archivo         |
   
 Cat:  
-cat [archivo]                       (abrir como texto)   
-cat ./[archivo]                    (abrir como texto)  
-cat "[archivo 1]"                (abrir archivo con espacios en el nombre)  
-cat *                                       (abrir todos los archivos del directorio)  
-cat [archivo0*]                     (abrir archivos similares tipo file01, file02, file03 ...)  
-cat /home/archivo            (abrir archivo de ruta dada)
+| #️⃣ Comando                        | 📝 Descripción |
+|-----------------------------------|---------------|
+| `cat [archivo]`                   | Abrir archivo como texto |
+| `cat ./[archivo]`                 | Abrir archivo como texto (ruta relativa) |
+| `cat "[archivo 1]"`               | Abrir archivo con espacios en el nombre |
+| `cat *`                           | Abrir todos los archivos del directorio actual |
+| `cat [archivo0*]`                 | Abrir archivos similares (file01, file02...) |
+| `cat /home/archivo`               | Abrir archivo de ruta absoluta |
 
-### Sort:
-
-### sort [archivo]                                  (abrir archivo como texto ordenado por orden alfabético)
-
-### sort -r [archivo]                              (abrir archivo como texto ordenado por orden inverso al orden alfabético)
-
-### sort -R [archivo]                             (abrir archivo como texto ordenado de forma aleatoria)
-
-### sort -k3 [archivo]                           (abrir archivo como texto ordenado por orden alfabético solo el tercer argumento de cada línea)
-
-### sort -n [archivo]                              (abrir archivo como texto ordenado valores numéricos)  
+Sort:
+| #️⃣ Comando               | 📝 Descripción |
+|---------------------------|---------------|
+| `sort [archivo]`          | Ordenar alfabéticamente |
+| `sort -r [archivo]`       | Orden inverso alfabético |
+| `sort -R [archivo]`       | Orden aleatorio |
+| `sort -k3 [archivo]`      | Ordenar por el tercer campo |
+| `sort -n [archivo]`       | Ordenar valores numéricos |
   
 Strings:  
-strings [archivo]                             (abrir y mostrar cadenas de caracteres imprimibles de archivos con texto no legible)  
-strings -a [archivo]                        (analiza todo el archivo, no solo secciones de datos cargables)  
-strings -d [archivo]                        (muestra solo cadenas de secciones de datos cargables e inicializadas)  
-strings  -n [nº] [archivo]                (establece un límite mínimo de caracteres para mostrar cadenas)  
-strings -t RADIX [archivo]            (muestra los desplazamientos de las secuencias de caracteres)  
+| #️⃣ Comando                        | 📝 Descripción |
+|-----------------------------------|---------------|
+| `strings [archivo]`               | Mostrar cadenas imprimibles de archivos binarios |
+| `strings -a [archivo]`            | Analizar todo el archivo (no solo secciones de datos) |
+| `strings -d [archivo]`            | Mostrar solo cadenas de secciones de datos inicializadas |
+| `strings -n [nº] [archivo]`       | Establecer longitud mínima de caracteres |
+| `strings -t RADIX [archivo]`      | Mostrar desplazamientos (offsets) de las cadenas | 
   
 Otros:  
-head [archivo]                          (abrir como texto mostrando las 10 primeras líneas)  
-tail [archivo]                              (abrir como texto mostrando las 10 últimas líneas)  
-diff [archivo1] [archivo2]       (compara contenido de 2 archivos y resalta diferencias)  
-​nl [archivo]                                 (es un cat que numera las líneas del output)  
-​more [archivo]                          (es un cat que permite navegar el output por páginas)  
-less [archivo]                              (es un cat que permite navegar el output con flechas)  
-tac [archivo]                                (es un cat pero que lista el contenido de fin a principio)  
-rev [archivo]                                  (es un cat pero que lista el contenido del revés)  
-uniq [archivo]                                (omite aquellas líneas de texto repetidas, mostrándolas una sola vez)  
-uniq -c [archivo]                           (indica el número de veces que se repite una línea de texto dentro del archivo)  
-uniq -d [archivo]                          (muestra solo las líneas de texto que se repiten al menos una vez dentro del archivo)  
-wc -m [archivo]                            (cuenta el número de caracteres dentro del archivo)  
-wc -l [archivo]                               (cuenta el número de líneas de texto dentro del archivo)
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+| #️⃣ Comando                    | 📝 Descripción |
+|-------------------------------|---------------|
+| `head [archivo]`              | Mostrar las 10 primeras líneas |
+| `tail [archivo]`              | Mostrar las 10 últimas líneas |
+| `diff [archivo1] [archivo2]`  | Comparar dos archivos y resaltar diferencias |
+| `nl [archivo]`                | Mostrar contenido numerando las líneas |
+| `more [archivo]`              | Navegar por el contenido página a página |
+| `less [archivo]`              | Navegar por el contenido con flechas (mejorado) |
+| `tac [archivo]`               | Mostrar contenido de fin a principio |
+| `rev [archivo]`               | Mostrar contenido del revés (caracteres invertidos) |
+| `uniq [archivo]`              | Eliminar líneas repetidas |
+| `uniq -c [archivo]`           | Contar cuántas veces se repite cada línea |
+| `uniq -d [archivo]`           | Mostrar solo las líneas que se repiten |
+| `wc -m [archivo]`             | Contar número de caracteres |
+| `wc -l [archivo]`             | Contar número de líneas |
 
 ### 📊 EXIFTOOL  
   
@@ -456,135 +455,150 @@ ExifTool es una herramienta de código abierto construida en Perl por Phil Harve
   
 🌐 [https://exiftool.org](https://exiftool.org/)  
   
-Instalación:  
-sudo apt install exiftool   
+Instalación:
+```
+sudo apt install exiftool
+```
   
-VISIONAR metadatos de un archivo:  
-exiftool [archivo]  
+VISIONAR metadatos de un archivo:
+```
+exiftool [archivo]
+```
   
-Ver menú de ayuda:  
-exiftool -h  
+Ver menú de ayuda:
+```
+exiftool -h
+```
   
-ESCRIBIR metadatos en un archivo:  
--[nombre_del_metadato]="valor" [nombre_de_archivo]  
-Ejemplo:  
-exiftool -DateTimeOriginal="2024:04:15 12:00:00" [archivo]  
+ESCRIBIR metadatos en un archivo:
+```
+-[nombre_del_metadato]="valor" [nombre_de_archivo]
+```
+Ejemplo:
+```
+exiftool -DateTimeOriginal="2024:04:15 12:00:00" [archivo]
+```
   
-ELIMINAR todos los metadatos de un archivo:  
-exiftool -all= [nombre_de_archivo]  
-Ejemplo:  
-exiftool -all= [archivo]  
- 
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+ELIMINAR todos los metadatos de un archivo:
+```
+exiftool -all= [nombre_de_archivo]
+```
+Ejemplo:
+```
+exiftool -all= [archivo]
+```
 
 ### 🖥️ INTERFAZ  
   
-Interfaz de usuario (por defecto en /home/usuario):  
-  
+Interfaz de usuario (por defecto en /home/usuario):
+```
 (usuario㉿kali)-[~]  
-$_  
+$_
+```
    
-Interfaz de superusuario (por defecto en /root):  
-  
+Interfaz de superusuario (por defecto en /root):
+```
 (root㉿kali)-[~]  
-#_  
- 
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+#_
+```
 
 ### 🖥️ COMANDOS DE TERMINAL  
   
 Comandos:  
-clear                                   (limpiar terminal)  
-reset                                  (resetear terminal)  
-reboot                               (reiniciar sistema)  
+| #️⃣ Comando     | 📝 Descripción |
+|-----------------|---------------|
+| `clear`         | Limpiar la terminal |
+| `reset`         | Resetear la terminal |
+| `reboot`        | Reiniciar el sistema |
    
 Con Shutdown:  
-shutdown -h now            (apagar el sistema ya)  
-shutdown -h 20                (apagar el sistema en 20 minutos)  
-shutdown -r now             (reiniciar el sistema ya)  
-shutdown -r 20               (reiniciar el sistema en 20 minutos)
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+| #️⃣ Comando              | 📝 Descripción |
+|--------------------------|---------------|
+| `shutdown -h now`        | Apagar el sistema inmediatamente |
+| `shutdown -h 20`         | Apagar el sistema en 20 minutos |
+| `shutdown -r now`        | Reiniciar el sistema inmediatamente |
+| `shutdown -r 20`         | Reiniciar el sistema en 20 minutos |
 
 ### ⌨️ ATAJOS DE TECLADO  
   
 Movimiento de cursor:  
-[←] [→]                             (mover cursor lateralmente)  
-[ctrl] + [a]                          (mover cursor al inicio de línea)  
-[inicio]                               (mover cursor al inicio de línea)  
-[ctrl] + [e]                          (end. mover cursor al final de línea)  
-[fin]                                    (mover cursor al inicio de línea)  
-[alt] + [b]                           (back. retroceder una palabra)  
-[alt] + [f]                            (forward. avanzar una palabra)  
+| #️⃣ Atajo                        | 📝 Descripción |
+|---------------------------------|---------------|
+| `[←]` `[→]`                     | Mover cursor lateralmente |
+| `[Ctrl] + [A]`                  | Mover cursor al inicio de línea |
+| `[Inicio]`                      | Mover cursor al inicio de línea |
+| `[Ctrl] + [E]`                  | Mover cursor al final de línea |
+| `[Fin]`                         | Mover cursor al final de línea |
+| `[Alt] + [B]`                   | Retroceder una palabra |
+| `[Alt] + [F]`                   | Avanzar una palabra |
   
 Portapapeles:  
-[ctrl] + [shift] + [c]            (copiar texto seleccionado)  
-[ctrl] + [shift] + [x]            (cortar texto seleccionado)  
-[ctrl] + [shift] + [v]            (pegar texto del portapapeles)  
+| #️⃣ Atajo                        | 📝 Descripción |
+|---------------------------------|---------------|
+| `[Ctrl] + [Shift] + [C]`        | Copiar texto seleccionado |
+| `[Ctrl] + [Shift] + [X]`        | Cortar texto seleccionado |
+| `[Ctrl] + [Shift] + [V]`        | Pegar texto del portapapeles | 
   
 Terminal:  
-[alt] + [t]                            (abrir nueva terminal)  
-[ctrl] + [l]                           (limpiar el terminal)  
-[ctrl] + [u]                          (limpiar la línea de comandos)  
-[ctrl] + [c]                          (detener y cerrar aplicación en curso)  
-[ctrl] + [z]                          (pasar a segundo plano la aplicación en curso, liberando la terminal)  
-[ctrl] + [d]                          (cierra el terminal)  
-[ctrl] + [shift] + [d]           (divide el terminal horizontalmente)  
-[ctrl] + [shift] + [r]            (divide el terminal verticalmente)  
-[ctrl] + [shift] + [e]           (cierra la división actual del terminal)  
-[ctrl] + [-]                          (reducir el tamaño de letra de la terminal)  
-[ctrl] + [+]                          (aumentar el tamaño de letra de la terminal)  
+| #️⃣ Atajo                        | 📝 Descripción |
+|---------------------------------|---------------|
+| `[Alt] + [T]`                   | Abrir nueva terminal |
+| `[Ctrl] + [L]`                  | Limpiar la terminal |
+| `[Ctrl] + [U]`                  | Limpiar la línea de comandos |
+| `[Ctrl] + [C]`                  | Detener y cerrar aplicación en curso |
+| `[Ctrl] + [Z]`                  | Pasar a segundo plano la aplicación |
+| `[Ctrl] + [D]`                  | Cerrar el terminal |
+| `[Ctrl] + [Shift] + [D]`        | Dividir terminal horizontalmente |
+| `[Ctrl] + [Shift] + [R]`        | Dividir terminal verticalmente |
+| `[Ctrl] + [Shift] + [E]`        | Cerrar la división actual |
+| `[Ctrl] + [-]`                  | Reducir tamaño de letra |
+| `[Ctrl] + [+]`                  | Aumentar tamaño de letra |
   
 Texto:  
-[↑]                                      (imprime último comando ejecutado)  
-[↓]                                      (imprime el siguiente comando hacia delante)  
-[tab]                                  (autocompletar comando/línea)  
-[⇐]                                      (borrar moviendo cursor hacia atrás)  
-[supr]                                  (borrar moviendo cursor hacia delante)  
-[ctrl] + [k]                          (borrar línea desde el cursor)  
-[ctrl] + [u]                          (borrar línea hasta el cursor)  
- 
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+| #️⃣ Atajo                  | 📝 Descripción |
+|---------------------------|---------------|
+| `[↑]`                     | Imprimir último comando ejecutado |
+| `[↓]`                     | Imprimir siguiente comando |
+| `[Tab]`                   | Autocompletar comando o línea |
+| `[⇐]`                     | Borrar moviendo cursor hacia atrás |
+| `[Supr]`                  | Borrar moviendo cursor hacia delante |
+| `[Ctrl] + [K]`            | Borrar línea desde el cursor |
+| `[Ctrl] + [U]`            | Borrar línea hasta el cursor |
 
 ### 🏷️​ EXPORT  
   
 Se utiliza para definir variables de entorno en el shell actual. Las variables de entorno son pares clave-valor que proporcionan información adicional al sistema operativo y a los programas que se ejecutan en él. Al exportar una variable, se hace disponible para procesos hijos del shell actual, lo que significa que los scripts y programas que se ejecuten desde ese shell podrán acceder a esa variable. Las variables de entorno definidas en una terminal solo estarán operativas en dicha terminal, mientras se mantenga abierta.  
   
-Definir una variable de entorno:  
-export saludo=Hello  
+Definir una variable de entorno:
+```
+export saludo=Hello
+```
   
 Hacer uso de la variable de entorno definida:  
+```
 echo $saludo  
-Hello  
+Hello
+```
   
-EJEMPLO DE USO. Definir una variable de entorno para sustituir una IP:  
-export ip=192.168.1.1  
+EJEMPLO DE USO. Definir una variable de entorno para sustituir una IP:
+```
+export ip=192.168.1.1
   
 echo $ip  
-192.168.1.1  
+192.168.1.1
+```
   
-Mostrar en terminal las variables de entorno de la sesión actual:  
+Mostrar en terminal las variables de entorno de la sesión actual:
+```
 env
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+```
 
 ### 🅰️ ALIAS  
   
-Definir un ALIAS Temporal para el Usuario Actual (se borrará al cerrar la terminal):  
-alias [nombre_alias]="[comando]"  
+Definir un ALIAS Temporal para el Usuario Actual (se borrará al cerrar la terminal):
+```
+alias [nombre_alias]="[comando]"
+```
   
 Ejemplo:  
 alias ip-public="curl config.me"  
