@@ -13,12 +13,12 @@ En sistemas Unix y similares como BSD y GNU/Linux, todos los archivos y director
 
 ![Directorios_Kali.png](https://static.wixstatic.com/media/afa158_fc8332690a45482094dd3f140fc40ed9~mv2.png/v1/crop/x_0,y_0,w_1199,h_561/fill/w_960,h_449,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Directorios_Kali.png)
 
-### Mostrar jerarquía del sistema en la terminal:  
+Mostrar jerarquía del sistema en la terminal:  
 ```bash
 man hier
 ```
 
-### Guardar jerarquía del sistema en archivo:
+Guardar jerarquía del sistema en archivo:
 ```bash
 man hier > [archivo.txt]
 ```
@@ -264,7 +264,7 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
   
 #### Buscar por tamaño: 
 
-| 👨‍💻 Comando               | 📝 Descripción                       |
+| #️⃣ Comando               | 📝 Descripción                       |
 | --------------------------- | ------------------------------------ |
 | `find / -type f -size 10c`  | Buscar archivos de 10 bytes          |
 | `find / -type f -size +10c` | Buscar archivos de más de 10 bytes   |
