@@ -224,14 +224,14 @@ man hier > [archivo.txt]
   
 #### Locate:
 
-| 👨‍💻 Comando               | 📝 Descripción                                                  |
+| #️⃣ Comando               | 📝 Descripción                                                  |
 | --------------------------- | --------------------------------------------------------------- |
 | `sudo updatedb`             | Actualizar manualmente la base de datos de archivos del sistema |
 | `locate [término a buscar]` | Busca el término dado en TODO el sistema                        |
   
 #### Binarios: 
 
-| 👨‍💻 Comando       | 📝 Descripción                                                  |
+| #️⃣ Comando       | 📝 Descripción                                                  |
 | ------------------- | --------------------------------------------------------------- |
 | `which [binario]`   | Busca ruta absoluta de un binario del sistema                   |
 | `whereis [binario]` | Busca ruta absoluta, fuente y manpage de un binario del sistema |
@@ -242,7 +242,7 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
    
 #### Ejemplos en diferentes directorios: 
 
-| 👨‍💻 Comando       | 📝 Descripción                                                          |
+| #️⃣ Comando       | 📝 Descripción                                                          |
 | ------------------- | ----------------------------------------------------------------------- |
 | `find . -name file` | Buscar archivo con nombre "file" desde el directorio actual             |
 | `find ~ -name file` | Buscar archivo con nombre "file" desde el directorio del usuario actual |
@@ -250,7 +250,7 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
 
 #### Buscar por tipo de archivo: 
 
-| 👨‍💻 Comando           | 📝 Descripción            |
+| #️⃣ Comando           | 📝 Descripción            |
 | ----------------------- | ------------------------- |
 | `find / -type f`        | Buscar archivos           |
 | `find / -type d`        | Buscar directorios        |
@@ -258,7 +258,7 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
 
 #### Buscar por tiempo: 
 
-| 👨‍💻 Comando              | 📝 Descripción                             |
+| #️⃣ Comando              | 📝 Descripción                             |
 | -------------------------- | ------------------------------------------ |
 | `find / -type f -mtime -7` | Archivos modificados en los últimos 7 días |
   
@@ -275,14 +275,14 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
   
 #### Buscar por nombre de usuario o grupo: 
 
-| 👨‍💻 Comando                    | 📝 Descripción                        |
+| #️⃣ Comando                    | 📝 Descripción                        |
 | -------------------------------- | ------------------------------------- |
 | `find / -type f -user [usuario]` | Buscar archivos por nombre de usuario |
 | `find / -type f -group [grupo]`  | Buscar archivos por nombre de grupo   |
   
 #### Buscar por permisos: 
 
-| 👨‍💻 Comando              | 📝 Descripción                                                            |
+| #️⃣ Comando              | 📝 Descripción                                                            |
 | -------------------------- | ------------------------------------------------------------------------- |
 | `find / -type f -perm 777` | Archivos con plenos permisos para todos los usuarios                      |
 | `find / -type f -perm 755` | Archivos con plenos permisos para root, y lectura/ejecución para el resto |
@@ -293,13 +293,13 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
   
 #### Buscar por nombre parcial. * significa cualquier caracter. Atención al sentido de la barra \ : 
 
-| 👨‍💻 Comando        | 📝 Descripción                                                   |
+| #️⃣ Comando        | 📝 Descripción                                                   |
 | -------------------- | ---------------------------------------------------------------- |
 | `find / -name "Pu*"` | El nombre del archivo o directorio buscado debe empezar por "Pu" |
   
 #### Condicionales: 
 
-| 👨‍💻 Operador | 📝 Descripción                                              |
+| #️⃣ Operador | 📝 Descripción                                              |
 | -------------- | ----------------------------------------------------------- |
 | `-and`         | Resultados de búsqueda deben cumplir ambas condiciones      |
 | `-or`          | Resultados de búsqueda deben cumplir al menos una condición |
@@ -310,17 +310,17 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
 -exec
 ```
   
-Pipe para mostrar también archivos ocultos en la búsqueda:  
+#### Pipe para mostrar también archivos ocultos en la búsqueda:  
 ```bash
 | xargs ls -la
 ```
   
-Para filtrar el output y descartar el stderr, añadir al final:  
+#### Para filtrar el output y descartar el stderr, añadir al final:  
 ```bash
 2>/dev/null
 ```
 
-Buscar un término desde la raíz, filtrando resultados que NO vengan acompañados de "Permission denied":
+#### Buscar un término desde la raíz, filtrando resultados que NO vengan acompañados de "Permission denied":
 ```bash
 find / -name pepe 2>&1 | grep -v "Permission denied"
 ```
@@ -329,93 +329,94 @@ find / -name pepe 2>&1 | grep -v "Permission denied"
 
 --- 
 
-Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que cualquier usuario pueda ejecutarlos como root):
+#### Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que cualquier usuario pueda ejecutarlos como root):
 ```bash
 find / -perm -4000 2>/dev/null
 ```
-Buscar binarios vulnerables en GTFOBins:
+#### Buscar binarios vulnerables en GTFOBins:
 ```bash
 🌐 [https://gtfobins.github.io](https://gtfobins.github.io/)
 ```
 
 ### 📝 LISTAR CONTENIDO  
   
-ls                                       (lista contenido directorio actual)  
-ls /Home/carpeta        (lista contenido directorio dado)  
-ls -l                                   (lista contenido detallado)  
-ls -la                                 (lista contenido detallado y oculto)  
-ls -hog                             (lista contenido detallado compacto)  
-ls -r                                   (lista contenido por orden alfabético inverso)  
-ls -R                                  (lista contenido, todos los directorios y su contenido en cascada)  
-ls Documents -R          (lista contenido en cascada del directorio dado)  
-ls -s                                  (lista contenido indicando tamaño. blocks)  
-ls -S                                  (lista contenido ordenado por tamaño. blocks)  
-ls -d */                             (lista contenido SOLO directorios)  
-ls -t                                  (lista contenido "Newest First")  
-ls -1                                 (lista contenido en vertical)  
-ls > [archivo]                 (lista contenido y guardar resultado en archivo dado)  
-ls -l > [archivo]             (lista contenido detallado y guardar resultado en archivo dado)  
-ls -ltr                               (listar contenido detallado por fecha "Ordest First")  
-ls ../                                 (listar contenido del directorio anterior)  
-  
-tree                                  (Ver árbol de los directorios y subdirectorios)  
-  
-ls -a | xargs realpath        (Ver las rutas completas de los archivos contenidos en el directorio)
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+| #️⃣ Comando                          | 📝 Descripción |
+|---------------------------------------|---------------|
+| `ls`                                  | Lista contenido del directorio actual |
+| `ls /Home/carpeta`                    | Lista contenido del directorio dado |
+| `ls -l`                               | Lista contenido detallado |
+| `ls -la`                              | Lista contenido detallado + archivos ocultos |
+| `ls -hog`                             | Lista contenido detallado compacto |
+| `ls -r`                               | Lista contenido en orden alfabético inverso |
+| `ls -R`                               | Lista contenido recursivo (todos los subdirectorios) |
+| `ls Documents -R`                     | Lista recursiva de un directorio concreto |
+| `ls -s`                               | Lista contenido mostrando tamaño en bloques |
+| `ls -S`                               | Lista contenido ordenado por tamaño |
+| `ls -d */`                            | Lista solo los directorios |
+| `ls -t`                               | Lista contenido por fecha (más recientes primero) |
+| `ls -1`                               | Lista contenido en formato vertical |
+| `ls > [archivo]`                      | Guarda el listado en un archivo |
+| `ls -l > [archivo]`                   | Guarda el listado detallado en un archivo |
+| `ls -ltr`                             | Lista detallada por fecha (más antiguos primero) |
+| `ls ../`                              | Lista contenido del directorio anterior |
+| `tree`                                | Muestra árbol de directorios y subdirectorios |
+| `ls -a \| xargs realpath`             | Muestra las rutas completas de los archivos |
 
 ### 📁 CAMBIAR DIRECTORIO  
   
-cd /home/Music          (ir al directorio dado)  
-cd ..                                  (un salto de directorio hacia atrás)  
-cd .. ..                               (dos saltos de directorio hacia atrás)  
-cd .. .. ..                            (tres saltos de directorio hacia atrás)  
-cd /                                   (ir a root)  
-cd ~                                  (ir al directorio del usuario actual)  
-cd !$                                 (situarse en el directorio creado previamente con mkdir)
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+| #️⃣ Comando              | 📝 Descripción |
+|---------------------------|---------------|
+| `cd /home/Music`          | Ir al directorio dado |
+| `cd ..`                   | Subir un nivel (directorio anterior) |
+| `cd ../..`                | Subir dos niveles |
+| `cd ../../..`             | Subir tres niveles |
+| `cd /`                    | Ir al directorio root (raíz) |
+| `cd ~`                    | Ir al directorio home del usuario actual |
+| `cd !$`                   | Ir al último directorio creado (con `mkdir`) |
 
 ### 📁 MODIFICAR ARCHIVOS Y DIRECTORIOS  
   
 Crear nuevo:  
-touch [archivo]                              (crear archivo nuevo)  
-mkdir [directorio]                         (crear directorio nuevo)  
+| #️⃣ Comando                    | 📝 Descripción |
+|-------------------------------|---------------|
+| `touch [archivo]`             | Crear archivo nuevo |
+| `mkdir [directorio]`          | Crear directorio nuevo |
   
 Copiar:  
-cp [archivo] [copia]             (copiar el archivo "archivo" y llamar "copia" a la copia)  
-cp [archivo] /tmp/guest            (copiar el archivo "archivo" a la ruta dada)  
-cp /tmp/guest [archivo]            (copia el archivo de la ruta en directorio actual con el nombre dado)  
+| #️⃣ Comando                          | 📝 Descripción |
+|-------------------------------------|---------------|
+| `cp [archivo] [copia]`              | Copiar archivo con nuevo nombre |
+| `cp [archivo] /tmp/guest`           | Copiar archivo a una ruta específica |
+| `cp /tmp/guest [archivo]`           | Copiar archivo desde ruta a directorio actual |
   
 Borrar:  
-rm [archivo]                                 (borrar archivo)  
-rmdir [directorio]                       (borrar directorio vacío)  
-rm -r [directorio]                        (borrar directorio y su contenido)  
-rm -rf [directorio]                      (borrar directorio y su contenido sin pedir confirmación)  
-rm -ri [directorio]                       (igual que el anterior pero preguntando por cada archivo)  
+| #️⃣ Comando                    | 📝 Descripción |
+|-------------------------------|---------------|
+| `rm [archivo]`                | Borrar archivo |
+| `rmdir [directorio]`          | Borrar directorio vacío |
+| `rm -r [directorio]`          | Borrar directorio y su contenido |
+| `rm -rf [directorio]`         | Borrar directorio y contenido sin confirmación |
+| `rm -ri [directorio]`         | Borrar directorio preguntando por cada archivo |
   
 Mover:  
-mv [archivo] /tmp/guest         (mueve file1 a la ruta dada)  
+| #️⃣ Comando                    | 📝 Descripción |
+|-------------------------------|---------------|
+| `mv [archivo] /tmp/guest`     | Mover archivo a la ruta indicada |
   
 Cambiar nombre:  
-mv [archivo1] [archivo2]           ("archivo1" pasa a llamarse "archivo2")  
+| #️⃣ Comando                    | 📝 Descripción |
+|-------------------------------|---------------|
+| `mv [archivo1] [archivo2]`    | Renombrar archivo1 a archivo2 |
   
 Asociar archivo con nº de indicativo:  
-exec 1<> [archivo]                      ("archivo" pasa a estar asociado al nº1 para lectura y escritura)  
-exec 1< [archivo]                        ("archivo" pasa a estar asociado al nº1 para solo lectura)  
-exec 1> [archivo]                        ("archivo" pasa a estar asociado al nº1 para solo escritura)  
-echo blabla >&1                          (mete el testo "blabla" en nº1)  
-exec 2>&1                                     (concatena el nº2 al nº1. ambos se asocian con "archivo")  
-exec 1>&-                                      (anula la asociación de "archivo" al nº1)  
- 
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+| #️⃣ Comando                    | 📝 Descripción |
+|-------------------------------|---------------|
+| `exec 1<> [archivo]`          | Asociar archivo al descriptor 1 (lectura y escritura) |
+| `exec 1< [archivo]`           | Asociar archivo al descriptor 1 (solo lectura) |
+| `exec 1> [archivo]`           | Asociar archivo al descriptor 1 (solo escritura) |
+| `echo blabla >&1`             | Redirigir salida al descriptor 1 |
+| `exec 2>&1`                   | Redirigir stderr (2) a stdout (1) |
+| `exec 1>&-`                   | Cerrar asociación del descriptor 1 |
 
 ### 📑 CAT Y SIMILARES  
   
