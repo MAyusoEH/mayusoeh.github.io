@@ -742,7 +742,8 @@ shell
 bash
 ```
 
-2️⃣ MÉTODO 2:  
+2️⃣ MÉTODO 2:
+
 1º. (Inicia una sesión de bash interactiva, descartando la grabación de la sesión)
 ```
 script /dev/null -c bash
@@ -783,7 +784,8 @@ export TERM=xterm
 export SHELL=bash
 ```
   
-3️⃣ MÉTODO 3 (comprobar si python/python3 están presentes en el sistema con which python/which python3). 
+3️⃣ MÉTODO 3 (comprobar si python/python3 están presentes en el sistema con which python/which python3).
+
 1º. (Este comando usa Python para invocar una shell interactiva):
 ```
 python3 -c ‘import pty;pty.spawn(“/bin/bash”)’
@@ -798,6 +800,7 @@ export TERM=xterm-256color
 ```
 
 3️⃣ MÉTODO 4 (comprobar si perl está presente en el sistema con which perl).
+
 1º. (Estos comandos usan Perl para invocar una shell interactiva):
 ```
 perl -e 'exec "/bin/bash";'
@@ -856,9 +859,7 @@ Reducir los permisos de /tmp a solo lectura y ejecución, de grupos y resto us
 sudo chmod 755 /tmp
 ```
   
-____________________________________________________________________________________________  
-  
-CHKROOTKIT  
+▶ CHKROOTKIT  
 Programa que busca rootkits en tu sistema.  
   
 Instalar:
@@ -884,24 +885,20 @@ El archivo de configuración se encuentra en:
 /etc/chkrootkit/chkrootkit.conf
 ```
   
-____________________________________________________________________________________________  
-  
-LYNIS  
+▶ LYNIS  
 Herramienta de auditoría de seguridad que puede ayudar a identificar problemas de seguridad.  
   
 Instalar:  
 sudo lynis --update  
 Ejecutar:  
 sudo lynis audit system  
-____________________________________________________________________________________________  
   
-IPTABLES  
+▶ IPTABLES  
 Para comprobar que solo los servicios necesarios están expuestos a la red.  
 Listar las reglas actuales y ajustarlas según sea necesario con:  
 iptables -L -n -v  
-____________________________________________________________________________________________  
   
-FAIL2BAN  
+▶ FAIL2BAN  
 Herramienta que protege el sistema contra ataques de fuerza bruta bloqueando IPs que muestran comportamientos sospechosos.  
   
 Instalar:  
@@ -918,9 +915,8 @@ Uso de Fail2Ban-client:
 sudo fail2ban-client status sshd  
 Desbloquear una dirección IP:  
 sudo fail2ban-client unban [IP]  
-____________________________________________________________________________________________  
   
-UFW  
+▶ UFW  
 Firewall fácil de usar que puede ayudarte a gestionar el tráfico de red entrante y saliente.  
   
 Instalar:  
@@ -942,9 +938,8 @@ sudo ufw allow 6000:6007/tcp
 sudo ufw allow 6000:6007/udp  
 Configurar reglas del firewall más específicas (ejemplo):  
 sudo ufw allow from 192.168.1.100 to any port 22  
-____________________________________________________________________________________________  
   
-RKHUNTER  
+▶RKHUNTER  
 Herramienta útil para detectar rootkits.  
 Instalar:  
 sudo apt-get install rkhunter  
@@ -954,34 +949,27 @@ Ejecutar escaneo del sistema:
 sudo rkhunter --check --skip-keypress  
 Configurar cronjob de escaneo automático, a las 16:00 de cada lunes:  
 0 16 * * 1 /usr/bin/rkhunter --check --cronjob --report-warnings-only  
-____________________________________________________________________________________________  
   
-TIGER  
+▶ TIGER  
 Herramienta para monitorear cambios en los archivos del sistema, lo cual es útil para detectar modificaciones no autorizadas.  
 Instalar:  
 sudo apt-get install tiger  
 Ejecutar auditoria:  
-sudo tiger -h  
-____________________________________________________________________________________________  
+sudo tiger -h   
   
-SNORT  
+▶ SNORT  
 Sistema de detección de intrusiones de red.  
 Instalar:  
 sudo apt-get install snort  
 Archivo de:  
 sudo apt-get install tiger  
 Ejecutar:  
-sudo snort -q -c /etc/snort/snort.conf -i eth0  
-____________________________________________________________________________________________  
+sudo snort -q -c /etc/snort/snort.conf -i eth0   
   
-SSH HARDENING  
+▶ SSH HARDENING  
 - Desactivar el inicio de sesión como root  
 - Utilizar claves SSH en lugar de contraseñas  
 - Limitar los intentos de inicio de sesión fallidos
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
 
 ### 🖥️ SISTEMA  
   
