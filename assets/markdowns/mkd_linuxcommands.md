@@ -25,7 +25,7 @@ man hier > [archivo.txt]
 
 ### 🎯 RUTAS DE INTERÉS  
   
-#### 📂 Directorios principales (Kali Linux): 
+📂 Directorios principales (Kali Linux): 
 
 | 📂 Directorio | 📝 Descripción                     |
 | ------------- | ---------------------------------- |
@@ -34,7 +34,7 @@ man hier > [archivo.txt]
 | `/`           | Raíz del sistema (root)            |
 
   
-#### 📂 Archivos importantes del sistema (Kali Linux): 
+📂 Archivos importantes del sistema (Kali Linux): 
 
 | 📂 Archivo             | 📝 Descripción                         |
 | ---------------------- | -------------------------------------- |
@@ -45,7 +45,7 @@ man hier > [archivo.txt]
 | `/etc/group`           | Grupos de usuarios                     |
 | `/etc/gshadow`         | Contraseñas de los grupos              |
 
-#### ⚠️ Directorios con permisos 1777 (Kali Linux): 
+⚠️ Directorios con permisos 1777 (Kali Linux): 
 
 ```bash
 /var/tmp  
@@ -72,7 +72,7 @@ man hier > [archivo.txt]
 /dev/mqueue
 ```
    
-#### ⚠️ Directorios con permisos 755 (Kali Linux):  
+⚠️ Directorios con permisos 755 (Kali Linux):  
 
 ```
 /var/lib/AccountsService  
@@ -83,7 +83,7 @@ man hier > [archivo.txt]
 /var/lib/inetsim/tftp/upload
 ```
  
-#### Rutas de archivos sensibles de interés en Linux (👨USUARIO):  
+Rutas de archivos sensibles de interés en Linux (👨USUARIO):  
 
 | 📂 Ruta                              | 📝 Descripción                                              |
 | ------------------------------------ | ----------------------------------------------------------- |
@@ -105,8 +105,7 @@ man hier > [archivo.txt]
 | `/home/usuario/.mysql_history`       | Historial de comandos MySQL → queries con creds             |
 | `/home/usuario/.psql_history`        | Historial de comandos PostgreSQL → similar a MySQL          |
    
-  
-#### Rutas de archivos sensibles de interés en Linux (⚙️ARCHIVOS DEL SISTEMA):  
+Rutas de archivos sensibles de interés en Linux (⚙️ARCHIVOS DEL SISTEMA):  
 
 | 📂 Archivo         | 📝 Descripción                                                          |
 | ------------------ | ----------------------------------------------------------------------- |
@@ -125,7 +124,7 @@ man hier > [archivo.txt]
 | `/etc/issue`       | Mensaje de identificación del sistema → banners pre-login               |
 | `/etc/motd`        | Message Of The Day → info personalizada post-login                      |
    
-#### Rutas de archivos sensibles de interés en Linux (⚙️CONFIGURACIÓN DE SERVICIOS):  
+Rutas de archivos sensibles de interés en Linux (⚙️CONFIGURACIÓN DE SERVICIOS):  
 
 | 📂 Archivo                    | 📝 Descripción                                                  |
 | ----------------------------- | --------------------------------------------------------------- |
@@ -144,8 +143,7 @@ man hier > [archivo.txt]
 | `/var/www/html/config.php`    | Configuración de webs PHP → claves DB, API keys                 |
 | `/var/www/html/.env`          | Variables de entorno web → claves API, DB, JWT                  |
    
-  
-#### Rutas de archivos sensibles de interés en Linux (💾ARCHIVOS DE LOGS):  
+Rutas de archivos sensibles de interés en Linux (💾ARCHIVOS DE LOGS):  
 
 | 📂 Archivo                           | 📝 Descripción                                             |
 | ------------------------------------ | ---------------------------------------------------------- |
@@ -166,7 +164,7 @@ man hier > [archivo.txt]
 | `/var/log/audit/audit.log`           | Logs de auditoría → eventos de seguridad detallados        |
    
 ​  
-#### Rutas de archivos sensibles de interés en Linux (​🪪​CREDENCIALES Y API KEYS):  
+Rutas de archivos sensibles de interés en Linux (​🪪​CREDENCIALES Y API KEYS):  
 
 | 📂 Archivo                                                    | 📝 Descripción                                      |
 | ------------------------------------------------------------- | --------------------------------------------------- |
@@ -183,8 +181,7 @@ man hier > [archivo.txt]
 | `/home/usuario/.composer/auth.json`                           | Credenciales Composer → tokens GitHub/Packagist     |
 | `/home/usuario/.maven/settings.xml`                           | Config Maven → server creds para repos              |
    
-  
-#### Rutas de archivos sensibles de interés en Linux (🔑CLAVES Y TOKENS):  
+Rutas de archivos sensibles de interés en Linux (🔑CLAVES Y TOKENS):  
 
 | 📂 Archivo                                       | 📝 Descripción                                   |
 | ------------------------------------------------ | ------------------------------------------------ |
@@ -202,7 +199,7 @@ man hier > [archivo.txt]
 | `/home/usuario/.vault-token`                     | Tokens Vault → secrets management                |
 | `/etc/letsencrypt/live`                          | Claves y certs Let's Encrypt → dominios          |
 
-#### Rutas de archivos sensibles de interés en Linux (OTROS):  
+Rutas de archivos sensibles de interés en Linux (OTROS):  
 
 | 📂 Archivo                  | 📝 Descripción                                            |
 | --------------------------- | --------------------------------------------------------- |
@@ -222,15 +219,13 @@ man hier > [archivo.txt]
 
 ### 🔎 LOCATE  
   
-#### Locate:
-
+Locate:
 | #️⃣ Comando               | 📝 Descripción                                                  |
 | --------------------------- | --------------------------------------------------------------- |
 | `sudo updatedb`             | Actualizar manualmente la base de datos de archivos del sistema |
 | `locate [término a buscar]` | Busca el término dado en TODO el sistema                        |
   
-#### Binarios: 
-
+Binarios: 
 | #️⃣ Comando       | 📝 Descripción                                                  |
 | ------------------- | --------------------------------------------------------------- |
 | `which [binario]`   | Busca ruta absoluta de un binario del sistema                   |
@@ -240,30 +235,26 @@ man hier > [archivo.txt]
   
 El comando find en Linux es una herramienta poderosa y versátil para buscar archivos y directorios en el sistema. 
    
-#### Ejemplos en diferentes directorios: 
-
+Ejemplos en diferentes directorios: 
 | #️⃣ Comando       | 📝 Descripción                                                          |
 | ------------------- | ----------------------------------------------------------------------- |
 | `find . -name file` | Buscar archivo con nombre "file" desde el directorio actual             |
 | `find ~ -name file` | Buscar archivo con nombre "file" desde el directorio del usuario actual |
 | `find / -name file` | Buscar archivo con nombre "file" desde la raíz del sistema              |
 
-#### Buscar por tipo de archivo: 
-
+Buscar por tipo de archivo: 
 | #️⃣ Comando           | 📝 Descripción            |
 | ----------------------- | ------------------------- |
 | `find / -type f`        | Buscar archivos           |
 | `find / -type d`        | Buscar directorios        |
 | `find / -type d -empty` | Buscar directorios vacíos |
 
-#### Buscar por tiempo: 
-
+Buscar por tiempo: 
 | #️⃣ Comando              | 📝 Descripción                             |
 | -------------------------- | ------------------------------------------ |
 | `find / -type f -mtime -7` | Archivos modificados en los últimos 7 días |
   
-#### Buscar por tamaño: 
-
+Buscar por tamaño: 
 | #️⃣ Comando               | 📝 Descripción                       |
 | --------------------------- | ------------------------------------ |
 | `find / -type f -size 10c`  | Buscar archivos de 10 bytes          |
@@ -273,15 +264,13 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
 | `find / -type f -size 10M`  | Buscar archivos de 10 megabytes      |
 | `find / -type f -size 10G`  | Buscar archivos de 10 gigabytes      |
   
-#### Buscar por nombre de usuario o grupo: 
-
+Buscar por nombre de usuario o grupo: 
 | #️⃣ Comando                    | 📝 Descripción                        |
 | -------------------------------- | ------------------------------------- |
 | `find / -type f -user [usuario]` | Buscar archivos por nombre de usuario |
 | `find / -type f -group [grupo]`  | Buscar archivos por nombre de grupo   |
   
-#### Buscar por permisos: 
-
+Buscar por permisos: 
 | #️⃣ Comando              | 📝 Descripción                                                            |
 | -------------------------- | ------------------------------------------------------------------------- |
 | `find / -type f -perm 777` | Archivos con plenos permisos para todos los usuarios                      |
@@ -291,49 +280,42 @@ El comando find en Linux es una herramienta poderosa y versátil para buscar 
 | `find / -writable`         | Archivos con permisos de escritura para el usuario actual                 |
 | `find / -executable`       | Archivos con permisos de ejecución para el usuario actual                 |
   
-#### Buscar por nombre parcial. * significa cualquier caracter. Atención al sentido de la barra \ : 
-
+Buscar por nombre parcial. * significa cualquier caracter. Atención al sentido de la barra \ : 
 | #️⃣ Comando        | 📝 Descripción                                                   |
 | -------------------- | ---------------------------------------------------------------- |
 | `find / -name "Pu*"` | El nombre del archivo o directorio buscado debe empezar por "Pu" |
   
-#### Condicionales: 
-
+Condicionales: 
 | #️⃣ Operador | 📝 Descripción                                              |
 | -------------- | ----------------------------------------------------------- |
 | `-and`         | Resultados de búsqueda deben cumplir ambas condiciones      |
 | `-or`          | Resultados de búsqueda deben cumplir al menos una condición |
 | `-not`         | Para negar la condición posterior                           |
   
-#### Permite ejecutar un comando en cada archivo que encuentre:  
+Permite ejecutar un comando en cada archivo que encuentre:  
 ```bash
 -exec
 ```
   
-#### Pipe para mostrar también archivos ocultos en la búsqueda:  
+Pipe para mostrar también archivos ocultos en la búsqueda:  
 ```bash
 | xargs ls -la
 ```
   
-#### Para filtrar el output y descartar el stderr, añadir al final:  
+Para filtrar el output y descartar el stderr, añadir al final:  
 ```bash
 2>/dev/null
 ```
 
-#### Buscar un término desde la raíz, filtrando resultados que NO vengan acompañados de "Permission denied":
+Buscar un término desde la raíz, filtrando resultados que NO vengan acompañados de "Permission denied":
 ```bash
 find / -name pepe 2>&1 | grep -v "Permission denied"
 ```
-
-----
-
---- 
-
-#### Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que cualquier usuario pueda ejecutarlos como root):
+Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que cualquier usuario pueda ejecutarlos como root):
 ```bash
 find / -perm -4000 2>/dev/null
 ```
-#### Buscar binarios vulnerables en GTFOBins:
+Buscar binarios vulnerables en GTFOBins:
 ```bash
 🌐 [https://gtfobins.github.io](https://gtfobins.github.io/)
 ```
