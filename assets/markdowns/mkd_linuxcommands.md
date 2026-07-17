@@ -1,8 +1,8 @@
 
 ### 🗃️ SISTEMA DE ARCHIVOS {#sistema-de-archivos}
   
-#### FHS:
-
+FHS:
+  
 El Filesystem Hierarchy Standard (FHS) es un estándar que describe las convenciones utilizadas para la estructura de directorios en sistemas similares a Unix, incluyendo Linux. Este estándar ha sido adoptado y popularizado por su uso en distribuciones de Linux, aunque también es utilizado por otros sistemas operativos basados en Unix. El FHS es mantenido por la Linux Foundation, y la última versión es la 3.0, lanzada el 3 de junio de 2015.  
   
 Desde su inicio como una iniciativa de Linux, el FHS ha sido adoptado por otros sistemas operativos derivados de Unix, aunque algunos de estos sistemas operativos han optado por desarrollar sus propias estructuras de directorios, que pueden variar significativamente. Por ejemplo, MacOS X utiliza nombres como /Applications, /Library y /Users, además de la jerarquía de directorios tradicional de Unix.  
