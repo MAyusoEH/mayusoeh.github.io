@@ -315,35 +315,28 @@ Pipe para mostrar también archivos ocultos en la búsqueda:
 | xargs ls -la
 ```
   
-#### Para filtrar el output y descartar el stderr, añadir al final:  
+Para filtrar el output y descartar el stderr, añadir al final:  
 ```bash
 2>/dev/null
 ```
 
-#### Buscar un término desde la raíz, filtrando resultados que NO vengan acompañados de "Permission denied":
+Buscar un término desde la raíz, filtrando resultados que NO vengan acompañados de "Permission denied":
 ```bash
 find / -name pepe 2>&1 | grep -v "Permission denied"
 ```
 
-
 ----
-
-
-
 
 --- 
 
-
-### Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que cualquier usuario pueda ejecutarlos como root):
-
-### find / -perm -4000 2>/dev/null
-
-### ​
-
-#### Buscar binarios vulnerables en GTFOBins:
-
-### 🌐 [https://gtfobins.github.io](https://gtfobins.github.io/)
-
+Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que cualquier usuario pueda ejecutarlos como root):
+```bash
+find / -perm -4000 2>/dev/null
+```
+Buscar binarios vulnerables en GTFOBins:
+```bash
+🌐 [https://gtfobins.github.io](https://gtfobins.github.io/)
+```
 
 ### 📝 LISTAR CONTENIDO  
   
