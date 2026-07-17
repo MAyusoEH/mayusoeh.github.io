@@ -33,7 +33,6 @@ man hier > [archivo.txt]
 | `~`           | Directorio home del usuario actual |
 | `/`           | Raíz del sistema (root)            |
 
-  
 📂 Archivos importantes del sistema (Kali Linux): 
 
 | 📂 Archivo             | 📝 Descripción                         |
@@ -71,7 +70,7 @@ man hier > [archivo.txt]
 /dev/shm  
 /dev/mqueue
 ```
-   
+
 ⚠️ Directorios con permisos 755 (Kali Linux):  
 
 ```
@@ -82,7 +81,7 @@ man hier > [archivo.txt]
 /var/lib/inetsim/smtp  
 /var/lib/inetsim/tftp/upload
 ```
- 
+
 Rutas de archivos sensibles de interés en Linux (👨USUARIO):  
 
 | 📂 Ruta                              | 📝 Descripción                                              |
@@ -104,7 +103,7 @@ Rutas de archivos sensibles de interés en Linux (👨USUARIO):
 | `/home/usuario/.subversion/auth/`    | Credenciales Subversion → usuarios y contraseñas cached     |
 | `/home/usuario/.mysql_history`       | Historial de comandos MySQL → queries con creds             |
 | `/home/usuario/.psql_history`        | Historial de comandos PostgreSQL → similar a MySQL          |
-   
+
 Rutas de archivos sensibles de interés en Linux (⚙️ARCHIVOS DEL SISTEMA):  
 
 | 📂 Archivo         | 📝 Descripción                                                          |
@@ -123,7 +122,7 @@ Rutas de archivos sensibles de interés en Linux (⚙️ARCHIVOS DEL SISTEMA):
 | `/etc/lsb-release` | Información de distribución → similar a os-release                      |
 | `/etc/issue`       | Mensaje de identificación del sistema → banners pre-login               |
 | `/etc/motd`        | Message Of The Day → info personalizada post-login                      |
-   
+
 Rutas de archivos sensibles de interés en Linux (⚙️CONFIGURACIÓN DE SERVICIOS):  
 
 | 📂 Archivo                    | 📝 Descripción                                                  |
@@ -142,7 +141,7 @@ Rutas de archivos sensibles de interés en Linux (⚙️CONFIGURACIÓN DE SERVIC
 | `/etc/ldap/ldap.conf`         | Configuración LDAP → binddn y bindpw para auth                  |
 | `/var/www/html/config.php`    | Configuración de webs PHP → claves DB, API keys                 |
 | `/var/www/html/.env`          | Variables de entorno web → claves API, DB, JWT                  |
-   
+
 Rutas de archivos sensibles de interés en Linux (💾ARCHIVOS DE LOGS):  
 
 | 📂 Archivo                           | 📝 Descripción                                             |
@@ -162,8 +161,7 @@ Rutas de archivos sensibles de interés en Linux (💾ARCHIVOS DE LOGS):
 | `/var/log/redis/redis.log`           | Logs Redis → conexiones y comandos sensibles               |
 | `/var/log/cron`                      | Logs de cron jobs → ejecuciones fallidas con detalles      |
 | `/var/log/audit/audit.log`           | Logs de auditoría → eventos de seguridad detallados        |
-   
-​  
+
 Rutas de archivos sensibles de interés en Linux (​🪪​CREDENCIALES Y API KEYS):  
 
 | 📂 Archivo                                                    | 📝 Descripción                                      |
@@ -180,7 +178,7 @@ Rutas de archivos sensibles de interés en Linux (​🪪​CREDENCIALES Y API K
 | `/home/usuario/.env`                                          | Env user-specific → creds locales                   |
 | `/home/usuario/.composer/auth.json`                           | Credenciales Composer → tokens GitHub/Packagist     |
 | `/home/usuario/.maven/settings.xml`                           | Config Maven → server creds para repos              |
-   
+
 Rutas de archivos sensibles de interés en Linux (🔑CLAVES Y TOKENS):  
 
 | 📂 Archivo                                       | 📝 Descripción                                   |
@@ -217,8 +215,8 @@ Rutas de archivos sensibles de interés en Linux (OTROS):
 | `/proc/meminfo`             | Info de memoria → uso y límites                           |
 | `/etc/security/limits.conf` | Límites de recursos → configs de usuarios                 |
 
-### 🔎 LOCATE  
-  
+### 🔎 LOCATE
+
 Locate:
 | #️⃣ Comando               | 📝 Descripción                                                  |
 | --------------------------- | --------------------------------------------------------------- |
@@ -241,14 +239,14 @@ Ejemplos en diferentes directorios:
 | `find . -name file` | Buscar archivo con nombre "file" desde el directorio actual             |
 | `find ~ -name file` | Buscar archivo con nombre "file" desde el directorio del usuario actual |
 | `find / -name file` | Buscar archivo con nombre "file" desde la raíz del sistema              |
-
+  
 Buscar por tipo de archivo: 
 | #️⃣ Comando           | 📝 Descripción            |
 | ----------------------- | ------------------------- |
 | `find / -type f`        | Buscar archivos           |
 | `find / -type d`        | Buscar directorios        |
 | `find / -type d -empty` | Buscar directorios vacíos |
-
+  
 Buscar por tiempo: 
 | #️⃣ Comando              | 📝 Descripción                             |
 | -------------------------- | ------------------------------------------ |
@@ -311,6 +309,7 @@ Buscar un término desde la raíz, filtrando resultados que NO vengan acompañad
 ```bash
 find / -name pepe 2>&1 | grep -v "Permission denied"
 ```
+
 Buscar archivos con el bit SUID desde la raíz (el bit SUID activo permite que cualquier usuario pueda ejecutarlos como root):
 ```bash
 find / -perm -4000 2>/dev/null
