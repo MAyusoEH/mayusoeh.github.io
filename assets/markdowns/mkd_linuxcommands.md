@@ -1,4 +1,4 @@
-<img width="1280" height="720" alt="3QcDo" src="https://github.com/user-attachments/assets/bed194d0-f34e-4bf4-9a30-a8c8d3105810" />
+
 ### 🗃️ SISTEMA DE ARCHIVOS {#sistema-de-archivos}
   
 FHS:
