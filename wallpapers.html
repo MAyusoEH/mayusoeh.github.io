@@ -23,8 +23,62 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 

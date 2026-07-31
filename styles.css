@@ -4,8 +4,12 @@
     --text: #91bfff;
     --card-bg: #0f1626;
 }
-    
-* { margin: 0; padding: 0; box-sizing: border-box; }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Roboto Mono', monospace;
@@ -17,12 +21,14 @@ body {
 
 #matrix {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
     opacity: 0.12;
 }
-    
+
 nav {
     position: fixed;
     top: 0;
@@ -37,10 +43,17 @@ nav {
     flex-wrap: wrap;
 }
 
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    /* Espacio entre enlaces y botón */
+    flex-wrap: nowrap;
+}
+
 .nav-links a {
     color: var(--accent);
     text-decoration: none;
-    margin-left: 25px;
     font-size: 1.05rem;
     font-weight: 500;
     transition: all 0.25s ease;
@@ -50,6 +63,55 @@ nav {
     color: #ffffff;
     font-weight: 500;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+}
+
+.play-button {
+    background: none;
+    border: none;
+    font-size: 1.45rem;
+    cursor: pointer;
+    padding: 5px 8px;
+    color: #ff3333;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.play-button:hover {
+    color: white;
+    transform: scale(1.15);
+}
+
+.play-button.playing {
+    color: #46a3ff;
+}
+
+.play-button {
+    background: none;
+    border: none;
+    font-size: 1.35rem;
+    cursor: pointer;
+    padding: 6px 10px;
+    color: #ff3333;
+    /* Rojo */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-button:hover {
+    color: white;
+    /* Se pone blanco al hacer hover */
+    transform: scale(1.15);
+}
+
+/* Cuando está reproduciendo (pausa) */
+.play-button.playing {
+    color: #46a3ff;
+    /* Verde neón cuando suena (opcional) */
 }
 
 .logo-text {
@@ -81,7 +143,7 @@ nav {
 .hero img {
     width: 220px;
     max-width: 65%;
-    filter: drop-shadow(0 0 15px rgba(255, 0, 51, 0.2));
+    filter: drop-shadow(0 0 15px #ff003333);
     margin-bottom: 20px;
 }
 
@@ -89,40 +151,62 @@ nav {
     font-family: 'Orbitron', sans-serif;
     font-size: 2.8rem;
     color: white;
-    margin-bottom: 2px;  /* cambio */
+    margin-bottom: 2px;
+    /* cambio */
 }
+
 .hero p {
     font-size: 1.2rem;
     color: var(--text);
     max-width: 700px;
-    margin-top: 2px;  /* cambio */
+    margin-top: 2px;
+    /* cambio */
 }
 
 section {
-	padding: 90px 9%;
-	margin-bottom: 5px;
+    padding: 90px 9%;
+    margin-bottom: 5px;
     font-size: 0.80rem;
 }
 
 .markdowns {
-	padding: 30px 15%;
+    width: 85%;
+    padding: 30px 15%;
     text-align: left;
     line-height: 1.7;
     color: #91bfff;
-    font-size: 14px;
+    font-size: 12px;
+    max-width: 1200px;
+    /* Evita que se haga demasiado ancho en pantallas grandes */
+    margin: 0 auto;
+    /* Esto centra el bloque */
+    padding: 30px 200px;
+    /* Reduje el padding lateral */
 }
 
-.markdowns h1, .markdowns h2, .markdowns h3 {
+.markdowns h1,
+.markdowns h2,
+.markdowns h3 {
     color: var(--accent);
     margin-top: 1.5em;
     margin-bottom: 0.8em;
 }
 
 .markdowns p {
-    margin-bottom: 0em; /* 0.90em */
+    margin-bottom: 1.2em;
+    /* Espacio entre párrafos */
+    line-height: 1.7;
 }
 
-.mmarkdowns ul, .markdowns ol {
+.markdowns h1,
+.markdowns h2,
+.markdowns h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+}
+
+.mmarkdowns ul,
+.markdowns ol {
     margin-bottom: 1.0em;
     padding-left: 1.3em;
 }
@@ -160,6 +244,50 @@ section {
     transform: translateX(4px);
 }
 
+.markdowns pre {
+    background-color: #000103;
+    border: 1px solid #475e8d;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.markdowns pre code {
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    background-color: #1e1e1e;
+}
+
+/* Cabecera (primera fila - leyenda) */
+th {
+    background-color: #0d1529 !important;
+    color: #ffffff;
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 2px solid #475e8d;
+    border: 1px solid #475e8d;
+    /* Blanco puro */
+}
+
+/* Celdas normales */
+td {
+    background-color: #000103 !important;
+    padding: 10px 10px;
+    border-bottom: 1px solid #000000;
+    color: var(--text);
+    border: 1px solid #475e8d;
+    /* Blanco puro */
+}
+
 p {
     font-size: 0.90rem;
 }
@@ -173,15 +301,17 @@ p {
 h1 {
     font-family: 'Orbitron', sans-serif;
     color: var(--accent);
-	text-align: center !important;
-    margin-bottom: 0px;  /* cambio */
+    text-align: center !important;
+    margin-bottom: 0px;
+    /* cambio */
 }
 
 h2 {
     font-family: 'Orbitron', sans-serif;
     color: var(--accent);
-	text-align: center !important;
-    margin-bottom: 0px;  /* cambio */
+    text-align: center !important;
+    margin-bottom: 0px;
+    /* cambio */
     font-size: 1.5rem;
 }
 
@@ -200,9 +330,9 @@ h3 {
 }
 
 .photo-placeholder {
-    width: 70%;
-    height: 70%;
-	object-fit: cover;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
     background: #1a2333;
     border: 2px solid var(--accent);
     border-radius: 10px;
@@ -250,7 +380,8 @@ li {
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);   /* ← Esto fuerza 3 columnas */
+    grid-template-columns: repeat(3, 1fr);
+    /* ← Esto fuerza 3 columnas */
     gap: 22px;
     max-width: 1000px;
     margin: 0 auto;
@@ -269,12 +400,14 @@ li {
     min-height: 120px;
     max-width: 320px;
     display: flex;
-    flex-direction: column;        /* ← Cambia a column */
+    flex-direction: column;
+    /* ← Cambia a column */
     align-items: center;
     justify-content: flex-start;
     color: var(--text);
     text-decoration: none;
-    gap: 3px;                     /* espacio entre icono y texto */
+    gap: 3px;
+    /* espacio entre icono y texto */
 }
 
 .card:hover {
@@ -299,7 +432,8 @@ li {
     justify-content: center;
     color: var(--text);
     text-decoration: none;
-    margin: 0 auto; /* --- */
+    margin: 0 auto;
+    /* --- */
 }
 
 .card-button:hover {
@@ -313,7 +447,7 @@ li {
     border: 1px solid rgba(255, 0, 51, 0.35);
     border-radius: 10px;
     padding: 20px;
-    transition: all 0.3s; 
+    transition: all 0.3s;
 }
 
 .card-ctf:hover {
@@ -351,9 +485,11 @@ li {
 .modal {
     display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
     z-index: 3000;
     align-items: center;
     justify-content: center;
@@ -479,17 +615,17 @@ footer {
     background: #05070f;
     padding: 60px 20px 20px;
     text-align: center;
-    border-top:1px solid var(--accent);
+    border-top: 1px solid var(--accent);
     font-size: 0.90rem;
 }
 
 .footer-content {
-    max-width:950px;
+    max-width: 950px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap:10px;
-    margin:0 auto;
+    gap: 10px;
+    margin: 0 auto;
     margin-bottom: 35px;
     text-align: left;
 }
@@ -502,15 +638,18 @@ footer {
     color: var(--text);
     text-decoration: none;
     font-weight: 500;
-    transition: all 0.3s ease;        /* ← Muy importante aquí */
-    display: inline-block;            /* ← Necesario para que funcione bien el translate */
+    transition: all 0.3s ease;
+    /* ← Muy importante aquí */
+    display: inline-block;
+    /* ← Necesario para que funcione bien el translate */
 }
 
 .footer-link:hover {
     color: #ffffff;
     font-weight: 500;
     text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-    transform: translateX(6px);       /* un poco más visible */
+    transform: translateX(6px);
+    /* un poco más visible */
 }
 
 .footer-small {

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KALI WORDLISTS - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
 
     <nav>
@@ -23,403 +26,472 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
     <header>
-      <br>
+        <br>
     </header>
 
     <section>
-        <h2 style="font-family: 'Orbitron';">WORDLISTS DE KALI LINUX</h2>
+        <div style="text-align: center; margin-bottom: 0px;">
+            <i class="ti ti-list" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">WORDLISTS DE KALI LINUX</h2>
+        </div>
         <br>
-        <p style="text-align: center;">Rutas absolutas de las principales wordlists de Kali Linux organizadas por categoría.</p>
+        <p style="text-align: center;">Rutas absolutas de las principales wordlists de Kali Linux organizadas por
+            categoría.</p>
         <br><br>
 
         <div class="">
 
-<!-- TOOL START -->
-            
-<div class="wordlist-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 18px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+            <!-- TOOL START -->
 
-<br>
-    
-    <select id="wordlistCategory" onchange="generateWordlistPaths()" 
-            style="width: 100%; padding: 8px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-        <option value="">Selecciona una categoría</option>
-        <option value="users">🧑 Usuarios</option>
-        <option value="user_passwords">🔑 Contraseñas de Usuario</option>
-        <option value="wifi_router_passwords">🛜 WiFi / Router</option>
-        <option value="services_passwords">💾 Servicios / Hardware</option>
-        <option value="user_pass_comb">🧑🔑 Usuario + Contraseña</option>
-        <option value="domains_subdomains">🌐 Dominios y Subdominios</option>
-        <option value="host_names">🖥️ Nombres de Host</option>
-        <option value="cookies_sessions">🍪 Cookies y Sesiones</option>
-        <option value="extensions">📄 Extensiones</option>
-        <option value="dirs_files">📁 Directorios y Archivos</option>
-        <option value="injection_payloads">💉 Payloads de Inyección</option>
-        <option value="chars_nums">*️⃣ Caracteres y Números</option>
-        <option value="vulns">⚠️ Vulnerabilidades</option>
-    </select>
+            <div class="wordlist-container"
+                style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 18px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
 
-    <div id="wordlistOutput" style="min-height: 150px;">
-        <p class="no-selection" style="color: #888; text-align: center; font-size: 0.80rem; margin-top: 40px;">Selecciona una categoría para ver las wordlists.</p>
-        <table id="wordlistTable" style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
-            <thead>
-                <tr style="background: #1f2a3f;">
-                    <th style="padding: 8px; font-size: 0.80rem; text-align: left; border-bottom: 1px solid #444;">📂 Ruta</th>
-                    <th style="padding: 8px; font-size: 0.80rem; text-align: left; border-bottom: 1px solid #444;">📝 Descripción</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</div>
+                <br>
 
-<script>
-    const wordlistDatabase = {
-        users: [
-          { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Lista de nombres de usuarios comunes." },
-          { path: "/usr/share/wordlists/metasploit/namelist.txt", description: "Nombres de usuarios para pruebas de fuerza bruta." },
-          { path: "/usr/share/wordlists/dirb/others/best110.txt", description: "110 nombres de usuarios más comunes." },
-          { path: "/usr/share/wordlists/dirb/others/best1050.txt", description: "1050 nombres de usuarios ampliados." },
-          { path: "/usr/share/wordlists/legion/ssh-user.txt", description: "Usuarios para pruebas de SSH." },
-          { path: "/usr/share/wordlists/metasploit/db2_default_user.txt", description: "Usuarios por defecto para DB2." },
-          { path: "/usr/share/wordlists/metasploit/default_users_for_services_unhash.txt", description: "Usuarios por defecto para servicios." },
-          { path: "/usr/share/wordlists/metasploit/ipmi_users.txt", description: "Usuarios para IPMI." },
-          { path: "/usr/share/wordlists/metasploit/http_default_users.txt", description: "Usuarios por defecto para HTTP." },
-          { path: "/usr/share/wordlists/metasploit/idrac_default_user.txt", description: "Usuarios por defecto para iDRAC." },
-          { path: "/usr/share/wordlists/metasploit/mirai_user.txt", description: "Usuarios asociados al botnet Mirai." },
-          { path: "/usr/share/wordlists/metasploit/multi_vendor_ccdv_users.txt", description: "Usuarios para múltiples dispositivos CCDV." },
-          { path: "/usr/share/wordlists/metasploit/tomcat_mgr_default_users.txt", description: "Usuarios por defecto para Tomcat Manager." },
-          { path: "/usr/share/wordlists/metasploit/unix_users.txt", description: "Usuarios comunes en sistemas Unix." },
-          { path: "/usr/share/wordlists/wfuzz/others/names.txt", description: "Nombres de usuarios para fuzzing." },
-          { path: "/usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt", description: "Lista corta de nombres de usuarios populares (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt", description: "10 millones de nombres de usuarios (SecLists)." }
-        ],
-        user_passwords: [
-          { path: "/usr/share/wordlists/metasploit/password.lst", description: "Lista de contraseñas comunes." },
-          { path: "/usr/share/wordlists/legion/root-userpass.txt", description: "Contraseñas para usuarios root." },
-          { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Nombres usados como contraseñas." },
-          { path: "/usr/share/wordlists/amass/all.txt", description: "Lista general de contraseñas." },
-          { path: "/usr/share/wordlists/rockyou.txt", description: "Lista masiva de contraseñas filtradas." },
-          { path: "/usr/share/wordlists/fern-wifi/common.txt", description: "Contraseñas comunes para WiFi." },
-          { path: "/usr/share/wordlists/john.lst", description: "Lista de contraseñas para John the Ripper." },
-          { path: "/usr/share/wordlists/metasploit/burnett_top_500.txt", description: "Top 500 contraseñas (Burnett)." },
-          { path: "/usr/share/wordlists/metasploit/burnett_top_1024.txt", description: "Top 1024 contraseñas (Burnett)." },
-          { path: "/usr/share/wordlists/metasploit/dangerzone-a.txt", description: "Contraseñas de alto riesgo." },
-          { path: "/usr/share/wordlists/metasploit/dangerzone-b.txt", description: "Más contraseñas de alto riesgo." },
-          { path: "/usr/share/wordlists/metasploit/db2_default_pass.txt", description: "Contraseñas por defecto para DB2." },
-          { path: "/usr/share/wordlists/metasploit/keyboard_patterns.txt", description: "Patrones de teclado como contraseñas." },
-          { path: "/usr/share/wordlists/metasploit/mirai_pass.txt", description: "Contraseñas asociadas al botnet Mirai." },
-          { path: "/usr/share/wordlists/metasploit/unix_passwords.txt", description: "Contraseñas comunes en Unix." },
-          { path: "/usr/share/wordlists/wfuzz/others/common_pass.txt", description: "Contraseñas comunes para fuzzing." },
-          { path: "/usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt", description: "Rockyou filtrado (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Passwords/xato-net-10-million-passwords-1000000.txt", description: "1M contraseñas filtradas (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Passwords/darkweb2017-top100.txt", description: "Top 100 contraseñas darkweb (SecLists)." }
-        ],
-        wifi_router_passwords: [
-          { path: "/usr/share/wordlists/wifite.txt", description: "Contraseñas comunes para WiFi (Wifite)." },
-          { path: "/usr/share/wordlists/fern-wifi/common.txt", description: "Contraseñas para WiFi (Fern)." },
-          { path: "/usr/share/wordlists/legion/routers-userpass.txt", description: "Contraseñas para routers." },
-          { path: "/usr/share/wordlists/metasploit/dlink_telnet_backdoor.txt", description: "Contraseñas por defecto para D-Link Telnet." },
-          { path: "/usr/share/wordlists/metasploit/mirai_pass.txt", description: "Contraseñas asociadas al botnet Mirai." }
-        ],
-        services_passwords: [
-          { path: "/usr/share/wordlists/metasploit/dlink_telnet_backdoor.txt", description: "Contraseñas por defecto para D-Link Telnet." },
-          { path: "/usr/share/wordlists/metasploit/default_pass_for_services_unhash.txt", description: "Contraseñas por defecto para servicios." },
-          { path: "/usr/share/wordlists/metasploit/flask_secret_keys.txt", description: "Claves secretas por defecto para Flask." },
-          { path: "/usr/share/wordlists/legion/snmmp-default.txt", description: "Contraseñas por defecto para SNMP." },
-          { path: "/usr/share/wordlists/legion/ssh-betterdefaultpasslist.txt", description: "Contraseñas mejoradas para SSH." },
-          { path: "/usr/share/wordlists/legion/ssh-password.txt", description: "Contraseñas para SSH." },
-          { path: "/usr/share/wordlists/legion/telnet-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Telnet." },
-          { path: "/usr/share/wordlists/legion/tomcat-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Tomcat." },
-          { path: "/usr/share/wordlists/legion/vnc-betterdefaultpasslist.txt", description: "Contraseñas por defecto para VNC." },
-          { path: "/usr/share/wordlists/legion/windows-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Windows." },
-          { path: "/usr/share/wordlists/legion/db2-betterdefaultpasslist.txt", description: "Contraseñas por defecto para DB2." },
-          { path: "/usr/share/wordlists/legion/ftp-betterdefaultpasslist.txt", description: "Contraseñas por defecto para FTP." },
-          { path: "/usr/share/wordlists/legion/mssql-betterdefaultpasslist.txt", description: "Contraseñas por defecto para MSSQL." },
-          { path: "/usr/share/wordlists/legion/mysql-betterdefaultpasslist.txt", description: "Contraseñas por defecto para MySQL." },
-          { path: "/usr/share/wordlists/legion/oracle-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Oracle." },
-          { path: "/usr/share/wordlists/legion/postgres-betterdefaultpasslist.txt", description: "Contraseñas por defecto para PostgreSQL." },
-          { path: "/usr/share/wordlists/metasploit/http_owa_common_id.txt", description: "IDs comunes para OWA HTTP." },
-          { path: "/usr/share/wordlists/metasploit/idrac_default_pass.txt", description: "Contraseñas por defecto para iDRAC." },
-          { path: "/usr/share/wordlists/metasploit/ipmi_passwords.txt", description: "Contraseñas para IPMI." },
-          { path: "/usr/share/wordlists/metasploit/joomla.txt", description: "Contraseñas para Joomla." },
-          { path: "/usr/share/wordlists/metasploit/mirai_pass.txt", description: "Contraseñas asociadas al botnet Mirai." },
-          { path: "/usr/share/wordlists/metasploit/multi_vendor_ccdv_pass.txt", description: "Contraseñas para dispositivos CCDV." },
-          { path: "/usr/share/wordlists/metasploit/oracle_default_pass_swords.csv", description: "Contraseñas por defecto para Oracle." },
-          { path: "/usr/share/wordlists/metasploit/postgres_default_pass.txt", description: "Contraseñas por defecto para PostgreSQL." },
-          { path: "/usr/share/wordlists/metasploit/sid.txt", description: "Contraseñas para SID." },
-          { path: "/usr/share/wordlists/metasploit/snmp_default_pass.txt", description: "Contraseñas por defecto para SNMP." },
-          { path: "/usr/share/wordlists/metasploit/superset_secret_keys.txt", description: "Claves secretas para Superset." },
-          { path: "/usr/share/wordlists/metasploit/telnet_telnet_asp.net_ajax_versions.txt", description: "Contraseñas para Telnet ASP.NET AJAX." },
-          { path: "/usr/share/wordlists/metasploit/telnet_cdata_fth_b.txt", description: "Contraseñas para Telnet CDATA." },
-          { path: "/usr/share/wordlists/metasploit/ftp.txt", description: "Contraseñas para FTP." },
-          { path: "/usr/share/wordlists/metasploit/tomcat_mgr_default_pass.txt", description: "Contraseñas por defecto para Tomcat Manager." },
-          { path: "/usr/share/wordlists/metasploit/unix_passwords.txt", description: "Contraseñas comunes en Unix." },
-          { path: "/usr/share/wordlists/metasploit/vnc_passwords.txt", description: "Contraseñas para VNC." },
-          { path: "/usr/share/wordlists/fasttrack.txt", description: "Lista de contraseñas para FastTrack." },
-          { path: "/usr/share/wordlists/seclists/Passwords/Default-Credentials/default-passwords.txt", description: "Contraseñas por defecto para servicios (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Miscellaneous/wordpress-default.txt", description: "Contraseñas por defecto para WordPress (SecLists)." }
-        ],
-        user_pass_comb: [
-          { path: "/usr/share/wordlists/metasploit/root_userpass.txt", description: "Combinaciones usuario/contraseña para root." },
-          { path: "/usr/share/wordlists/metasploit/mirai_user_pass.txt", description: "Combinaciones usuario/contraseña para Mirai." },
-          { path: "/usr/share/wordlists/metasploit/routers_userpass.txt", description: "Combinaciones usuario/contraseña para routers." },
-          { path: "/usr/share/wordlists/metasploit/postgres_default_userpass.txt", description: "Combinaciones usuario/contraseña para PostgreSQL." },
-          { path: "/usr/share/wordlists/metasploit/piata_ssh_userpass.txt", description: "Combinaciones usuario/contraseña para SSH Piata." },
-          { path: "/usr/share/wordlists/metasploit/oracle_default_userpass.txt", description: "Combinaciones usuario/contraseña para Oracle." },
-          { path: "/usr/share/wordlists/metasploit/http_default_userpass.txt", description: "Combinaciones usuario/contraseña para HTTP." },
-          { path: "/usr/share/wordlists/metasploit/default_userpass_for_services_unhash.txt", description: "Combinaciones usuario/contraseña para servicios." },
-          { path: "/usr/share/wordlists/metasploit/db2_default_userpass.txt", description: "Combinaciones usuario/contraseña para DB2." },
-          { path: "/usr/share/wordlists/metasploit/ms400net_default_userpass.txt", description: "Combinaciones usuario/contraseña para MS400." },
-          { path: "/usr/share/wordlists/metasploit/scada_default_user_pass.txt", description: "Combinaciones usuario/contraseña para SCADA." },
-          { path: "/usr/share/wordlists/metasploit/telnet_backdoor_userpass.txt", description: "Combinaciones usuario/contraseña para Telnet backdoors." },
-          { path: "/usr/share/wordlists/metasploit/tomcat_mgr_default_userpass.txt", description: "Combinaciones usuario/contraseña para Tomcat Manager." }
-        ],
-        domains_subdomains: [
-          { path: "/usr/share/wordlists/amass/all.txt", description: "Lista de dominios y subdominios para enumeración." },
-          { path: "/usr/share/wordlists/nmap.lst", description: "Lista de nombres de hosts para Nmap." },
-          { path: "/usr/share/wordlists/dnsmap.txt", description: "Lista para enumeración DNS." },
-          { path: "/usr/share/wordlists/amass/bitquark_subdomains_top100k.txt", description: "Top 100k subdominios (Bitquark)." },
-          { path: "/usr/share/wordlists/amass/p50kprefixes.txt", description: "Prefijos para subdominios." },
-          { path: "/usr/share/wordlists/amass/fierce-hostlist.txt", description: "Lista de hosts para Fierce." },
-          { path: "/usr/share/wordlists/amass/jhaddix_all.txt", description: "Lista completa de subdominios (JHaddix)." },
-          { path: "/usr/share/wordlists/dirb/spanish.txt", description: "Subdominios en español." },
-          { path: "/usr/share/wordlists/dirb/common.txt", description: "Lista común de subdominios." },
-          { path: "/usr/share/wordlists/amass/sorted_knock_dnsrecon_econ_fierce_recon-ng.txt", description: "Lista combinada para enumeración DNS." },
-          { path: "/usr/share/wordlists/amass/subdomains.lst", description: "Lista de subdominios genéricos." },
-          { path: "/usr/share/wordlists/amass/top1mil-5000.txt", description: "Top 5k subdominios." },
-          { path: "/usr/share/wordlists/amass/top1mil-20000.txt", description: "Top 20k subdominios." },
-          { path: "/usr/share/wordlists/amass/top1mil-100000.txt", description: "Top 100k subdominios." },
-          { path: "/usr/share/wordlists/legion/gvit_subdomain_wordlist.txt", description: "Lista de subdominios para Legion." },
-          { path: "/usr/share/wordlists/metasploit/common_roots.txt", description: "Raíces comunes para dominios." },
-          { path: "/usr/share/wordlists/metasploit/lync_subdomains.txt", description: "Subdominios para Lync." },
-          { path: "/usr/share/wordlists/metasploit/malicious_urls.txt", description: "URLs maliciosas para pruebas." },
-          { path: "/usr/share/wordlists/wfuzz/general/admin-panels.txt", description: "Paneles de administración para fuzzing." },
-          { path: "/usr/share/wordlists/wfuzz/general/mutations_common_n.txt", description: "Mutaciones comunes para subdominios." },
-          { path: "/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt", description: "Top 5M subdominios (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt", description: "Top 110k subdominios (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Discovery/Web-Content/common.txt", description: "Contenido web común (SecLists)." },
-          { path: "/usr/share/seclists/Discovery/Web-Content/raft-small-directories.txt", description: "Directorios pequeños para enumeración (SecLists)." }
-        ],
-        host_names: [
-          { path: "/usr/share/wordlists/nmap.lst", description: "Lista de nombres de hosts para Nmap." },
-          { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Nombres de hosts para enumeración." },
-          { path: "/usr/share/wordlists/amass/jhaddix_all.txt", description: "Lista completa de nombres de hosts (JHaddix)." },
-          { path: "/usr/share/wordlists/dirb/spanish.txt", description: "Nombres de hosts en español." },
-          { path: "/usr/share/wordlists/dirbuster/apache-user-enum-1.0.txt", description: "Usuarios para enumeración Apache." },
-          { path: "/usr/share/wordlists/dirbuster/apache-user-enum-2.0.txt", description: "Usuarios ampliados para Apache." },
-          { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt", description: "Lista pequeña de nombres de hosts." },
-          { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt", description: "Lista mediana de nombres de hosts." },
-          { path: "/usr/share/wordlists/metasploit/can_flood_frames.txt", description: "Nombres para CAN flood testing." },
-          { path: "/usr/share/wordlists/wfuzz/general/admin-panels.txt", description: "Paneles de administración para hosts." },
-          { path: "/usr/share/wordlists/wfuzz/general/medium.txt", description: "Lista mediana de nombres de hosts." },
-          { path: "/usr/share/wordlists/wfuzz/general/megabeast.txt", description: "Lista extensa de nombres de hosts." },
-          { path: "/usr/share/wordlists/wfuzz/general/mutations_common_n.txt", description: "Mutaciones comunes para nombres de hosts." },
-          { path: "/usr/share/wordlists/dnsmap.txt", description: "Nombres de hosts para enumeración DNS." },
-          { path: "/usr/share/wordlists/seclists/Discovery/Web-Content/common.txt", description: "Nombres de hosts comunes (SecLists)." }
-        ],
-        cookies_sessions: [
-          { path: "N/A", description: "No hay wordlists específicas para cookies/sesiones en esta categoría." }
-        ],
-        extensions: [
-          { path: "/usr/share/wordlists/dirb/extensions_common.n.txt", description: "Extensiones comunes de archivos." },
-          { path: "/usr/share/wordlists/dirb/mutations_common.n.txt", description: "Mutaciones de extensiones comunes." },
-          { path: "/usr/share/wordlists/wfuzz/general/extensions_common_n.txt", description: "Extensiones para fuzzing." },
-          { path: "/usr/share/wordlists/wfuzz/webservices/ws-files.txt", description: "Extensiones para servicios web." }
-        ],
-        dirs_files: [
-          { path: "/usr/share/wordlists/amass/jhaddix_all.txt", description: "Lista completa de directorios/archivos (JHaddix)." },
-          { path: "/usr/share/wordlists/dirb/big.txt", description: "Lista extensa de directorios/archivos." },
-          { path: "/usr/share/wordlists/wfuzz/general/big.txt", description: "Lista extensa de directorios/archivos (WFuzz)." },
-          { path: "/usr/share/wordlists/dirb/common.txt", description: "Directorios/archivos comunes." },
-          { path: "/usr/share/wordlists/wfuzz/general/common.txt", description: "Directorios/archivos comunes (WFuzz)." },
-          { path: "/usr/share/wordlists/dirb/spanish.txt", description: "Directorios/archivos en español." },
-          { path: "/usr/share/wordlists/wfuzz/general/spanish.txt", description: "Directorios/archivos en español (WFuzz)." },
-          { path: "/usr/share/wordlists/dirb/catala.txt", description: "Directorios/archivos en catalán." },
-          { path: "/usr/share/wordlists/wfuzz/general/catala.txt", description: "Directorios/archivos en catalán (WFuzz)." },
-          { path: "/usr/share/wordlists/dirb/euskera.txt", description: "Directorios/archivos en euskera." },
-          { path: "/usr/share/wordlists/wfuzz/general/euskera.txt", description: "Directorios/archivos en euskera (WFuzz)." },
-          { path: "/usr/share/wordlists/dirb/small.txt", description: "Lista pequeña de directorios/archivos." },
-          { path: "/usr/share/wordlists/dirb/indexes.txt", description: "Archivos índice comunes." },
-          { path: "/usr/share/wordlists/dirbuster/apache-user-enum-1.0.txt", description: "Usuarios para enumeración Apache." },
-          { path: "/usr/share/wordlists/dirbuster/apache-user-enum-2.0.txt", description: "Usuarios ampliados para Apache." },
-          { path: "/usr/share/wordlists/dirbuster/directories.jbrofuzz", description: "Directorios para JBroFuzz." },
-          { path: "/usr/share/wordlists/dirbuster/directory-list-1.0.txt", description: "Lista de directorios genérica." },
-          { path: "/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt", description: "Lista pequeña de directorios." },
-          { path: "/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt", description: "Lista mediana de directorios." },
-          { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt", description: "Lista pequeña de directorios en minúsculas." },
-          { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt", description: "Lista mediana de directorios en minúsculas." },
-          { path: "/usr/share/wordlists/metasploit/common_roots.txt", description: "Raíces comunes para directorios." },
-          { path: "/usr/share/wordlists/metasploit/sensitive_files.txt", description: "Archivos sensibles genéricos." },
-          { path: "/usr/share/wordlists/metasploit/sensitive_files_win.txt", description: "Archivos sensibles para Windows." },
-          { path: "/usr/share/wordlists/wfuzz/general/admin-panels.txt", description: "Paneles de administración para fuzzing." },
-          { path: "/usr/share/wordlists/wfuzz/general/medium.txt", description: "Lista mediana de directorios/archivos." },
-          { path: "/usr/share/wordlists/wfuzz/general/megabeast.txt", description: "Lista extensa de directorios/archivos." },
-          { path: "/usr/share/wordlists/wfuzz/general/mutations_common_n.txt", description: "Mutaciones comunes para directorios." },
-          { path: "/usr/share/wordlists/wfuzz/general/test.txt", description: "Lista de prueba para directorios." },
-          { path: "/usr/share/wordlists/wfuzz/webservices/ws-dirs.txt", description: "Directorios para servicios web." }
-        ],
-        injection_payloads: [
-          { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Nombres para payloads de inyección." },
-          { path: "/usr/share/wordlists/dirb/others/best110.txt", description: "Top 110 payloads de inyección." },
-          { path: "/usr/share/wordlists/dirb/others/best1050.txt", description: "Top 1050 payloads de inyección." },
-          { path: "/usr/share/wordlists/wfuzz/general/http_methods.txt", description: "Métodos HTTP para inyección." },
-          { path: "/usr/share/wordlists/sqlmap.txt", description: "Payloads para SQLMap." },
-          { path: "/usr/share/wordlists/wfuzz/injections/SQL.txt", description: "Payloads de inyección SQL." },
-          { path: "/usr/share/wordlists/wfuzz/injections/All_attack.txt", description: "Payloads para múltiples tipos de inyección." },
-          { path: "/usr/share/wordlists/wfuzz/injections/TraversaL.txt", description: "Payloads para path traversal." },
-          { path: "/usr/share/wordlists/wfuzz/injections/XML.txt", description: "Payloads para inyección XML." },
-          { path: "/usr/share/wordlists/wfuzz/injections/XSS.txt", description: "Payloads para XSS." },
-          { path: "/usr/share/wordlists/seclists/Fuzzing/general/xss.txt", description: "Payloads para XSS (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Fuzzing/SQLi/generic-sql-injections.txt", description: "Payloads genéricos para SQLi (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Fuzzing/LFI/LFI-Jhaddix.txt", description: "Payloads para LFI (SecLists)." },
-          { path: "/usr/share/wordlists/seclists/Miscellaneous/web-shells.txt", description: "Webshells para inyección (SecLists)." }
-        ],
-        chars_nums: [
-          { path: "/usr/share/wordlists/dirb/stress/alphanum_case.txt", description: "Caracteres alfanuméricos sensibles a mayúsculas." },
-          { path: "/usr/share/wordlists/dirb/stress/alphanum_case_extra.txt", description: "Alfanuméricos ampliados sensibles a mayúsculas." },
-          { path: "/usr/share/wordlists/dirb/stress/char.txt", description: "Caracteres para pruebas de stress." },
-          { path: "/usr/share/wordlists/dirb/stress/doble_uri_hex.txt", description: "Caracteres hex para URI doble." },
-          { path: "/usr/share/wordlists/dirb/stress/test_ext.txt", description: "Extensiones para pruebas de stress." },
-          { path: "/usr/share/wordlists/dirb/stress/unicode.txt", description: "Caracteres Unicode para pruebas." },
-          { path: "/usr/share/wordlists/dirb/stress/uri_hex.txt", description: "Caracteres hex para URI." },
-          { path: "/usr/share/wordlists/metasploit/keyboard_patterns.txt", description: "Patrones de teclado para pruebas." },
-          { path: "/usr/share/wordlists/wfuzz/injections/bad_chars.txt", description: "Caracteres inválidos para inyección." }
-        ],
-        vulns: [
-          { path: "/usr/share/wordlists/dirb/vulns/apache.txt", description: "Vulnerabilidades conocidas para Apache." },
-          { path: "/usr/share/wordlists/dirb/vulns/axis.txt", description: "Vulnerabilidades conocidas para Axis." },
-          { path: "/usr/share/wordlists/dirb/vulns/cgis.txt", description: "Vulnerabilidades en scripts CGI." },
-          { path: "/usr/share/wordlists/dirb/vulns/coldfusion.txt", description: "Vulnerabilidades para ColdFusion." },
-          { path: "/usr/share/wordlists/dirb/vulns/domino.txt", description: "Vulnerabilidades para Domino." },
-          { path: "/usr/share/wordlists/dirb/vulns/fatwire.txt", description: "Vulnerabilidades para FatWire." },
-          { path: "/usr/share/wordlists/dirb/vulns/fatwire_pagename_s.txt", description: "Nombres de página para FatWire." },
-          { path: "/usr/share/wordlists/dirb/vulns/frontpage.txt", description: "Vulnerabilidades para FrontPage." },
-          { path: "/usr/share/wordlists/dirb/vulns/hpsmh.txt", description: "Vulnerabilidades para HP SMH." },
-          { path: "/usr/share/wordlists/dirb/vulns/hyperion.txt", description: "Vulnerabilidades para Hyperion." },
-          { path: "/usr/share/wordlists/dirb/vulns/iis.txt", description: "Vulnerabilidades para IIS." },
-          { path: "/usr/share/wordlists/dirb/vulns/iplanet.txt", description: "Vulnerabilidades para iPlanet." },
-          { path: "/usr/share/wordlists/dirb/vulns/jboss.txt", description: "Vulnerabilidades para JBoss." },
-          { path: "/usr/share/wordlists/dirb/vulns/jersey.txt", description: "Vulnerabilidades para Jersey." },
-          { path: "/usr/share/wordlists/dirb/vulns/jrun.txt", description: "Vulnerabilidades para JRun." },
-          { path: "/usr/share/wordlists/dirb/vulns/netware.txt", description: "Vulnerabilidades para NetWare." },
-          { path: "/usr/share/wordlists/dirb/vulns/oracle.txt", description: "Vulnerabilidades para Oracle." },
-          { path: "/usr/share/wordlists/dirb/vulns/ror.txt", description: "Vulnerabilidades para Ruby on Rails." },
-          { path: "/usr/share/wordlists/dirb/vulns/sap.txt", description: "Vulnerabilidades para SAP." },
-          { path: "/usr/share/wordlists/dirb/vulns/sharepoint.txt", description: "Vulnerabilidades para SharePoint." },
-          { path: "/usr/share/wordlists/dirb/vulns/sunas.txt", description: "Vulnerabilidades para SunAS." },
-          { path: "/usr/share/wordlists/dirb/vulns/tomcat.txt", description: "Vulnerabilidades para Tomcat." },
-          { path: "/usr/share/wordlists/dirb/vulns/vignette.txt", description: "Vulnerabilidades para Vignette." },
-          { path: "/usr/share/wordlists/dirb/vulns/webcubic.txt", description: "Vulnerabilidades para WebCubic." },
-          { path: "/usr/share/wordlists/dirb/vulns/websphere.txt", description: "Vulnerabilidades para WebSphere." },
-          { path: "/usr/share/wordlists/dirb/vulns/testss.txt", description: "Vulnerabilidades para pruebas generales." },
-          { path: "/usr/share/wordlists/metasploit/grafana_plugins.txt", description: "Plugins vulnerables para Grafana." },
-          { path: "/usr/share/wordlists/metasploit/wp-exploitable-plugins.txt", description: "Plugins explotables para WordPress." },
-          { path: "/usr/share/wordlists/metasploit/wp-exploitable-themes.txt", description: "Temas explotables para WordPress." },
-          { path: "/usr/share/wordlists/metasploit/wp-plugins.txt", description: "Plugins comunes para WordPress." },
-          { path: "/usr/share/wordlists/metasploit/wp-themes.txt", description: "Temas comunes para WordPress." }
-        ]
-    };
+                <select id="wordlistCategory" onchange="generateWordlistPaths()"
+                    style="width: 100%; padding: 8px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                    <option value="">Selecciona una categoría</option>
+                    <option value="users">🧑 Usuarios</option>
+                    <option value="user_passwords">🔑 Contraseñas de Usuario</option>
+                    <option value="wifi_router_passwords">🛜 WiFi / Router</option>
+                    <option value="services_passwords">💾 Servicios / Hardware</option>
+                    <option value="user_pass_comb">🧑🔑 Usuario + Contraseña</option>
+                    <option value="domains_subdomains">🌐 Dominios y Subdominios</option>
+                    <option value="host_names">🖥️ Nombres de Host</option>
+                    <option value="cookies_sessions">🍪 Cookies y Sesiones</option>
+                    <option value="extensions">📄 Extensiones</option>
+                    <option value="dirs_files">📁 Directorios y Archivos</option>
+                    <option value="injection_payloads">💉 Payloads de Inyección</option>
+                    <option value="chars_nums">*️⃣ Caracteres y Números</option>
+                    <option value="vulns">⚠️ Vulnerabilidades</option>
+                </select>
 
-    function generateWordlistPaths() {
-        const category = document.getElementById('wordlistCategory').value;
-        const tbody = document.querySelector('#wordlistTable tbody');
-        const noSelection = document.querySelector('.no-selection');
-        const table = document.getElementById('wordlistTable');
+                <div id="wordlistOutput" style="min-height: 150px;">
+                    <p class="no-selection"
+                        style="color: #888; text-align: center; font-size: 0.80rem; margin-top: 40px;">Selecciona una
+                        categoría para ver las wordlists.</p>
+                    <table id="wordlistTable"
+                        style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
+                        <thead>
+                            <tr style="background: #1f2a3f;">
+                                <th
+                                    style="padding: 8px; font-size: 0.80rem; text-align: left; border-bottom: 1px solid #444;">
+                                    📂 Ruta</th>
+                                <th
+                                    style="padding: 8px; font-size: 0.80rem; text-align: left; border-bottom: 1px solid #444;">
+                                    📝 Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
 
-        tbody.innerHTML = '';
+            <script>
+                const wordlistDatabase = {
+                    users: [
+                        { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Lista de nombres de usuarios comunes." },
+                        { path: "/usr/share/wordlists/metasploit/namelist.txt", description: "Nombres de usuarios para pruebas de fuerza bruta." },
+                        { path: "/usr/share/wordlists/dirb/others/best110.txt", description: "110 nombres de usuarios más comunes." },
+                        { path: "/usr/share/wordlists/dirb/others/best1050.txt", description: "1050 nombres de usuarios ampliados." },
+                        { path: "/usr/share/wordlists/legion/ssh-user.txt", description: "Usuarios para pruebas de SSH." },
+                        { path: "/usr/share/wordlists/metasploit/db2_default_user.txt", description: "Usuarios por defecto para DB2." },
+                        { path: "/usr/share/wordlists/metasploit/default_users_for_services_unhash.txt", description: "Usuarios por defecto para servicios." },
+                        { path: "/usr/share/wordlists/metasploit/ipmi_users.txt", description: "Usuarios para IPMI." },
+                        { path: "/usr/share/wordlists/metasploit/http_default_users.txt", description: "Usuarios por defecto para HTTP." },
+                        { path: "/usr/share/wordlists/metasploit/idrac_default_user.txt", description: "Usuarios por defecto para iDRAC." },
+                        { path: "/usr/share/wordlists/metasploit/mirai_user.txt", description: "Usuarios asociados al botnet Mirai." },
+                        { path: "/usr/share/wordlists/metasploit/multi_vendor_ccdv_users.txt", description: "Usuarios para múltiples dispositivos CCDV." },
+                        { path: "/usr/share/wordlists/metasploit/tomcat_mgr_default_users.txt", description: "Usuarios por defecto para Tomcat Manager." },
+                        { path: "/usr/share/wordlists/metasploit/unix_users.txt", description: "Usuarios comunes en sistemas Unix." },
+                        { path: "/usr/share/wordlists/wfuzz/others/names.txt", description: "Nombres de usuarios para fuzzing." },
+                        { path: "/usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt", description: "Lista corta de nombres de usuarios populares (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt", description: "10 millones de nombres de usuarios (SecLists)." }
+                    ],
+                    user_passwords: [
+                        { path: "/usr/share/wordlists/metasploit/password.lst", description: "Lista de contraseñas comunes." },
+                        { path: "/usr/share/wordlists/legion/root-userpass.txt", description: "Contraseñas para usuarios root." },
+                        { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Nombres usados como contraseñas." },
+                        { path: "/usr/share/wordlists/amass/all.txt", description: "Lista general de contraseñas." },
+                        { path: "/usr/share/wordlists/rockyou.txt", description: "Lista masiva de contraseñas filtradas." },
+                        { path: "/usr/share/wordlists/fern-wifi/common.txt", description: "Contraseñas comunes para WiFi." },
+                        { path: "/usr/share/wordlists/john.lst", description: "Lista de contraseñas para John the Ripper." },
+                        { path: "/usr/share/wordlists/metasploit/burnett_top_500.txt", description: "Top 500 contraseñas (Burnett)." },
+                        { path: "/usr/share/wordlists/metasploit/burnett_top_1024.txt", description: "Top 1024 contraseñas (Burnett)." },
+                        { path: "/usr/share/wordlists/metasploit/dangerzone-a.txt", description: "Contraseñas de alto riesgo." },
+                        { path: "/usr/share/wordlists/metasploit/dangerzone-b.txt", description: "Más contraseñas de alto riesgo." },
+                        { path: "/usr/share/wordlists/metasploit/db2_default_pass.txt", description: "Contraseñas por defecto para DB2." },
+                        { path: "/usr/share/wordlists/metasploit/keyboard_patterns.txt", description: "Patrones de teclado como contraseñas." },
+                        { path: "/usr/share/wordlists/metasploit/mirai_pass.txt", description: "Contraseñas asociadas al botnet Mirai." },
+                        { path: "/usr/share/wordlists/metasploit/unix_passwords.txt", description: "Contraseñas comunes en Unix." },
+                        { path: "/usr/share/wordlists/wfuzz/others/common_pass.txt", description: "Contraseñas comunes para fuzzing." },
+                        { path: "/usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt", description: "Rockyou filtrado (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Passwords/xato-net-10-million-passwords-1000000.txt", description: "1M contraseñas filtradas (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Passwords/darkweb2017-top100.txt", description: "Top 100 contraseñas darkweb (SecLists)." }
+                    ],
+                    wifi_router_passwords: [
+                        { path: "/usr/share/wordlists/wifite.txt", description: "Contraseñas comunes para WiFi (Wifite)." },
+                        { path: "/usr/share/wordlists/fern-wifi/common.txt", description: "Contraseñas para WiFi (Fern)." },
+                        { path: "/usr/share/wordlists/legion/routers-userpass.txt", description: "Contraseñas para routers." },
+                        { path: "/usr/share/wordlists/metasploit/dlink_telnet_backdoor.txt", description: "Contraseñas por defecto para D-Link Telnet." },
+                        { path: "/usr/share/wordlists/metasploit/mirai_pass.txt", description: "Contraseñas asociadas al botnet Mirai." }
+                    ],
+                    services_passwords: [
+                        { path: "/usr/share/wordlists/metasploit/dlink_telnet_backdoor.txt", description: "Contraseñas por defecto para D-Link Telnet." },
+                        { path: "/usr/share/wordlists/metasploit/default_pass_for_services_unhash.txt", description: "Contraseñas por defecto para servicios." },
+                        { path: "/usr/share/wordlists/metasploit/flask_secret_keys.txt", description: "Claves secretas por defecto para Flask." },
+                        { path: "/usr/share/wordlists/legion/snmmp-default.txt", description: "Contraseñas por defecto para SNMP." },
+                        { path: "/usr/share/wordlists/legion/ssh-betterdefaultpasslist.txt", description: "Contraseñas mejoradas para SSH." },
+                        { path: "/usr/share/wordlists/legion/ssh-password.txt", description: "Contraseñas para SSH." },
+                        { path: "/usr/share/wordlists/legion/telnet-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Telnet." },
+                        { path: "/usr/share/wordlists/legion/tomcat-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Tomcat." },
+                        { path: "/usr/share/wordlists/legion/vnc-betterdefaultpasslist.txt", description: "Contraseñas por defecto para VNC." },
+                        { path: "/usr/share/wordlists/legion/windows-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Windows." },
+                        { path: "/usr/share/wordlists/legion/db2-betterdefaultpasslist.txt", description: "Contraseñas por defecto para DB2." },
+                        { path: "/usr/share/wordlists/legion/ftp-betterdefaultpasslist.txt", description: "Contraseñas por defecto para FTP." },
+                        { path: "/usr/share/wordlists/legion/mssql-betterdefaultpasslist.txt", description: "Contraseñas por defecto para MSSQL." },
+                        { path: "/usr/share/wordlists/legion/mysql-betterdefaultpasslist.txt", description: "Contraseñas por defecto para MySQL." },
+                        { path: "/usr/share/wordlists/legion/oracle-betterdefaultpasslist.txt", description: "Contraseñas por defecto para Oracle." },
+                        { path: "/usr/share/wordlists/legion/postgres-betterdefaultpasslist.txt", description: "Contraseñas por defecto para PostgreSQL." },
+                        { path: "/usr/share/wordlists/metasploit/http_owa_common_id.txt", description: "IDs comunes para OWA HTTP." },
+                        { path: "/usr/share/wordlists/metasploit/idrac_default_pass.txt", description: "Contraseñas por defecto para iDRAC." },
+                        { path: "/usr/share/wordlists/metasploit/ipmi_passwords.txt", description: "Contraseñas para IPMI." },
+                        { path: "/usr/share/wordlists/metasploit/joomla.txt", description: "Contraseñas para Joomla." },
+                        { path: "/usr/share/wordlists/metasploit/mirai_pass.txt", description: "Contraseñas asociadas al botnet Mirai." },
+                        { path: "/usr/share/wordlists/metasploit/multi_vendor_ccdv_pass.txt", description: "Contraseñas para dispositivos CCDV." },
+                        { path: "/usr/share/wordlists/metasploit/oracle_default_pass_swords.csv", description: "Contraseñas por defecto para Oracle." },
+                        { path: "/usr/share/wordlists/metasploit/postgres_default_pass.txt", description: "Contraseñas por defecto para PostgreSQL." },
+                        { path: "/usr/share/wordlists/metasploit/sid.txt", description: "Contraseñas para SID." },
+                        { path: "/usr/share/wordlists/metasploit/snmp_default_pass.txt", description: "Contraseñas por defecto para SNMP." },
+                        { path: "/usr/share/wordlists/metasploit/superset_secret_keys.txt", description: "Claves secretas para Superset." },
+                        { path: "/usr/share/wordlists/metasploit/telnet_telnet_asp.net_ajax_versions.txt", description: "Contraseñas para Telnet ASP.NET AJAX." },
+                        { path: "/usr/share/wordlists/metasploit/telnet_cdata_fth_b.txt", description: "Contraseñas para Telnet CDATA." },
+                        { path: "/usr/share/wordlists/metasploit/ftp.txt", description: "Contraseñas para FTP." },
+                        { path: "/usr/share/wordlists/metasploit/tomcat_mgr_default_pass.txt", description: "Contraseñas por defecto para Tomcat Manager." },
+                        { path: "/usr/share/wordlists/metasploit/unix_passwords.txt", description: "Contraseñas comunes en Unix." },
+                        { path: "/usr/share/wordlists/metasploit/vnc_passwords.txt", description: "Contraseñas para VNC." },
+                        { path: "/usr/share/wordlists/fasttrack.txt", description: "Lista de contraseñas para FastTrack." },
+                        { path: "/usr/share/wordlists/seclists/Passwords/Default-Credentials/default-passwords.txt", description: "Contraseñas por defecto para servicios (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Miscellaneous/wordpress-default.txt", description: "Contraseñas por defecto para WordPress (SecLists)." }
+                    ],
+                    user_pass_comb: [
+                        { path: "/usr/share/wordlists/metasploit/root_userpass.txt", description: "Combinaciones usuario/contraseña para root." },
+                        { path: "/usr/share/wordlists/metasploit/mirai_user_pass.txt", description: "Combinaciones usuario/contraseña para Mirai." },
+                        { path: "/usr/share/wordlists/metasploit/routers_userpass.txt", description: "Combinaciones usuario/contraseña para routers." },
+                        { path: "/usr/share/wordlists/metasploit/postgres_default_userpass.txt", description: "Combinaciones usuario/contraseña para PostgreSQL." },
+                        { path: "/usr/share/wordlists/metasploit/piata_ssh_userpass.txt", description: "Combinaciones usuario/contraseña para SSH Piata." },
+                        { path: "/usr/share/wordlists/metasploit/oracle_default_userpass.txt", description: "Combinaciones usuario/contraseña para Oracle." },
+                        { path: "/usr/share/wordlists/metasploit/http_default_userpass.txt", description: "Combinaciones usuario/contraseña para HTTP." },
+                        { path: "/usr/share/wordlists/metasploit/default_userpass_for_services_unhash.txt", description: "Combinaciones usuario/contraseña para servicios." },
+                        { path: "/usr/share/wordlists/metasploit/db2_default_userpass.txt", description: "Combinaciones usuario/contraseña para DB2." },
+                        { path: "/usr/share/wordlists/metasploit/ms400net_default_userpass.txt", description: "Combinaciones usuario/contraseña para MS400." },
+                        { path: "/usr/share/wordlists/metasploit/scada_default_user_pass.txt", description: "Combinaciones usuario/contraseña para SCADA." },
+                        { path: "/usr/share/wordlists/metasploit/telnet_backdoor_userpass.txt", description: "Combinaciones usuario/contraseña para Telnet backdoors." },
+                        { path: "/usr/share/wordlists/metasploit/tomcat_mgr_default_userpass.txt", description: "Combinaciones usuario/contraseña para Tomcat Manager." }
+                    ],
+                    domains_subdomains: [
+                        { path: "/usr/share/wordlists/amass/all.txt", description: "Lista de dominios y subdominios para enumeración." },
+                        { path: "/usr/share/wordlists/nmap.lst", description: "Lista de nombres de hosts para Nmap." },
+                        { path: "/usr/share/wordlists/dnsmap.txt", description: "Lista para enumeración DNS." },
+                        { path: "/usr/share/wordlists/amass/bitquark_subdomains_top100k.txt", description: "Top 100k subdominios (Bitquark)." },
+                        { path: "/usr/share/wordlists/amass/p50kprefixes.txt", description: "Prefijos para subdominios." },
+                        { path: "/usr/share/wordlists/amass/fierce-hostlist.txt", description: "Lista de hosts para Fierce." },
+                        { path: "/usr/share/wordlists/amass/jhaddix_all.txt", description: "Lista completa de subdominios (JHaddix)." },
+                        { path: "/usr/share/wordlists/dirb/spanish.txt", description: "Subdominios en español." },
+                        { path: "/usr/share/wordlists/dirb/common.txt", description: "Lista común de subdominios." },
+                        { path: "/usr/share/wordlists/amass/sorted_knock_dnsrecon_econ_fierce_recon-ng.txt", description: "Lista combinada para enumeración DNS." },
+                        { path: "/usr/share/wordlists/amass/subdomains.lst", description: "Lista de subdominios genéricos." },
+                        { path: "/usr/share/wordlists/amass/top1mil-5000.txt", description: "Top 5k subdominios." },
+                        { path: "/usr/share/wordlists/amass/top1mil-20000.txt", description: "Top 20k subdominios." },
+                        { path: "/usr/share/wordlists/amass/top1mil-100000.txt", description: "Top 100k subdominios." },
+                        { path: "/usr/share/wordlists/legion/gvit_subdomain_wordlist.txt", description: "Lista de subdominios para Legion." },
+                        { path: "/usr/share/wordlists/metasploit/common_roots.txt", description: "Raíces comunes para dominios." },
+                        { path: "/usr/share/wordlists/metasploit/lync_subdomains.txt", description: "Subdominios para Lync." },
+                        { path: "/usr/share/wordlists/metasploit/malicious_urls.txt", description: "URLs maliciosas para pruebas." },
+                        { path: "/usr/share/wordlists/wfuzz/general/admin-panels.txt", description: "Paneles de administración para fuzzing." },
+                        { path: "/usr/share/wordlists/wfuzz/general/mutations_common_n.txt", description: "Mutaciones comunes para subdominios." },
+                        { path: "/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt", description: "Top 5M subdominios (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt", description: "Top 110k subdominios (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Discovery/Web-Content/common.txt", description: "Contenido web común (SecLists)." },
+                        { path: "/usr/share/seclists/Discovery/Web-Content/raft-small-directories.txt", description: "Directorios pequeños para enumeración (SecLists)." }
+                    ],
+                    host_names: [
+                        { path: "/usr/share/wordlists/nmap.lst", description: "Lista de nombres de hosts para Nmap." },
+                        { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Nombres de hosts para enumeración." },
+                        { path: "/usr/share/wordlists/amass/jhaddix_all.txt", description: "Lista completa de nombres de hosts (JHaddix)." },
+                        { path: "/usr/share/wordlists/dirb/spanish.txt", description: "Nombres de hosts en español." },
+                        { path: "/usr/share/wordlists/dirbuster/apache-user-enum-1.0.txt", description: "Usuarios para enumeración Apache." },
+                        { path: "/usr/share/wordlists/dirbuster/apache-user-enum-2.0.txt", description: "Usuarios ampliados para Apache." },
+                        { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt", description: "Lista pequeña de nombres de hosts." },
+                        { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt", description: "Lista mediana de nombres de hosts." },
+                        { path: "/usr/share/wordlists/metasploit/can_flood_frames.txt", description: "Nombres para CAN flood testing." },
+                        { path: "/usr/share/wordlists/wfuzz/general/admin-panels.txt", description: "Paneles de administración para hosts." },
+                        { path: "/usr/share/wordlists/wfuzz/general/medium.txt", description: "Lista mediana de nombres de hosts." },
+                        { path: "/usr/share/wordlists/wfuzz/general/megabeast.txt", description: "Lista extensa de nombres de hosts." },
+                        { path: "/usr/share/wordlists/wfuzz/general/mutations_common_n.txt", description: "Mutaciones comunes para nombres de hosts." },
+                        { path: "/usr/share/wordlists/dnsmap.txt", description: "Nombres de hosts para enumeración DNS." },
+                        { path: "/usr/share/wordlists/seclists/Discovery/Web-Content/common.txt", description: "Nombres de hosts comunes (SecLists)." }
+                    ],
+                    cookies_sessions: [
+                        { path: "N/A", description: "No hay wordlists específicas para cookies/sesiones en esta categoría." }
+                    ],
+                    extensions: [
+                        { path: "/usr/share/wordlists/dirb/extensions_common.n.txt", description: "Extensiones comunes de archivos." },
+                        { path: "/usr/share/wordlists/dirb/mutations_common.n.txt", description: "Mutaciones de extensiones comunes." },
+                        { path: "/usr/share/wordlists/wfuzz/general/extensions_common_n.txt", description: "Extensiones para fuzzing." },
+                        { path: "/usr/share/wordlists/wfuzz/webservices/ws-files.txt", description: "Extensiones para servicios web." }
+                    ],
+                    dirs_files: [
+                        { path: "/usr/share/wordlists/amass/jhaddix_all.txt", description: "Lista completa de directorios/archivos (JHaddix)." },
+                        { path: "/usr/share/wordlists/dirb/big.txt", description: "Lista extensa de directorios/archivos." },
+                        { path: "/usr/share/wordlists/wfuzz/general/big.txt", description: "Lista extensa de directorios/archivos (WFuzz)." },
+                        { path: "/usr/share/wordlists/dirb/common.txt", description: "Directorios/archivos comunes." },
+                        { path: "/usr/share/wordlists/wfuzz/general/common.txt", description: "Directorios/archivos comunes (WFuzz)." },
+                        { path: "/usr/share/wordlists/dirb/spanish.txt", description: "Directorios/archivos en español." },
+                        { path: "/usr/share/wordlists/wfuzz/general/spanish.txt", description: "Directorios/archivos en español (WFuzz)." },
+                        { path: "/usr/share/wordlists/dirb/catala.txt", description: "Directorios/archivos en catalán." },
+                        { path: "/usr/share/wordlists/wfuzz/general/catala.txt", description: "Directorios/archivos en catalán (WFuzz)." },
+                        { path: "/usr/share/wordlists/dirb/euskera.txt", description: "Directorios/archivos en euskera." },
+                        { path: "/usr/share/wordlists/wfuzz/general/euskera.txt", description: "Directorios/archivos en euskera (WFuzz)." },
+                        { path: "/usr/share/wordlists/dirb/small.txt", description: "Lista pequeña de directorios/archivos." },
+                        { path: "/usr/share/wordlists/dirb/indexes.txt", description: "Archivos índice comunes." },
+                        { path: "/usr/share/wordlists/dirbuster/apache-user-enum-1.0.txt", description: "Usuarios para enumeración Apache." },
+                        { path: "/usr/share/wordlists/dirbuster/apache-user-enum-2.0.txt", description: "Usuarios ampliados para Apache." },
+                        { path: "/usr/share/wordlists/dirbuster/directories.jbrofuzz", description: "Directorios para JBroFuzz." },
+                        { path: "/usr/share/wordlists/dirbuster/directory-list-1.0.txt", description: "Lista de directorios genérica." },
+                        { path: "/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt", description: "Lista pequeña de directorios." },
+                        { path: "/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt", description: "Lista mediana de directorios." },
+                        { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt", description: "Lista pequeña de directorios en minúsculas." },
+                        { path: "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt", description: "Lista mediana de directorios en minúsculas." },
+                        { path: "/usr/share/wordlists/metasploit/common_roots.txt", description: "Raíces comunes para directorios." },
+                        { path: "/usr/share/wordlists/metasploit/sensitive_files.txt", description: "Archivos sensibles genéricos." },
+                        { path: "/usr/share/wordlists/metasploit/sensitive_files_win.txt", description: "Archivos sensibles para Windows." },
+                        { path: "/usr/share/wordlists/wfuzz/general/admin-panels.txt", description: "Paneles de administración para fuzzing." },
+                        { path: "/usr/share/wordlists/wfuzz/general/medium.txt", description: "Lista mediana de directorios/archivos." },
+                        { path: "/usr/share/wordlists/wfuzz/general/megabeast.txt", description: "Lista extensa de directorios/archivos." },
+                        { path: "/usr/share/wordlists/wfuzz/general/mutations_common_n.txt", description: "Mutaciones comunes para directorios." },
+                        { path: "/usr/share/wordlists/wfuzz/general/test.txt", description: "Lista de prueba para directorios." },
+                        { path: "/usr/share/wordlists/wfuzz/webservices/ws-dirs.txt", description: "Directorios para servicios web." }
+                    ],
+                    injection_payloads: [
+                        { path: "/usr/share/wordlists/dirb/others/names.txt", description: "Nombres para payloads de inyección." },
+                        { path: "/usr/share/wordlists/dirb/others/best110.txt", description: "Top 110 payloads de inyección." },
+                        { path: "/usr/share/wordlists/dirb/others/best1050.txt", description: "Top 1050 payloads de inyección." },
+                        { path: "/usr/share/wordlists/wfuzz/general/http_methods.txt", description: "Métodos HTTP para inyección." },
+                        { path: "/usr/share/wordlists/sqlmap.txt", description: "Payloads para SQLMap." },
+                        { path: "/usr/share/wordlists/wfuzz/injections/SQL.txt", description: "Payloads de inyección SQL." },
+                        { path: "/usr/share/wordlists/wfuzz/injections/All_attack.txt", description: "Payloads para múltiples tipos de inyección." },
+                        { path: "/usr/share/wordlists/wfuzz/injections/TraversaL.txt", description: "Payloads para path traversal." },
+                        { path: "/usr/share/wordlists/wfuzz/injections/XML.txt", description: "Payloads para inyección XML." },
+                        { path: "/usr/share/wordlists/wfuzz/injections/XSS.txt", description: "Payloads para XSS." },
+                        { path: "/usr/share/wordlists/seclists/Fuzzing/general/xss.txt", description: "Payloads para XSS (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Fuzzing/SQLi/generic-sql-injections.txt", description: "Payloads genéricos para SQLi (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Fuzzing/LFI/LFI-Jhaddix.txt", description: "Payloads para LFI (SecLists)." },
+                        { path: "/usr/share/wordlists/seclists/Miscellaneous/web-shells.txt", description: "Webshells para inyección (SecLists)." }
+                    ],
+                    chars_nums: [
+                        { path: "/usr/share/wordlists/dirb/stress/alphanum_case.txt", description: "Caracteres alfanuméricos sensibles a mayúsculas." },
+                        { path: "/usr/share/wordlists/dirb/stress/alphanum_case_extra.txt", description: "Alfanuméricos ampliados sensibles a mayúsculas." },
+                        { path: "/usr/share/wordlists/dirb/stress/char.txt", description: "Caracteres para pruebas de stress." },
+                        { path: "/usr/share/wordlists/dirb/stress/doble_uri_hex.txt", description: "Caracteres hex para URI doble." },
+                        { path: "/usr/share/wordlists/dirb/stress/test_ext.txt", description: "Extensiones para pruebas de stress." },
+                        { path: "/usr/share/wordlists/dirb/stress/unicode.txt", description: "Caracteres Unicode para pruebas." },
+                        { path: "/usr/share/wordlists/dirb/stress/uri_hex.txt", description: "Caracteres hex para URI." },
+                        { path: "/usr/share/wordlists/metasploit/keyboard_patterns.txt", description: "Patrones de teclado para pruebas." },
+                        { path: "/usr/share/wordlists/wfuzz/injections/bad_chars.txt", description: "Caracteres inválidos para inyección." }
+                    ],
+                    vulns: [
+                        { path: "/usr/share/wordlists/dirb/vulns/apache.txt", description: "Vulnerabilidades conocidas para Apache." },
+                        { path: "/usr/share/wordlists/dirb/vulns/axis.txt", description: "Vulnerabilidades conocidas para Axis." },
+                        { path: "/usr/share/wordlists/dirb/vulns/cgis.txt", description: "Vulnerabilidades en scripts CGI." },
+                        { path: "/usr/share/wordlists/dirb/vulns/coldfusion.txt", description: "Vulnerabilidades para ColdFusion." },
+                        { path: "/usr/share/wordlists/dirb/vulns/domino.txt", description: "Vulnerabilidades para Domino." },
+                        { path: "/usr/share/wordlists/dirb/vulns/fatwire.txt", description: "Vulnerabilidades para FatWire." },
+                        { path: "/usr/share/wordlists/dirb/vulns/fatwire_pagename_s.txt", description: "Nombres de página para FatWire." },
+                        { path: "/usr/share/wordlists/dirb/vulns/frontpage.txt", description: "Vulnerabilidades para FrontPage." },
+                        { path: "/usr/share/wordlists/dirb/vulns/hpsmh.txt", description: "Vulnerabilidades para HP SMH." },
+                        { path: "/usr/share/wordlists/dirb/vulns/hyperion.txt", description: "Vulnerabilidades para Hyperion." },
+                        { path: "/usr/share/wordlists/dirb/vulns/iis.txt", description: "Vulnerabilidades para IIS." },
+                        { path: "/usr/share/wordlists/dirb/vulns/iplanet.txt", description: "Vulnerabilidades para iPlanet." },
+                        { path: "/usr/share/wordlists/dirb/vulns/jboss.txt", description: "Vulnerabilidades para JBoss." },
+                        { path: "/usr/share/wordlists/dirb/vulns/jersey.txt", description: "Vulnerabilidades para Jersey." },
+                        { path: "/usr/share/wordlists/dirb/vulns/jrun.txt", description: "Vulnerabilidades para JRun." },
+                        { path: "/usr/share/wordlists/dirb/vulns/netware.txt", description: "Vulnerabilidades para NetWare." },
+                        { path: "/usr/share/wordlists/dirb/vulns/oracle.txt", description: "Vulnerabilidades para Oracle." },
+                        { path: "/usr/share/wordlists/dirb/vulns/ror.txt", description: "Vulnerabilidades para Ruby on Rails." },
+                        { path: "/usr/share/wordlists/dirb/vulns/sap.txt", description: "Vulnerabilidades para SAP." },
+                        { path: "/usr/share/wordlists/dirb/vulns/sharepoint.txt", description: "Vulnerabilidades para SharePoint." },
+                        { path: "/usr/share/wordlists/dirb/vulns/sunas.txt", description: "Vulnerabilidades para SunAS." },
+                        { path: "/usr/share/wordlists/dirb/vulns/tomcat.txt", description: "Vulnerabilidades para Tomcat." },
+                        { path: "/usr/share/wordlists/dirb/vulns/vignette.txt", description: "Vulnerabilidades para Vignette." },
+                        { path: "/usr/share/wordlists/dirb/vulns/webcubic.txt", description: "Vulnerabilidades para WebCubic." },
+                        { path: "/usr/share/wordlists/dirb/vulns/websphere.txt", description: "Vulnerabilidades para WebSphere." },
+                        { path: "/usr/share/wordlists/dirb/vulns/testss.txt", description: "Vulnerabilidades para pruebas generales." },
+                        { path: "/usr/share/wordlists/metasploit/grafana_plugins.txt", description: "Plugins vulnerables para Grafana." },
+                        { path: "/usr/share/wordlists/metasploit/wp-exploitable-plugins.txt", description: "Plugins explotables para WordPress." },
+                        { path: "/usr/share/wordlists/metasploit/wp-exploitable-themes.txt", description: "Temas explotables para WordPress." },
+                        { path: "/usr/share/wordlists/metasploit/wp-plugins.txt", description: "Plugins comunes para WordPress." },
+                        { path: "/usr/share/wordlists/metasploit/wp-themes.txt", description: "Temas comunes para WordPress." }
+                    ]
+                };
 
-        if (category && wordlistDatabase[category]) {
-            noSelection.style.display = 'none';
-            table.style.display = 'table';
+                function generateWordlistPaths() {
+                    const category = document.getElementById('wordlistCategory').value;
+                    const tbody = document.querySelector('#wordlistTable tbody');
+                    const noSelection = document.querySelector('.no-selection');
+                    const table = document.getElementById('wordlistTable');
 
-            wordlistDatabase[category].forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+                    tbody.innerHTML = '';
+
+                    if (category && wordlistDatabase[category]) {
+                        noSelection.style.display = 'none';
+                        table.style.display = 'table';
+
+                        wordlistDatabase[category].forEach(item => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
                     <td style="padding: 8px; border-bottom: 1px solid #333; word-break: break-all;">${item.path}</td>
                     <td style="padding: 8px; border-bottom: 1px solid #333; color: #aaa;">${item.description}</td>
                 `;
-                tbody.appendChild(row);
-            });
-        } else {
-            noSelection.style.display = 'block';
-            table.style.display = 'none';
-        }
-    }
-</script>
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        noSelection.style.display = 'block';
+                        table.style.display = 'none';
+                    }
+                }
+            </script>
 
-<!-- TOOL END -->
+            <!-- TOOL END -->
 
-</div>
-</section>
+        </div>
+    </section>
 
     <a href="pentestools.html" class="card-button">
         <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
         Volver a Pentesting Tools
     </a>
-    
-        <br><br><br><br>
 
-<footer>
-    <div class="footer-content">
+    <br><br><br><br>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -434,12 +506,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -455,4 +527,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

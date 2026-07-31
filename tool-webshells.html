@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEBSHELLS - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
 
     <nav>
@@ -23,212 +26,278 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
     <header>
-      <br>
+        <br>
     </header>
 
     <section>
-        <h2 style="font-family: 'Orbitron';">WEBSHELLS DE KALI LINUX</h2>
+        <div style="text-align: center; margin-bottom: 0px;">
+            <i class="ti ti-bug" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">WEBSHELLS DE KALI LINUX</h2>
+        </div>
         <br>
-        <p style="text-align: center;">Scripts de Kali Linux para obtener control remoto de un servidor web (por categoría).</p>
+        <p style="text-align: center;">Scripts de Kali Linux para obtener control remoto de un servidor web (por
+            categoría).</p>
         <br><br>
 
         <div class="">
 
-<!-- TOOL START -->
-            
-<div class="webshells-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 18px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+            <!-- TOOL START -->
 
-    <br>
+            <div class="webshells-container"
+                style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 18px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
 
-    <select id="categorySelect" onchange="displayPaths()" 
-            style="width: 100%; padding: 9px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-        <option value="">Selecciona una categoría</option>
-    </select>
+                <br>
 
-    <div id="pathsOutput" style="min-height: 150;">
-        <p class="no-selection" style="color: #888; text-align: center; margin-top: 40px; font-size: 0.80rem;">Selecciona una categoría para ver las webshells.</p>
-        <table id="pathsTable" style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
-            <thead>
-                <tr style="background: #1f2a3f;">
-                    <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📂 Ruta</th>
-                    <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📝 Descripción</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+                <select id="categorySelect" onchange="displayPaths()"
+                    style="width: 100%; padding: 9px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                    <option value="">Selecciona una categoría</option>
+                </select>
 
-    <p style="font-size: 0.80rem; color: #777; text-align: center; margin-top: 12px;">
-        
-    </p>
-</div>
+                <div id="pathsOutput" style="min-height: 150;">
+                    <p class="no-selection"
+                        style="color: #888; text-align: center; margin-top: 40px; font-size: 0.80rem;">Selecciona una
+                        categoría para ver las webshells.</p>
+                    <table id="pathsTable"
+                        style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
+                        <thead>
+                            <tr style="background: #1f2a3f;">
+                                <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📂 Ruta</th>
+                                <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📝
+                                    Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
 
-<script>
-    const pathsDatabase = [
-      { category: "ASP Webshells", path: "/usr/share/webshells/asp/cmd-asp-5.1.asp", description: "Webshell en ASP que permite ejecutar comandos del sistema en el servidor." },
-      { category: "ASP Webshells", path: "/usr/share/webshells/asp/cmdasp.asp", description: "Webshell en ASP para ejecución básica de comandos en el servidor." },
-      { category: "ASP Webshells", path: "/usr/share/webshells/laudanum/asp/file.asp", description: "Webshell en ASP para gestión de archivos (lectura/escritura) en el servidor." },
-      { category: "ASP Webshells", path: "/usr/share/webshells/laudanum/asp/knife.asp", description: "Webshell en ASP con funcionalidades avanzadas de ejecución de comandos." },
-      { category: "ASP Webshells", path: "/usr/share/webshells/laudanum/asp/shell.asp", description: "Webshell en ASP que proporciona una interfaz de shell interactiva." },
-      { category: "ASP Webshells", path: "/usr/share/webshells/seclists/backdoors/ASP_cmd.asp", description: "Webshell en ASP para ejecución remota de comandos en el servidor." },
-      { category: "ASPX Webshells", path: "/usr/share/webshells/aspx/cmdasp.aspx", description: "Webshell en ASPX para ejecutar comandos en el servidor." },
-      { category: "ASPX Webshells", path: "/usr/share/webshells/laudanum/aspx/file.aspx", description: "Webshell en ASPX para manipulación de archivos en el servidor." },
-      { category: "ASPX Webshells", path: "/usr/share/webshells/laudanum/aspx/knife.aspx", description: "Webshell en ASPX con capacidades avanzadas de ejecución de comandos." },
-      { category: "ASPX Webshells", path: "/usr/share/webshells/laudanum/aspx/shell.aspx", description: "Webshell en ASPX que ofrece una shell interactiva." },
-      { category: "CFM Webshells", path: "/usr/share/webshells/cfm/cfexec.cfm", description: "Webshell en ColdFusion para ejecución de comandos en el servidor." },
-      { category: "CFM Webshells", path: "/usr/share/webshells/laudanum/cfm/file.cfm", description: "Webshell en ColdFusion para gestión de archivos en el servidor." },
-      { category: "CFM Webshells", path: "/usr/share/webshells/laudanum/cfm/shell.cfm", description: "Webshell en ColdFusion que proporciona una shell interactiva." },
-      { category: "JSP Webshells", path: "/usr/share/webshells/jsp/cmdjsp.jsp", description: "Webshell en JSP para ejecutar comandos en el servidor." },
-      { category: "JSP Webshells", path: "/usr/share/webshells/jsp/jsp-reverse.jsp", description: "Webshell en JSP que establece una conexión inversa al atacante." },
-      { category: "JSP Webshells", path: "/usr/share/webshells/laudanum/jsp/file.jsp", description: "Webshell en JSP para manipulación de archivos." },
-      { category: "JSP Webshells", path: "/usr/share/webshells/laudanum/jsp/shell.jsp", description: "Webshell en JSP que ofrece una shell interactiva." },
-      { category: "JSP Webshells", path: "/usr/share/webshells/seclists/backdoors/JSP_cmd.jsp", description: "Webshell en JSP para ejecución remota de comandos." },
-      { category: "Perl Webshells", path: "/usr/share/webshells/perl/perlcmd.cgi", description: "Webshell en Perl para ejecutar comandos en el servidor." },
-      { category: "Perl Webshells", path: "/usr/share/webshells/perl/perl-reverse-shell.pl", description: "Webshell en Perl que establece una conexión inversa al atacante." },
-      { category: "Perl Webshells", path: "/usr/share/webshells/seclists/FuzzDB/CGIShell.pl", description: "Webshell en Perl para ejecución de comandos vía CGI." },
-      { category: "Perl Webshells", path: "/usr/share/webshells/seclists/FuzzDB/connectback.pl", description: "Script en Perl que crea una conexión inversa al atacante." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/php/findsock.c", description: "Código fuente en C para compilar una shell PHP basada en sockets." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/php/php-backdoor.php", description: "Webshell en PHP para ejecución de comandos y control remoto." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/php/php-findsock-shell.php", description: "Webshell en PHP que utiliza sockets para comunicación remota." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/php/php-reverse-shell.php", description: "Webshell en PHP que establece una conexión inversa al atacante." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/php/qsd-php-backdoor.php", description: "Webshell en PHP con funcionalidades avanzadas de backdoor." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/php/simple-backdoor.php", description: "Webshell en PHP simple para ejecución de comandos." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/file.php", description: "Webshell en PHP para gestión de archivos." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/knife.php", description: "Webshell en PHP con capacidades avanzadas de ejecución." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/phpinfo.php", description: "Script en PHP que muestra información del servidor (phpinfo)." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/shell.php", description: "Webshell en PHP que proporciona una shell interactiva." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/ajaxShell.php", description: "Webshell en PHP que utiliza AJAX para interacción remota." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/Backup-File-Disclosure.php", description: "Webshell en PHP para explotar vulnerabilidades de divulgación de archivos." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/c99.php", description: "Webshell en PHP avanzada con múltiples funcionalidades (c99 shell)." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/cmd.php", description: "Webshell en PHP simple para ejecución de comandos." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/php-backdoor.php", description: "Webshell en PHP para control remoto del servidor." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/php-backdoor2.php", description: "Variante de webshell en PHP para control remoto." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/simple-backdoor.php", description: "Webshell en PHP básica para ejecución de comandos." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/backdoors/PHP_cmd.php", description: "Webshell en PHP para ejecución remota de comandos." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/wordpress/wp-file-upload.php", description: "Webshell en PHP para WordPress que permite carga de archivos." },
-      { category: "PHP Webshells", path: "/usr/share/webshells/seclists/wordpress/wp-plugin-shell.php", description: "Webshell en PHP disfrazada como plugin de WordPress." }
-    ];
+                <p style="font-size: 0.80rem; color: #777; text-align: center; margin-top: 12px;">
 
-    const categories = ["ASP Webshells", "ASPX Webshells", "CFM Webshells", "JSP Webshells", "Perl Webshells", "PHP Webshells"];
+                </p>
+            </div>
 
-    const select = document.getElementById('categorySelect');
-    const table = document.getElementById('pathsTable');
-    const tbody = table.querySelector('tbody');
-    const noSelection = document.querySelector('.no-selection');
+            <script>
+                const pathsDatabase = [
+                    { category: "ASP Webshells", path: "/usr/share/webshells/asp/cmd-asp-5.1.asp", description: "Webshell en ASP que permite ejecutar comandos del sistema en el servidor." },
+                    { category: "ASP Webshells", path: "/usr/share/webshells/asp/cmdasp.asp", description: "Webshell en ASP para ejecución básica de comandos en el servidor." },
+                    { category: "ASP Webshells", path: "/usr/share/webshells/laudanum/asp/file.asp", description: "Webshell en ASP para gestión de archivos (lectura/escritura) en el servidor." },
+                    { category: "ASP Webshells", path: "/usr/share/webshells/laudanum/asp/knife.asp", description: "Webshell en ASP con funcionalidades avanzadas de ejecución de comandos." },
+                    { category: "ASP Webshells", path: "/usr/share/webshells/laudanum/asp/shell.asp", description: "Webshell en ASP que proporciona una interfaz de shell interactiva." },
+                    { category: "ASP Webshells", path: "/usr/share/webshells/seclists/backdoors/ASP_cmd.asp", description: "Webshell en ASP para ejecución remota de comandos en el servidor." },
+                    { category: "ASPX Webshells", path: "/usr/share/webshells/aspx/cmdasp.aspx", description: "Webshell en ASPX para ejecutar comandos en el servidor." },
+                    { category: "ASPX Webshells", path: "/usr/share/webshells/laudanum/aspx/file.aspx", description: "Webshell en ASPX para manipulación de archivos en el servidor." },
+                    { category: "ASPX Webshells", path: "/usr/share/webshells/laudanum/aspx/knife.aspx", description: "Webshell en ASPX con capacidades avanzadas de ejecución de comandos." },
+                    { category: "ASPX Webshells", path: "/usr/share/webshells/laudanum/aspx/shell.aspx", description: "Webshell en ASPX que ofrece una shell interactiva." },
+                    { category: "CFM Webshells", path: "/usr/share/webshells/cfm/cfexec.cfm", description: "Webshell en ColdFusion para ejecución de comandos en el servidor." },
+                    { category: "CFM Webshells", path: "/usr/share/webshells/laudanum/cfm/file.cfm", description: "Webshell en ColdFusion para gestión de archivos en el servidor." },
+                    { category: "CFM Webshells", path: "/usr/share/webshells/laudanum/cfm/shell.cfm", description: "Webshell en ColdFusion que proporciona una shell interactiva." },
+                    { category: "JSP Webshells", path: "/usr/share/webshells/jsp/cmdjsp.jsp", description: "Webshell en JSP para ejecutar comandos en el servidor." },
+                    { category: "JSP Webshells", path: "/usr/share/webshells/jsp/jsp-reverse.jsp", description: "Webshell en JSP que establece una conexión inversa al atacante." },
+                    { category: "JSP Webshells", path: "/usr/share/webshells/laudanum/jsp/file.jsp", description: "Webshell en JSP para manipulación de archivos." },
+                    { category: "JSP Webshells", path: "/usr/share/webshells/laudanum/jsp/shell.jsp", description: "Webshell en JSP que ofrece una shell interactiva." },
+                    { category: "JSP Webshells", path: "/usr/share/webshells/seclists/backdoors/JSP_cmd.jsp", description: "Webshell en JSP para ejecución remota de comandos." },
+                    { category: "Perl Webshells", path: "/usr/share/webshells/perl/perlcmd.cgi", description: "Webshell en Perl para ejecutar comandos en el servidor." },
+                    { category: "Perl Webshells", path: "/usr/share/webshells/perl/perl-reverse-shell.pl", description: "Webshell en Perl que establece una conexión inversa al atacante." },
+                    { category: "Perl Webshells", path: "/usr/share/webshells/seclists/FuzzDB/CGIShell.pl", description: "Webshell en Perl para ejecución de comandos vía CGI." },
+                    { category: "Perl Webshells", path: "/usr/share/webshells/seclists/FuzzDB/connectback.pl", description: "Script en Perl que crea una conexión inversa al atacante." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/php/findsock.c", description: "Código fuente en C para compilar una shell PHP basada en sockets." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/php/php-backdoor.php", description: "Webshell en PHP para ejecución de comandos y control remoto." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/php/php-findsock-shell.php", description: "Webshell en PHP que utiliza sockets para comunicación remota." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/php/php-reverse-shell.php", description: "Webshell en PHP que establece una conexión inversa al atacante." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/php/qsd-php-backdoor.php", description: "Webshell en PHP con funcionalidades avanzadas de backdoor." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/php/simple-backdoor.php", description: "Webshell en PHP simple para ejecución de comandos." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/file.php", description: "Webshell en PHP para gestión de archivos." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/knife.php", description: "Webshell en PHP con capacidades avanzadas de ejecución." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/phpinfo.php", description: "Script en PHP que muestra información del servidor (phpinfo)." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/laudanum/php/shell.php", description: "Webshell en PHP que proporciona una shell interactiva." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/ajaxShell.php", description: "Webshell en PHP que utiliza AJAX para interacción remota." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/Backup-File-Disclosure.php", description: "Webshell en PHP para explotar vulnerabilidades de divulgación de archivos." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/c99.php", description: "Webshell en PHP avanzada con múltiples funcionalidades (c99 shell)." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/cmd.php", description: "Webshell en PHP simple para ejecución de comandos." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/php-backdoor.php", description: "Webshell en PHP para control remoto del servidor." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/php-backdoor2.php", description: "Variante de webshell en PHP para control remoto." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/FuzzDB/simple-backdoor.php", description: "Webshell en PHP básica para ejecución de comandos." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/backdoors/PHP_cmd.php", description: "Webshell en PHP para ejecución remota de comandos." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/wordpress/wp-file-upload.php", description: "Webshell en PHP para WordPress que permite carga de archivos." },
+                    { category: "PHP Webshells", path: "/usr/share/webshells/seclists/wordpress/wp-plugin-shell.php", description: "Webshell en PHP disfrazada como plugin de WordPress." }
+                ];
 
-    // Rellenar categorías con emoji
-    categories.forEach(cat => {
-        const option = document.createElement('option');
-        option.value = cat;
-        let emoji = '';
-        if (cat === "ASP Webshells") emoji = "🔷";
-        else if (cat === "ASPX Webshells") emoji = "🔷";
-        else if (cat === "CFM Webshells") emoji = "❄️";
-        else if (cat === "JSP Webshells") emoji = "☕";
-        else if (cat === "Perl Webshells") emoji = "🐪";
-        else if (cat === "PHP Webshells") emoji = "🟡";
-        option.textContent = `${emoji} ${cat}`;
-        select.appendChild(option);
-    });
+                const categories = ["ASP Webshells", "ASPX Webshells", "CFM Webshells", "JSP Webshells", "Perl Webshells", "PHP Webshells"];
 
-    function displayPaths() {
-        const selected = select.value;
-        tbody.innerHTML = '';
+                const select = document.getElementById('categorySelect');
+                const table = document.getElementById('pathsTable');
+                const tbody = table.querySelector('tbody');
+                const noSelection = document.querySelector('.no-selection');
 
-        if (selected) {
-            noSelection.style.display = 'none';
-            table.style.display = 'table';
+                // Rellenar categorías con emoji
+                categories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    let emoji = '';
+                    if (cat === "ASP Webshells") emoji = "🔷";
+                    else if (cat === "ASPX Webshells") emoji = "🔷";
+                    else if (cat === "CFM Webshells") emoji = "❄️";
+                    else if (cat === "JSP Webshells") emoji = "☕";
+                    else if (cat === "Perl Webshells") emoji = "🐪";
+                    else if (cat === "PHP Webshells") emoji = "🟡";
+                    option.textContent = `${emoji} ${cat}`;
+                    select.appendChild(option);
+                });
 
-            const filtered = pathsDatabase.filter(item => item.category === selected);
+                function displayPaths() {
+                    const selected = select.value;
+                    tbody.innerHTML = '';
 
-            filtered.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+                    if (selected) {
+                        noSelection.style.display = 'none';
+                        table.style.display = 'table';
+
+                        const filtered = pathsDatabase.filter(item => item.category === selected);
+
+                        filtered.forEach(item => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
                     <td style="padding: 9px; border-bottom: 1px solid #333; word-break: break-all;">${item.path}</td>
                     <td style="padding: 9px; border-bottom: 1px solid #333; color: #aaa;">${item.description}</td>
                 `;
-                tbody.appendChild(row);
-            });
-        } else {
-            noSelection.style.display = 'block';
-            table.style.display = 'none';
-        }
-    }
-</script>
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        noSelection.style.display = 'block';
+                        table.style.display = 'none';
+                    }
+                }
+            </script>
 
-<!-- TOOL END -->
+            <!-- TOOL END -->
 
-</div>
-</section>
+        </div>
+    </section>
 
     <a href="pentestools.html" class="card-button">
         <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
         Volver a Pentesting Tools
     </a>
-    
-        <br><br><br><br>
 
-<footer>
-    <div class="footer-content">
+    <br><br><br><br>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -243,12 +312,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -264,4 +333,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

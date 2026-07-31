@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NMAP - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
 
     <nav>
@@ -23,261 +26,334 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
     <header>
-      <br>
+        <br>
     </header>
 
     <section>
-        <h2 style="font-family: 'Orbitron';">GENERADOR DE COMANDOS NMAP</h2>
+        <div style="text-align: center; margin-bottom: 0px;">
+            <i class="ti ti-radar" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">COMANDOS NMAP</h2>
+        </div>
         <br>
-        <p style="text-align: center;">Generador de líneas de comandos para escanear direcciones IP con NMAP en busca de puertos abiertos, vulnerabilidades, etc.</p>
+        <p style="text-align: center;">Generador de líneas de comandos para escanear direcciones IP con NMAP en busca de
+            puertos abiertos, vulnerabilidades, etc.</p>
         <br><br>
 
         <div class="">
 
-<!-- TOOL START -->
-            
-<div class="nmap-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+            <!-- TOOL START -->
 
-    <br>
+            <div class="nmap-container"
+                style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
 
-    <input type="text" id="targetInput" placeholder="IP o Rango objetivo (ej. 192.168.1.1 o 192.168.1.0/24)" 
-           style="width: 100%; padding: 10px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                <br>
 
-    <div style="margin-bottom: 15px;">
-        <label style="display: block; margin-bottom: 8px; font-size: 0.80rem; color: #aaa;">Opciones principales</label>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="sudoCheck"> sudo
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="synCheck"> -sS (SYN)
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="scriptsCheck"> -sC (Scripts)
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="versionCheck"> -sV (Versiones)
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="udpCheck"> -sU (UDP)
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="tcpConnectCheck"> -sT (TCP Connect)
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="vulnScriptCheck"> --script=vuln
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="openCheck"> --open
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
-                <input type="checkbox" id="noDnsCheck"> -n (sin DNS)
-            </label>
+                <input type="text" id="targetInput" placeholder="IP o Rango objetivo (ej. 192.168.1.1 o 192.168.1.0/24)"
+                    style="width: 100%; padding: 10px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.80rem; color: #aaa;">Opciones
+                        principales</label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="sudoCheck"> sudo
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="synCheck"> -sS (SYN)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="scriptsCheck"> -sC (Scripts)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="versionCheck"> -sV (Versiones)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="udpCheck"> -sU (UDP)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="tcpConnectCheck"> -sT (TCP Connect)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="vulnScriptCheck"> --script=vuln
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="openCheck"> --open
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.80rem;">
+                            <input type="checkbox" id="noDnsCheck"> -n (sin DNS)
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 15px;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Puertos</label>
+                        <select id="ports"
+                            style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                            <option value="" selected>Sin parámetro</option>
+                            <option value="--top-ports 100">Top 100 puertos</option>
+                            <option value="--top-ports 500">Top 500 puertos</option>
+                            <option value="--top-ports 1000">Top 1000 puertos</option>
+                            <option value="-p-">Todos los puertos (-p-)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Verbosidad</label>
+                        <select id="verbosity"
+                            style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                            <option value="" selected>Sin parámetro</option>
+                            <option value="-v">Baja (-v)</option>
+                            <option value="-vv">Alta (-vv)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Agresividad</label>
+                        <select id="timing"
+                            style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                            <option value="" selected>Sin parámetro</option>
+                            <option value="-T0">Paranoico (-T0)</option>
+                            <option value="-T1">sigiloso (-T1)</option>
+                            <option value="-T2">Cortés (-T2)</option>
+                            <option value="-T3">Normal (-T3)</option>
+                            <option value="-T4">Agresivo (-T4)</option>
+                            <option value="-T5">Insano (-T5)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Velocidad
+                        (--min-rate)</label>
+                    <select id="minRateValue"
+                        style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                        <option value="">Sin parámetro</option>
+                        <option value="500">500 paquetes/seg</option>
+                        <option value="1000">1000 paquetes/seg</option>
+                        <option value="5000">5000 paquetes/seg</option>
+                    </select>
+                </div>
+
+                <input type="text" id="outputFile" placeholder="Archivo de salida (ej. nmap_scan.txt)"
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+
+                <button onclick="generateNmapCommand()"
+                    style="width: 100%; background: #ff0033; color: #000; border: none; padding: 13px; font-size: 1.05rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.3s;"
+                    onmouseover="this.style.background='white'; this.style.color='#000';"
+                    onmouseout="this.style.background='#ff0033'; this.style.color='#000';">
+                    GENERAR LÍNEA DE COMANDOS
+                </button>
+
+                <textarea id="nmapOutput" readonly placeholder="El comando aparecerá aquí..."
+                    style="width: 100%; height: 90px; margin-top: 15px; background: #000; border: 1px solid #ff0033; color: #ffffff; padding: 12px; font-family: 'Roboto Mono', monospace; font-size: 0.80rem; resize: vertical; border-radius: 6px;"></textarea>
+
+                <div
+                    style="margin-top: 15px; font-size: 0.75rem; color: #aaa; line-height: 1.5; background: #1a2333; padding: 12px; border-radius: 6px;">
+                    <strong>CHULETILLA:</strong><br>
+                    <br>
+                    • <strong>sudo</strong> → Ejecuta con privilegios de root (necesario para escaneos avanzados)<br>
+                    • <strong>-sS</strong> → Escaneo SYN (rápido, sigiloso y más difícil de detectar)<br>
+                    • <strong>-sC</strong> → Ejecuta scripts NSE predeterminados para detectar servicios y
+                    vulnerabilidades<br>
+                    • <strong>-sV</strong> → Detecta versión exacta de los servicios en los puertos abiertos<br>
+                    • <strong>-sU</strong> → Escanea puertos UDP (más lento pero importante para algunos servicios)<br>
+                    • <strong>-sT</strong> → Escaneo TCP Connect (completo pero más detectable por firewalls)<br>
+                    • <strong>--script=vuln</strong> → Ejecuta scripts que buscan vulnerabilidades conocidas<br>
+                    • <strong>--open</strong> → Muestra SOLO los puertos abiertos<br>
+                    • <strong>-n</strong> → Desactiva la resolución DNS (acelera mucho el escaneo)<br>
+                    • <strong>Puertos</strong> → Define número de puertos escanear<br>
+                    • <strong>Verbosidad</strong> → Define el detalle de la información mostrada<br>
+                    • <strong>Agresividad</strong> → Velocidad y ruido del escaneo (-T)<br>
+                    • <strong>--min-rate</strong> → Establece la velocidad mínima de paquetes por segundo
+                </div>
+
+                <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
+                    ⚠️ Usa NMAP solo en entornos virtuales o con permiso explícito del propietario del sistema
+                </p>
+            </div>
+
+            <script>
+                function generateNmapCommand() {
+                    const sudoCheck = document.getElementById('sudoCheck').checked;
+                    const synCheck = document.getElementById('synCheck').checked;
+                    const scriptsCheck = document.getElementById('scriptsCheck').checked;
+                    const versionCheck = document.getElementById('versionCheck').checked;
+                    const udpCheck = document.getElementById('udpCheck').checked;
+                    const tcpConnectCheck = document.getElementById('tcpConnectCheck').checked;
+                    const openCheck = document.getElementById('openCheck').checked;
+                    const vulnScriptCheck = document.getElementById('vulnScriptCheck').checked;
+                    const minRateValue = document.getElementById('minRateValue').value;
+                    const noDnsCheck = document.getElementById('noDnsCheck').checked;
+                    const ports = document.getElementById('ports').value;
+                    const verbosity = document.getElementById('verbosity').value;
+                    const timing = document.getElementById('timing').value;
+                    const target = document.getElementById('targetInput').value.trim();
+                    const outputFile = document.getElementById('outputFile').value.trim();
+                    const output = document.getElementById('nmapOutput');
+
+                    if (!target) {
+                        output.value = 'Por favor, ingresa una IP o dominio válido.';
+                        return;
+                    }
+
+                    let command = '';
+                    if (sudoCheck) command += 'sudo ';
+                    command += 'nmap ';
+
+                    if (synCheck) command += '-sS ';
+                    if (scriptsCheck) command += '-sC ';
+                    if (versionCheck) command += '-sV ';
+                    if (udpCheck) command += '-sU ';
+                    if (tcpConnectCheck) command += '-sT ';
+                    if (vulnScriptCheck) command += '--script=vuln ';
+                    if (openCheck) command += '--open ';
+                    if (noDnsCheck) command += '-n ';
+
+                    if (ports) command += `${ports} `;
+                    if (verbosity) command += `${verbosity} `;
+                    if (timing) command += `${timing} `;
+                    if (minRateValue) command += `--min-rate=${minRateValue} `;
+
+                    command += `${target} `;
+
+                    if (outputFile) command += `-oN ${outputFile}`;
+
+                    output.value = command.trim();
+                }
+            </script>
+
+            <!-- TOOL END -->
+
         </div>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 15px;">
-        <div>
-            <label style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Puertos</label>
-            <select id="ports" style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-                <option value="" selected>Sin parámetro</option>
-                <option value="--top-ports 100">Top 100 puertos</option>
-                <option value="--top-ports 500">Top 500 puertos</option>
-                <option value="--top-ports 1000">Top 1000 puertos</option>
-                <option value="-p-">Todos los puertos (-p-)</option>
-            </select>
-        </div>
-        <div>
-            <label style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Verbosidad</label>
-            <select id="verbosity" style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-                <option value="" selected>Sin parámetro</option>
-                <option value="-v">Baja (-v)</option>
-                <option value="-vv">Alta (-vv)</option>
-            </select>
-        </div>
-        <div>
-            <label style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Agresividad</label>
-            <select id="timing" style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-                <option value="" selected>Sin parámetro</option>
-                <option value="-T0">Paranoico (-T0)</option>
-                <option value="-T1">sigiloso (-T1)</option>
-                <option value="-T2">Cortés (-T2)</option>
-                <option value="-T3">Normal (-T3)</option>
-                <option value="-T4">Agresivo (-T4)</option>
-                <option value="-T5">Insano (-T5)</option>
-            </select>
-        </div>
-    </div>
-
-    <div style="margin-bottom: 12px;">
-        <label style="display: block; margin-bottom: 5px; font-size: 0.80rem; color: #aaa;">Velocidad (--min-rate)</label>
-        <select id="minRateValue" style="width: 100%; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-            <option value="">Sin parámetro</option>
-            <option value="500">500 paquetes/seg</option>
-            <option value="1000">1000 paquetes/seg</option>
-            <option value="5000">5000 paquetes/seg</option>
-        </select>
-    </div>
-
-    <input type="text" id="outputFile" placeholder="Archivo de salida (ej. nmap_scan.txt)" 
-           style="width: 100%; padding: 10px; margin-bottom: 15px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-
-    <button onclick="generateNmapCommand()" 
-            style="width: 100%; background: #ff0033; color: #000; border: none; padding: 13px; font-size: 1.05rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.3s;"
-            onmouseover="this.style.background='white'; this.style.color='#000';"
-            onmouseout="this.style.background='#ff0033'; this.style.color='#000';">
-        GENERAR LÍNEA DE COMANDOS
-    </button>
-
-    <textarea id="nmapOutput" readonly placeholder="El comando aparecerá aquí..." 
-              style="width: 100%; height: 90px; margin-top: 15px; background: #000; border: 1px solid #ff0033; color: #ffffff; padding: 12px; font-family: 'Roboto Mono', monospace; font-size: 0.80rem; resize: vertical; border-radius: 6px;"></textarea>
-
-    <div style="margin-top: 15px; font-size: 0.75rem; color: #aaa; line-height: 1.5; background: #1a2333; padding: 12px; border-radius: 6px;">
-        <strong>CHULETILLA:</strong><br>
-        <br>
-        • <strong>sudo</strong> → Ejecuta con privilegios de root (necesario para escaneos avanzados)<br>
-        • <strong>-sS</strong> → Escaneo SYN (rápido, sigiloso y más difícil de detectar)<br>
-        • <strong>-sC</strong> → Ejecuta scripts NSE predeterminados para detectar servicios y vulnerabilidades<br>
-        • <strong>-sV</strong> → Detecta versión exacta de los servicios en los puertos abiertos<br>
-        • <strong>-sU</strong> → Escanea puertos UDP (más lento pero importante para algunos servicios)<br>
-        • <strong>-sT</strong> → Escaneo TCP Connect (completo pero más detectable por firewalls)<br>
-        • <strong>--script=vuln</strong> → Ejecuta scripts que buscan vulnerabilidades conocidas<br>
-        • <strong>--open</strong> → Muestra SOLO los puertos abiertos<br>
-        • <strong>-n</strong> → Desactiva la resolución DNS (acelera mucho el escaneo)<br>
-        • <strong>Puertos</strong> → Define número de puertos escanear<br>
-        • <strong>Verbosidad</strong> → Define el detalle de la información mostrada<br>
-        • <strong>Agresividad</strong> → Velocidad y ruido del escaneo (-T)<br>
-        • <strong>--min-rate</strong> → Establece la velocidad mínima de paquetes por segundo
-    </div>
-
-    <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
-        ⚠️ Usa NMAP solo en entornos virtuales o con permiso explícito del propietario del sistema
-    </p>
-</div>
-
-<script>
-    function generateNmapCommand() {
-        const sudoCheck = document.getElementById('sudoCheck').checked;
-        const synCheck = document.getElementById('synCheck').checked;
-        const scriptsCheck = document.getElementById('scriptsCheck').checked;
-        const versionCheck = document.getElementById('versionCheck').checked;
-        const udpCheck = document.getElementById('udpCheck').checked;
-        const tcpConnectCheck = document.getElementById('tcpConnectCheck').checked;
-        const openCheck = document.getElementById('openCheck').checked;
-        const vulnScriptCheck = document.getElementById('vulnScriptCheck').checked;
-        const minRateValue = document.getElementById('minRateValue').value;
-        const noDnsCheck = document.getElementById('noDnsCheck').checked;
-        const ports = document.getElementById('ports').value;
-        const verbosity = document.getElementById('verbosity').value;
-        const timing = document.getElementById('timing').value;
-        const target = document.getElementById('targetInput').value.trim();
-        const outputFile = document.getElementById('outputFile').value.trim();
-        const output = document.getElementById('nmapOutput');
-
-        if (!target) {
-            output.value = 'Por favor, ingresa una IP o dominio válido.';
-            return;
-        }
-
-        let command = '';
-        if (sudoCheck) command += 'sudo ';
-        command += 'nmap ';
-
-        if (synCheck) command += '-sS ';
-        if (scriptsCheck) command += '-sC ';
-        if (versionCheck) command += '-sV ';
-        if (udpCheck) command += '-sU ';
-        if (tcpConnectCheck) command += '-sT ';
-        if (vulnScriptCheck) command += '--script=vuln ';
-        if (openCheck) command += '--open ';
-        if (noDnsCheck) command += '-n ';
-
-        if (ports) command += `${ports} `;
-        if (verbosity) command += `${verbosity} `;
-        if (timing) command += `${timing} `;
-        if (minRateValue) command += `--min-rate=${minRateValue} `;
-
-        command += `${target} `;
-
-        if (outputFile) command += `-oN ${outputFile}`;
-
-        output.value = command.trim();
-    }
-</script>
-
-<!-- TOOL END -->
-
-</div>
-</section>
+    </section>
 
     <a href="pentestools.html" class="card-button">
         <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
         Volver a Pentesting Tools
     </a>
-    
-        <br><br><br><br>
 
-<footer>
-    <div class="footer-content">
+    <br><br><br><br>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -292,12 +368,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -313,4 +389,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

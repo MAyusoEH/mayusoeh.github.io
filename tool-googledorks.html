@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOOGLE DORKS - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
 
     <nav>
@@ -23,209 +26,281 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
     <header>
-      <br>
+        <br>
     </header>
 
     <section>
-        <h2 style="font-family: 'Orbitron';">GENERADOR DE GOOGLE DORKS</h2>
+        <div style="text-align: center; margin-bottom: 0px;">
+            <i class="ti ti-brand-google" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">GENERADOR DE GOOGLE DORKS</h2>
+        </div>
         <br>
         <p style="text-align: center;">Generador de operadores de búsqueda avanzados para Google.</p>
         <br><br>
 
         <div class="">
 
-<!-- TOOL START -->
-            
-<div class="dorks-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+            <!-- TOOL START -->
 
-<br>
+            <div class="dorks-container"
+                style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
 
-    <select id="searchType" style="width: 100%; padding: 9px; margin-bottom: 10px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-        <option value="">1º - ¿Qué quieres buscar?</option>
-        <option value="intext:name">🧑 Persona (Nombre y Apellido) *Caja B*</option>
-        <option value="intext:">🔤 Texto *Caja B*</option>
-        <option value="from:">✉️ Correo electrónico *Caja C*</option>
-        <option value="intext:phone">📞 Número de teléfono *Caja D*</option>
-        <option value="filetype:(pdf | doc | docx | txt)">📄 Archivos de texto</option>
-        <option value="inurl:login">🔑 Páginas de login</option>
-        <option value="inurl:(admin | adminpanel | panel | dashboard | control | console | manager | root | cp | master)">⚙️ Paneles de administración</option>
-        <option value="intitle:index.of">🗂️ Directorios expuestos</option>
-        <option value="filetype:txt inurl:(robots.txt | users.txt | accounts.txt | logins.txt | sitemap.xml | config.txt | backup.sql)">⚠️ Archivos sensibles</option>
-        <option value="inurl:webcam">📹 Cámaras web</option>
-        <option value="filetype:sql">🗃️ Archivos SQL</option>
-    </select>
+                <br>
 
-    <select id="searchScope" style="width: 100%; padding: 9px; margin-bottom: 10px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-        <option value="">2º - ¿Dónde buscar?</option>
-        <option value="">🌐 Todo internet</option>
-        <option value="site:">🎯 Dominio específico *Caja A*</option>
-        <option value="site:*.es">Sitios de España (.es)</option>
-        <option value="site:*.gob.es">Sitios gubernamentales españoles (.gob.es)</option>
-        <option value="site:*.eu">Sitios europeos (.eu)</option>
-        <option value="site:*.madrid">Sitios de Madrid (.madrid)</option>
-        <option value="site:*.cat">Sitios de Cataluña (.cat)</option>
-        <option value="site:*.edu">Sitios educativos (.edu)</option>
-        <option value="site:*.gov">Sitios gubernamentales de EEUU (.gov)</option>
-        <option value="site:*.cn">Sitios de China (.cn)</option>
-        <option value="site:*.ru">Sitios de Rusia (.ru)</option>
-        <option value="site:*.cz">Sitios de República Checa (.cz)</option>
-        <option value="site:*.nz">Sitios de Nueva Zelanda (.nz)</option>
-        <option value="site:*.net">Sitios (.net)</option>
-        <option value="site:*.org">Sitios (.org)</option>
-        <option value="site:*.io">Sitios (.io)</option>
-    </select>
+                <select id="searchType"
+                    style="width: 100%; padding: 9px; margin-bottom: 10px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+                    <option value="">1º - ¿Qué quieres buscar?</option>
+                    <option value="intext:name">🧑 Persona (Nombre y Apellido) *Caja B*</option>
+                    <option value="intext:">🔤 Texto *Caja B*</option>
+                    <option value="from:">✉️ Correo electrónico *Caja C*</option>
+                    <option value="intext:phone">📞 Número de teléfono *Caja D*</option>
+                    <option value="filetype:(pdf | doc | docx | txt)">📄 Archivos de texto</option>
+                    <option value="inurl:login">🔑 Páginas de login</option>
+                    <option
+                        value="inurl:(admin | adminpanel | panel | dashboard | control | console | manager | root | cp | master)">
+                        ⚙️ Paneles de administración</option>
+                    <option value="intitle:index.of">🗂️ Directorios expuestos</option>
+                    <option
+                        value="filetype:txt inurl:(robots.txt | users.txt | accounts.txt | logins.txt | sitemap.xml | config.txt | backup.sql)">
+                        ⚠️ Archivos sensibles</option>
+                    <option value="inurl:webcam">📹 Cámaras web</option>
+                    <option value="filetype:sql">🗃️ Archivos SQL</option>
+                </select>
 
-    <div style="display: flex; gap: 10px; margin-bottom: 12px;">
-        <input type="text" id="customDomain" placeholder="Caja A - Dominio (example.com)" style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-        <input type="text" id="customName" placeholder="Caja B - Texto / Nombre" style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-    </div>
-    <div style="display: flex; gap: 10px; margin-bottom: 12px;">
-        <input type="text" id="customEmail" placeholder="Caja C - Correo electrónico" style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-        <input type="text" id="customPhone" placeholder="Caja D - Teléfono" style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-    </div>
+                <select id="searchScope"
+                    style="width: 100%; padding: 9px; margin-bottom: 10px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+                    <option value="">2º - ¿Dónde buscar?</option>
+                    <option value="">🌐 Todo internet</option>
+                    <option value="site:">🎯 Dominio específico *Caja A*</option>
+                    <option value="site:*.es">Sitios de España (.es)</option>
+                    <option value="site:*.gob.es">Sitios gubernamentales españoles (.gob.es)</option>
+                    <option value="site:*.eu">Sitios europeos (.eu)</option>
+                    <option value="site:*.madrid">Sitios de Madrid (.madrid)</option>
+                    <option value="site:*.cat">Sitios de Cataluña (.cat)</option>
+                    <option value="site:*.edu">Sitios educativos (.edu)</option>
+                    <option value="site:*.gov">Sitios gubernamentales de EEUU (.gov)</option>
+                    <option value="site:*.cn">Sitios de China (.cn)</option>
+                    <option value="site:*.ru">Sitios de Rusia (.ru)</option>
+                    <option value="site:*.cz">Sitios de República Checa (.cz)</option>
+                    <option value="site:*.nz">Sitios de Nueva Zelanda (.nz)</option>
+                    <option value="site:*.net">Sitios (.net)</option>
+                    <option value="site:*.org">Sitios (.org)</option>
+                    <option value="site:*.io">Sitios (.io)</option>
+                </select>
 
-    <select id="extraFilter" style="width: 100%; padding: 9px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-        <option value="">3º - Filtro adicional (opcional)</option>
-        <option value="-inurl:(signup | login)">❌ Excluir signup/login</option>
-        <option value="filetype:pdf">📄 Archivos en PDF (.pdf)</option>
-        <option value="filetype:doc">📄 Archivos Word (.doc)</option>
-        <option value="filetype:txt">📄 Archivos de texto plano (.txt)</option>
-        <option value="inurl:config">Contiene "config" en la URL</option>
-        <option value="inurl:password">Contiene "password" en la URL</option>
-        <option value="inurl:passwd">Contiene "passwd" en la URL</option>
-        <option value="inurl:shadow">Contiene "shadow" en la URL</option>
-        <option value="intext:@">Contiene "@" en texto</option>
-        <option value="intext:login">Contiene "login" en texto</option>
-    </select>
+                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                    <input type="text" id="customDomain" placeholder="Caja A - Dominio (example.com)"
+                        style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+                    <input type="text" id="customName" placeholder="Caja B - Texto / Nombre"
+                        style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                    <input type="text" id="customEmail" placeholder="Caja C - Correo electrónico"
+                        style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+                    <input type="text" id="customPhone" placeholder="Caja D - Teléfono"
+                        style="flex: 1; padding: 9px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+                </div>
 
-    <button onclick="generateDork()" 
-        style="width: 100%; background: #ff0033; color: #000; border: none; padding: 12px; font-size: 1.05rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.3s;"
-        onmouseover="this.style.background='white'; this.style.color='#000';"
-        onmouseout="this.style.background='#ff0033'; this.style.color='#000';">
-        GENERAR DORK
-    </button>
+                <select id="extraFilter"
+                    style="width: 100%; padding: 9px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+                    <option value="">3º - Filtro adicional (opcional)</option>
+                    <option value="-inurl:(signup | login)">❌ Excluir signup/login</option>
+                    <option value="filetype:pdf">📄 Archivos en PDF (.pdf)</option>
+                    <option value="filetype:doc">📄 Archivos Word (.doc)</option>
+                    <option value="filetype:txt">📄 Archivos de texto plano (.txt)</option>
+                    <option value="inurl:config">Contiene "config" en la URL</option>
+                    <option value="inurl:password">Contiene "password" en la URL</option>
+                    <option value="inurl:passwd">Contiene "passwd" en la URL</option>
+                    <option value="inurl:shadow">Contiene "shadow" en la URL</option>
+                    <option value="intext:@">Contiene "@" en texto</option>
+                    <option value="intext:login">Contiene "login" en texto</option>
+                </select>
 
-    <textarea id="dorkOutput" readonly placeholder="La consulta aparecerá aquí..." 
-              style="width: 100%; height: 130px; margin-top: 12px; background: #000; border: 1px solid #ff0033; color: #ffffff; padding: 12px; font-family: 'Roboto Mono', monospace; font-size: 0.8rem; resize: vertical; border-radius: 6px;"></textarea>
+                <button onclick="generateDork()"
+                    style="width: 100%; background: #ff0033; color: #000; border: none; padding: 12px; font-size: 1.05rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.3s;"
+                    onmouseover="this.style.background='white'; this.style.color='#000';"
+                    onmouseout="this.style.background='#ff0033'; this.style.color='#000';">
+                    GENERAR DORK
+                </button>
 
-    <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
-        
-    </p>
-</div>
+                <textarea id="dorkOutput" readonly placeholder="La consulta aparecerá aquí..."
+                    style="width: 100%; height: 130px; margin-top: 12px; background: #000; border: 1px solid #ff0033; color: #ffffff; padding: 12px; font-family: 'Roboto Mono', monospace; font-size: 0.8rem; resize: vertical; border-radius: 6px;"></textarea>
 
-<script>
-    function generateDork() {
-        const searchType = document.getElementById('searchType').value;
-        const searchScope = document.getElementById('searchScope').value;
-        const customDomain = document.getElementById('customDomain').value.trim();
-        const customName = document.getElementById('customName').value.trim();
-        const customEmail = document.getElementById('customEmail').value.trim();
-        const customPhone = document.getElementById('customPhone').value.trim();
-        const extraFilter = document.getElementById('extraFilter').value;
-        const output = document.getElementById('dorkOutput');
+                <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
 
-        if (!searchType) {
-            output.value = '❌ Por favor, selecciona qué quieres buscar.';
-            return;
-        }
+                </p>
+            </div>
 
-        let query = searchType;
+            <script>
+                function generateDork() {
+                    const searchType = document.getElementById('searchType').value;
+                    const searchScope = document.getElementById('searchScope').value;
+                    const customDomain = document.getElementById('customDomain').value.trim();
+                    const customName = document.getElementById('customName').value.trim();
+                    const customEmail = document.getElementById('customEmail').value.trim();
+                    const customPhone = document.getElementById('customPhone').value.trim();
+                    const extraFilter = document.getElementById('extraFilter').value;
+                    const output = document.getElementById('dorkOutput');
 
-        if (searchType === 'from:' && customEmail) {
-            query = `from:${customEmail}`;
-        } else if (searchType === 'intext:phone' && customPhone) {
-            query = `intext:"${customPhone}"`;
-        } else if (searchType === 'intext:name' && customName) {
-            query = `intext:"${customName}"`;
-        }
+                    if (!searchType) {
+                        output.value = '❌ Por favor, selecciona qué quieres buscar.';
+                        return;
+                    }
 
-        if (searchScope === 'site:' && customDomain) {
-            query = `site:${customDomain} ${query}`;
-        } else if (searchScope) {
-            query = `${searchScope} ${query}`;
-        }
+                    let query = searchType;
 
-        if (extraFilter) {
-            query += ` ${extraFilter}`;
-        }
+                    if (searchType === 'from:' && customEmail) {
+                        query = `from:${customEmail}`;
+                    } else if (searchType === 'intext:phone' && customPhone) {
+                        query = `intext:"${customPhone}"`;
+                    } else if (searchType === 'intext:name' && customName) {
+                        query = `intext:"${customName}"`;
+                    }
 
-        output.value = query.trim();
-    }
-</script>
+                    if (searchScope === 'site:' && customDomain) {
+                        query = `site:${customDomain} ${query}`;
+                    } else if (searchScope) {
+                        query = `${searchScope} ${query}`;
+                    }
 
-<!-- TOOL END -->
+                    if (extraFilter) {
+                        query += ` ${extraFilter}`;
+                    }
 
-</div>
-</section>
+                    output.value = query.trim();
+                }
+            </script>
+
+            <!-- TOOL END -->
+
+        </div>
+    </section>
 
     <a href="pentestools.html" class="card-button">
         <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
         Volver a Pentesting Tools
     </a>
-    
-        <br><br><br><br>
 
-<footer>
-    <div class="footer-content">
+    <br><br><br><br>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -240,12 +315,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -261,4 +336,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

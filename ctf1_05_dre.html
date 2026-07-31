@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF1 05 - MAYUSO ETHICAL HACKING</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+    <style>
+        /* ========== ESTILOS CTF ========== */
+        .ctf-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            border: 1px solid #1f2a3c;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+            background: #0d1117;
+            height: 550px;
+        }
+
+        .ctf-sidebar {
+            width: 20%;
+            min-width: 170px;
+            background: #111827;
+            border-right: 1px solid #1f2a3c;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ctf-sidebar-header {
+            background: #1a2333;
+            padding: 11px 14px;
+            font-size: 0.75rem;
+            color: #8b9bb4;
+            border-bottom: 1px solid #1f2a3c;
+            letter-spacing: 0.4px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .ctf-password-list {
+            padding: 12px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .ctf-password-item {
+            background: #0d1520;
+            border: 1px solid #1f2a3c;
+            border-left: 3px solid #0396ff;
+            padding: 6px 10px;
+            margin-bottom: 6px;
+            font-size: 0.78rem;
+            color: #40b0ff;
+            border-radius: 3px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .ctf-empty {
+            color: #6b7a90;
+            font-size: 0.75rem;
+            padding: 6px 0;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .ctf-next-btn {
+            margin: 10px 12px 14px 12px;
+            background: #1a2333;
+            border: 1px solid #2a3a50;
+            color: #b6d8ff;
+            padding: 8px 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+
+        .ctf-next-btn:hover {
+            background: #243044;
+            border-color: #3b82f6;
+            color: #79c0ff;
+        }
+
+        .ctf-terminal {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .ctf-bar {
+            background: #1a2333;
+            padding: 7px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--accent, #4287ff);
+            flex-shrink: 0;
+        }
+
+        .ctf-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ctf-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .ctf-dot.red {
+            background: #ff5f56;
+        }
+
+        .ctf-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .ctf-dot.green {
+            background: #27c93f;
+        }
+
+        .ctf-title {
+            margin-left: auto;
+            color: #888;
+            font-size: 0.78rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .ctf-body {
+            flex: 1;
+            padding: 14px 16px;
+            overflow-y: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: #b6d8ff;
+            background: #0d1117;
+            position: relative;
+        }
+
+        #shell-screen {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        #output {
+            flex: 1;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .cmd-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .prompt {
+            color: #7ee787;
+            white-space: nowrap;
+        }
+
+        .prompt.root {
+            color: #ff7b72;
+            white-space: nowrap;
+        }
+
+        #cmd-input {
+            background: transparent;
+            border: none;
+            color: #b6d8ff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            outline: none;
+            flex: 1;
+            caret-color: #7ee787;
+        }
+
+        .output-line {
+            margin-bottom: 1px;
+        }
+
+        .error {
+            color: #ff7b72;
+        }
+
+        .ls-dir {
+            color: #58a6ff;
+        }
+
+        .ls-hidden {
+            color: #c678dd;
+        }
+
+        .ls-file {
+            color: #b6d8ff;
+        }
+
+        /* Popup */
+        .level-popup {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 12, 20, 0.92);
+            z-index: 20;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .level-popup-box {
+            background: #111827;
+            border: 1px solid #2a3a50;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 360px;
+            padding: 22px 24px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .level-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            color: #8b9bb4;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .level-popup-close:hover {
+            color: #ff7b72;
+        }
+
+        .level-popup-title {
+            color: #79c0ff;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .level-popup input {
+            background: #0d1520;
+            border: 1px solid #2a3a50;
+            color: #b6d8ff;
+            padding: 9px 12px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.82rem;
+            border-radius: 4px;
+            outline: none;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .level-popup input:focus {
+            border-color: #3b82f6;
+        }
+
+        .level-popup-btn {
+            background: #1a2333;
+            border: 1px solid #2a3a50;
+            color: #b6d8ff;
+            padding: 8px 16px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .level-popup-btn:hover {
+            background: #243044;
+        }
+
+        #level-error {
+            color: #ff7b72;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #level-success {
+            display: none;
+            margin-top: 14px;
+        }
+
+        #level-success a {
+            color: #7ee787;
+            text-decoration: none;
+            border-bottom: 1px solid #7ee787;
+            font-size: 0.85rem;
+        }
+
+        #level-success a:hover {
+            color: #a5f3a8;
+        }
+
+        @media (max-width: 780px) {
+            .ctf-wrapper {
+                flex-direction: column;
+                height: auto;
+                min-height: 520px;
+            }
+
+            .ctf-sidebar {
+                width: 100%;
+                min-height: 140px;
+                border-right: none;
+                border-bottom: 1px solid #1f2a3c;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo-text">
+            <a href="index.html" class="logo-link">
+                ❰ <span style="color: white;">MAYUSO</span>
+                <span style="color: var(--accent);">ETHICAL HACKING</span> ❱
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">/HOME</a>
+            <a href="pentestools.html">/PENTESTOOLS</a>
+            <a href="whoami.html">/WHOAMI</a>
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
+        </div>
+    </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        window.addEventListener('beforeunload', saveMusicState);
+        window.addEventListener('load', loadMusicState);
+    </script>
+
+    <canvas id="matrix"></canvas>
+
+    <br>
+
+    <section class="content">
+        <br>
+
+        <div class="ctf-wrapper">
+
+            <!-- Sidebar -->
+            <div class="ctf-sidebar">
+                <div class="ctf-sidebar-header">FLAGS DESCUBIERTAS</div>
+                <div class="ctf-password-list" id="password-list">
+                    <div class="ctf-empty"></div>
+                </div>
+                <div class="ctf-next-btn" id="next-level-btn">
+                    Siguiente nivel
+                </div>
+            </div>
+
+            <!-- Terminal -->
+            <div class="ctf-terminal">
+                <div class="ctf-bar">
+                    <div class="ctf-dots">
+                        <div class="ctf-dot red"></div>
+                        <div class="ctf-dot yellow"></div>
+                        <div class="ctf-dot green"></div>
+                    </div>
+                    <div class="ctf-title">CTF1 Nivel 05</div>
+                </div>
+
+                <div class="ctf-body" id="terminal-body">
+
+                    <!-- SHELL (visible desde el principio) -->
+                    <div id="shell-screen">
+                        <div id="output"></div>
+                        <div class="cmd-line">
+                            <span class="prompt" id="prompt">user@ctf:/usr$</span>
+                            <input type="text" id="cmd-input" autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+
+                    <!-- POPUP -->
+                    <div class="level-popup" id="level-popup">
+                        <div class="level-popup-box">
+                            <div class="level-popup-close" id="close-popup">✕</div>
+                            <div class="level-popup-title">Acceso al siguiente nivel</div>
+                            <div style="font-size:0.78rem; color:#8b9bb4; margin-bottom:12px;">
+                                Introduce la contraseña del Nivel 06:
+                            </div>
+                            <input type="text" id="level-password" placeholder="••••••••" autocomplete="off"
+                                spellcheck="false">
+                            <button class="level-popup-btn" id="level-submit">Verificar</button>
+                            <div id="level-error">Contraseña incorrecta.</div>
+                            <div id="level-success">
+                                Acceso concedido.<br>
+                                <a href="ctf1_06_mke.html" id="next-level-link">Ir al Nivel 06 →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+    </section>
+
+    <br><br>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
+        </div>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
+        </div>
+
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const fontSize = 13;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00aaff';
+            ctx.font = `${fontSize}px monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 35);
+    </script>
+
+    <!-- ========== LÓGICA CTF ========== -->
+    <script>
+        // ===================== CONFIGURACIÓN =====================
+        const nextLevelPassword = "gL1d3R";
+        const nextLevelUrl = "ctf1_06_mke.html";
+
+        let currentUser = "user";
+        let currentPath = "/usr";
+        let discovered = ["[01] antivirus", "[02] blackhat", "[03] robots", "[04] g4teway", "[05] spasov"];
+        let history = [];
+        let historyIndex = -1;
+        let waitingForSudoPassword = false;
+
+        // Sistema de archivos
+        const fs = {
+            "/": {
+                type: "dir",
+                children: {
+                    "usr": {
+                        type: "dir",
+                        children: {
+                            "readme.txt": {
+                                type: "file",
+                                content: "> La flag está encriptada en ROT13, pero hay que buscarla en el sistema."
+                            },
+                            ".secret.txt": {
+                                type: "file",
+                                content: "La flag podría haber estado aquí, pero no."
+                            }
+                        }
+                    },
+                    "root": {
+                        type: "dir",
+                        children: {
+                            "root.txt": {
+                                type: "file",
+                                content: "Tú ya eres un poco hacker ¿no?"
+                            }
+                        }
+                    },
+                    "bin": {
+                        type: "dir",
+                        children: {
+                            "drop01.txt": {
+                                type: "file",
+                                content: "Synt{rfgnAbrf}"
+                            },
+                            "drop02.txt": {
+                                type: "file",
+                                content: "Synt{rfgnAbshapvbaneá}"
+                            },
+                            "fxyrj.txt": {
+                                type: "file",
+                                content: "There's nothing here"
+                            },
+                            ".secret_drop.txt": {
+                                type: "file",
+                                content: "Synt{cbeNdhvGnzcbpb}"
+                            },
+                            "backup.b64": {
+                                type: "file",
+                                content: "U29tZSByYW5kb20gYmFzZTY0IGRhdGE="
+                            }
+                        }
+                    },
+                    "etc": {
+                        type: "dir",
+                        children: {
+                            "maybe.txt": {
+                                type: "file",
+                                content: "> Maybe it was here but it isn't"
+                            },
+                            ".rot13.txt": {
+                                type: "file",
+                                content: "> ROT13 es un cifrado César simple que reemplaza cada letra por la que está 13 posiciones más adelante en el alfabeto."
+                            },
+                            "config.hex": {
+                                type: "file",
+                                content: "48656c6c6f20776f726c642066726f6d20686578"
+                            }
+                        }
+                    },
+                    "sys": {
+                        type: "dir",
+                        children: {
+                            "sysfile.txt": {
+                                type: "file",
+                                content: "0246745927451682"
+                            },
+                            ".sysfileX.txt": {
+                                type: "file",
+                                content: "Casi pero no"
+                            }
+                        }
+                    },
+                    "tmp": {
+                        type: "dir",
+                        children: {
+                            "tempfile1.txt": {
+                                type: "file",
+                                content: "YbUnfQrfrapevcgnqbOvraCrebNdhvAbRfgá"
+                            },
+                            "tempfile2.txt": {
+                                type: "file",
+                                content: "PbzbIrfNdhvGnzcbpbRfgnYnSynt"
+                            },
+                            ".flag.txt": {
+                                type: "file",
+                                content: "Synt{tY1q3E}"
+                            },
+                            "flag.txt": {
+                                type: "file",
+                                content: "Esta no es la flag, sigue buscando."
+                            },
+                            ".old_flag.txt": {
+                                type: "file",
+                                content: "Synt{tyvqre}"
+                            }
+                        }
+                    },
+                    "opt": {
+                        type: "dir",
+                        children: {
+                            ".bandera.txt": {
+                                type: "file",
+                                content: "Lo siento pero esto es un señuelo"
+                            },
+                            "notes.txt": {
+                                type: "file",
+                                content: "Erphreqn zvene gnzovéa ybf nepuvibf bphygbf"
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // ===================== DOM =====================
+        const shellScreen = document.getElementById("shell-screen");
+        const outputDiv = document.getElementById("output");
+        const cmdInput = document.getElementById("cmd-input");
+        const promptSpan = document.getElementById("prompt");
+        const passwordList = document.getElementById("password-list");
+
+        const nextLevelBtn = document.getElementById("next-level-btn");
+        const levelPopup = document.getElementById("level-popup");
+        const closePopup = document.getElementById("close-popup");
+        const levelPassword = document.getElementById("level-password");
+        const levelSubmit = document.getElementById("level-submit");
+        const levelError = document.getElementById("level-error");
+        const levelSuccess = document.getElementById("level-success");
+
+        // ===================== SHELL =====================
+        function updatePrompt() {
+            const symbol = currentUser === "root" ? "#" : "$";
+            promptSpan.textContent = `${currentUser}@ctf:${currentPath}${symbol}`;
+
+            if (currentUser === "root") {
+                promptSpan.classList.add("root");
+            } else {
+                promptSpan.classList.remove("root");
+            }
+        }
+
+        function print(text, className = "") {
+            const line = document.createElement("div");
+            line.className = "output-line " + className;
+            line.innerHTML = text;
+            outputDiv.appendChild(line);
+            const body = document.getElementById("terminal-body");
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function getNode(path) {
+            if (path === "/") return fs["/"];
+            const parts = path.split("/").filter(Boolean);
+            let node = fs["/"];
+            for (const p of parts) {
+                if (!node.children || !node.children[p]) return null;
+                node = node.children[p];
+            }
+            return node;
+        }
+
+        function resolvePath(input) {
+            if (input.startsWith("/")) return input === "/" ? "/" : input.replace(/\/+$/, "") || "/";
+            if (input === ".") return currentPath;
+            if (input === "..") {
+                if (currentPath === "/") return "/";
+                const parts = currentPath.split("/").filter(Boolean);
+                parts.pop();
+                return parts.length ? "/" + parts.join("/") : "/";
+            }
+            const base = currentPath === "/" ? "" : currentPath;
+            return (base + "/" + input).replace(/\/+/g, "/");
+        }
+
+        function execute(cmd) {
+            if (waitingForSudoPassword) {
+                waitingForSudoPassword = false;
+                if (cmd === "root") {
+                    currentUser = "root";
+                    currentPath = "/root";
+                    updatePrompt();
+                    print("Ahora eres root.");
+                } else {
+                    print("sudo: contraseña incorrecta", "error");
+                }
+                return;
+            }
+
+            const parts = cmd.trim().split(/\s+/);
+            const command = parts[0];
+            const args = parts.slice(1);
+
+            if (!command) return;
+
+            switch (command) {
+                case "help":
+                    print("Comandos disponibles:");
+                    print("&nbsp;&nbsp;ls [-a] [path]&nbsp;&nbsp;&nbsp;- listar contenido");
+                    print("&nbsp;&nbsp;cd &lt;dir&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- cambiar de directorio");
+                    print("&nbsp;&nbsp;cat &lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- mostrar contenido de archivo");
+                    print("&nbsp;&nbsp;pwd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- mostrar ruta actual");
+                    print("&nbsp;&nbsp;clear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- limpiar pantalla");
+                    print("&nbsp;&nbsp;whoami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- mostrar usuario actual");
+                    print("&nbsp;&nbsp;sudo su&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- escalar privilegios a root");
+                    print("&nbsp;&nbsp;exit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- volver a usuario normal");
+                    print("&nbsp;&nbsp;help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- esta ayuda");
+                    break;
+
+                case "pwd":
+                    print(currentPath);
+                    break;
+
+                case "whoami":
+                    print(currentUser);
+                    break;
+
+                case "clear":
+                    outputDiv.innerHTML = "";
+                    break;
+
+                case "exit":
+                    if (currentUser === "root") {
+                        currentUser = "user";
+                        currentPath = "/usr";
+                        updatePrompt();
+                        print("Has vuelto al usuario normal.");
+                    } else {
+                        print("Ya eres el usuario normal.");
+                    }
+                    break;
+
+                case "sudo":
+                    if (args[0] === "su") {
+                        if (currentUser === "root") {
+                            print("Ya eres root.");
+                        } else {
+                            print("[sudo] password for user:");
+                            waitingForSudoPassword = true;
+                        }
+                    } else {
+                        print("sudo: comando no reconocido. Usa: sudo su", "error");
+                    }
+                    break;
+
+                case "ls": {
+                    let showHidden = false;
+                    let targetArg = null;
+
+                    if (args.includes("-a") || args.includes("-la") || args.includes("-al")) {
+                        showHidden = true;
+                    }
+                    targetArg = args.find(a => !a.startsWith("-"));
+
+                    const target = targetArg ? resolvePath(targetArg) : currentPath;
+                    const node = getNode(target);
+
+                    if (!node) {
+                        print(`ls: no se puede acceder a '${targetArg || target}': No existe el archivo o el directorio`, "error");
+                        break;
+                    }
+                    if (node.type !== "dir") {
+                        print(targetArg || target);
+                        break;
+                    }
+
+                    let names = Object.keys(node.children || {});
+                    if (!showHidden) {
+                        names = names.filter(n => !n.startsWith("."));
+                    }
+                    names.sort();
+
+                    if (names.length === 0) {
+                        print("(vacío)");
+                        break;
+                    }
+
+                    const colored = names.map(name => {
+                        const child = node.children[name];
+                        if (name.startsWith(".")) {
+                            return `<span class="ls-hidden">${name}</span>`;
+                        }
+                        if (child.type === "dir") {
+                            return `<span class="ls-dir">${name}</span>`;
+                        }
+                        return `<span class="ls-file">${name}</span>`;
+                    });
+
+                    print(colored.join("  "));
+                    break;
+                }
+
+                case "cd": {
+                    if (!args[0]) {
+                        currentPath = currentUser === "root" ? "/root" : "/usr";
+                        updatePrompt();
+                        break;
+                    }
+                    const target = resolvePath(args[0]);
+                    const node = getNode(target);
+                    if (!node) {
+                        print(`cd: ${args[0]}: No existe el archivo o el directorio`, "error");
+                        break;
+                    }
+                    if (node.type !== "dir") {
+                        print(`cd: ${args[0]}: No es un directorio`, "error");
+                        break;
+                    }
+                    if (currentUser !== "root" && target.startsWith("/root")) {
+                        print(`cd: ${args[0]}: Permiso denegado`, "error");
+                        break;
+                    }
+                    currentPath = target;
+                    updatePrompt();
+                    break;
+                }
+
+                case "cat": {
+                    if (!args[0]) {
+                        print("cat: falta el operando", "error");
+                        break;
+                    }
+                    const target = resolvePath(args[0]);
+                    const node = getNode(target);
+                    if (!node) {
+                        print(`cat: ${args[0]}: No existe el archivo o el directorio`, "error");
+                        break;
+                    }
+                    if (node.type !== "file") {
+                        print(`cat: ${args[0]}: Es un directorio`, "error");
+                        break;
+                    }
+                    if (currentUser !== "root" && target.startsWith("/root")) {
+                        print(`cat: ${args[0]}: Permiso denegado`, "error");
+                        break;
+                    }
+                    print(node.content);
+                    break;
+                }
+
+                default:
+                    print(`${command}: orden no encontrada`, "error");
+            }
+        }
+
+        cmdInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                const cmd = cmdInput.value;
+                if (waitingForSudoPassword) {
+                    print(`${promptSpan.textContent} ********`);
+                } else {
+                    print(`${promptSpan.textContent} ${cmd}`);
+                }
+                history.push(cmd);
+                historyIndex = history.length;
+                execute(cmd);
+                cmdInput.value = "";
+            }
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    cmdInput.value = history[historyIndex];
+                }
+            }
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (historyIndex < history.length - 1) {
+                    historyIndex++;
+                    cmdInput.value = history[historyIndex];
+                } else {
+                    historyIndex = history.length;
+                    cmdInput.value = "";
+                }
+            }
+        });
+
+        // ===================== LISTA =====================
+        function renderPasswordList() {
+            passwordList.innerHTML = "";
+            if (discovered.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "ctf-empty";
+                empty.textContent = "Ninguna todavía...";
+                passwordList.appendChild(empty);
+                return;
+            }
+            discovered.forEach(pass => {
+                const item = document.createElement("div");
+                item.className = "ctf-password-item";
+                item.textContent = pass;
+                passwordList.appendChild(item);
+            });
+        }
+
+        // ===================== POPUP =====================
+        nextLevelBtn.addEventListener("click", () => {
+            levelPopup.style.display = "flex";
+            levelPassword.value = "";
+            levelError.style.display = "none";
+            levelSuccess.style.display = "none";
+            levelPassword.focus();
+        });
+
+        closePopup.addEventListener("click", () => {
+            levelPopup.style.display = "none";
+            cmdInput.focus();
+        });
+
+        function checkNextLevel() {
+            const val = levelPassword.value.trim();
+            if (val === nextLevelPassword) {
+                if (!discovered.includes(nextLevelPassword)) {
+                    discovered.push(nextLevelPassword);
+                    renderPasswordList();
+                }
+                window.location.href = nextLevelUrl;
+            } else {
+                levelError.style.display = "block";
+                levelSuccess.style.display = "none";
+                levelPassword.value = "";
+                levelPassword.focus();
+            }
+        }
+
+        levelSubmit.addEventListener("click", checkNextLevel);
+        levelPassword.addEventListener("keydown", e => {
+            if (e.key === "Enter") checkNextLevel();
+        });
+
+        // ===================== INICIO =====================
+        renderPasswordList();
+        print("Pasaste al siguiente nivel\n");
+        print("Escribe 'help' para ver los comandos disponibles.\n");
+        updatePrompt();
+        cmdInput.focus();
+    </script>
+</body>
+
+</html>

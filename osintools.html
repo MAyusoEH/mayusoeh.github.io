@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSINT TOOLS - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
@@ -22,8 +25,62 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
@@ -31,561 +88,942 @@
 
     <!-- ---------- CONTENIDO ---------- -->
 
-<section style="padding: 60px 8%;">
+    <section style="padding: 60px 8%;">
 
         <div style="text-align: center; margin-bottom: 0px;">
-            <i class="ti ti-zoom" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
-            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">HERRAMIENTAS OSINT</h2>
+            <i class="ti ti-zoom" style="color: #cccccc; font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0; color: #cccccc;">HERRAMIENTAS OSINT</h2>
         </div>
-    
+
         <br>
 
-    <p style="text-align: center;">Herramientas y utilidades web por categoría, para buscar información e inteligencia de fuentes abiertas (y no tanto).</p>
-    
-    <br><br>
+        <p style="text-align: center;">Herramientas y utilidades web por categoría, para buscar información e
+            inteligencia de fuentes abiertas (y no tanto).</p>
 
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1140px; margin: 0 auto; gap: 40px 0px;">
+        <br><br>
 
-        <!-- Columna 1 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🔧 UTILIDADES</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="tool-googledorks.html" style="text-decoration: none; display: block; margin: 4px 0;">💊 Google Dorks Tool</a>
-                <a href="https://osintframework.com/" target="_blank" style="text-decoration: none; display: block; margin: 4px 0;">🌐 OSINT Framework</a>
-                <a href="https://start.me/p/wMkNoN/osint-fuentes-abiertas-ciberinteligencia" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔧 Brian Arroyo's Tools</a>
-                <a href="https://start.me/p/7kxyy2/osint-tools-curated-by-lorand-bodo" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔧 Lorando Bodo's Tools</a>
-                <a href="https://asm.arpsyndicate.io/intelligence.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💀 ARP Syndicate Resources</a>
-                <a href="https://wiki.securiters.com/securiters-wiki" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📚 Securiters Wiki</a>
+        <div
+            style="display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1140px; margin: 0 auto; gap: 40px 0px;">
+
+            <!-- Columna 1 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🔧 UTILIDADES</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="tool-googledorks.html" style="text-decoration: none; display: block; margin: 4px 0;">💊
+                        Google Dorks Tool</a>
+                    <a href="https://osintframework.com/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">🌐 OSINT Framework</a>
+                    <a href="https://start.me/p/wMkNoN/osint-fuentes-abiertas-ciberinteligencia" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔧 Brian Arroyo's Tools</a>
+                    <a href="https://start.me/p/7kxyy2/osint-tools-curated-by-lorand-bodo" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔧 Lorando Bodo's Tools</a>
+                    <a href="https://asm.arpsyndicate.io/intelligence.html" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💀 ARP Syndicate Resources</a>
+                    <a href="https://wiki.securiters.com/securiters-wiki" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📚 Securiters Wiki</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 2 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🔍 MOTORES BÚSQUEDA</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.google.es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google</a>
-                <a href="https://www.google.com/advanced_search" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google Advanced Search</a>
-                <a href="https://www.bing.com/search?q=Bing+AI&showconv=0" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Bing con IA</a>
-                <a href="https://search.carrot2.org/#/search/web" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Carrot2</a>
-                <a href="https://duckduckgo.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 DuckDuckGo</a>
-                <a href="https://yandex.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Yandex</a>
-                <a href="https://www.baidu.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Baidu</a>
-                <a href="https://www.baiduinenglish.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Baidu in english</a>
-                <a href="https://www.shodan.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Shodan</a>
-                <a href="https://www.faganfinder.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Fagan Finder</a>
-                <a href="https://www.wolframalpha.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Wolfram Alpha</a>
-                <a href="https://ewasion.github.io/opendirectory-finder/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Direct Download Search</a>
-                <a href="https://www.toolify.ai/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Toolify AI Search</a>
-                <a href="https://dorkgpt.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 DorkGPT</a>
+            <!-- Columna 2 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🔍 MOTORES BÚSQUEDA</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.google.es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google</a>
+                    <a href="https://www.google.com/advanced_search" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google Advanced Search</a>
+                    <a href="https://www.bing.com/search?q=Bing+AI&showconv=0" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Bing con IA</a>
+                    <a href="https://search.carrot2.org/#/search/web" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Carrot2</a>
+                    <a href="https://duckduckgo.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 DuckDuckGo</a>
+                    <a href="https://yandex.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Yandex</a>
+                    <a href="https://www.baidu.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Baidu</a>
+                    <a href="https://www.baiduinenglish.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Baidu in english</a>
+                    <a href="https://www.shodan.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Shodan</a>
+                    <a href="https://www.faganfinder.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Fagan Finder</a>
+                    <a href="https://www.wolframalpha.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Wolfram Alpha</a>
+                    <a href="https://ewasion.github.io/opendirectory-finder/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Direct Download Search</a>
+                    <a href="https://www.toolify.ai/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Toolify AI Search</a>
+                    <a href="https://dorkgpt.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 DorkGPT</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 3 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🤖 INTELIGENCIA ARTIFICIAL</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://chat.openai.com/auth/login" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 ChatGPT</a>
-                <a href="https://www.phind.com/search?home=true" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Phind</a>
-                <a href="https://www.bing.com/search?q=Bing+AI&showconv=1" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Copilot</a>
-                <a href="https://www.bing.com/images/create/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Copilot Designer</a>
-                <a href="https://gemini.google.com/app" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Gemini</a>
-                <a href="https://chat.deepseek.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 DeepSeek</a>
-                <a href="https://grok.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Grok</a>
-                <a href="https://www.whiterabbitneo.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 WhiteRabbitNeo</a>
-                <a href="https://www.logoai.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Logo AI</a>
-                <a href="https://www.craiyon.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Craiyon</a>
-                <a href="https://perchance.org/ai-photo-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 AI Photo Generator</a>
-                <a href="https://www.deepl.com/translator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Deep Translate</a>
-                <a href="https://app.suno.ai/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Suno AI Music</a>
+            <!-- Columna 3 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🤖 INTELIGENCIA ARTIFICIAL</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://chat.openai.com/auth/login" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 ChatGPT</a>
+                    <a href="https://www.phind.com/search?home=true" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Phind</a>
+                    <a href="https://www.bing.com/search?q=Bing+AI&showconv=1" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Copilot</a>
+                    <a href="https://www.bing.com/images/create/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Copilot Designer</a>
+                    <a href="https://gemini.google.com/app" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Gemini</a>
+                    <a href="https://chat.deepseek.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 DeepSeek</a>
+                    <a href="https://grok.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Grok</a>
+                    <a href="https://www.whiterabbitneo.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 WhiteRabbitNeo</a>
+                    <a href="https://www.logoai.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Logo AI</a>
+                    <a href="https://www.craiyon.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Craiyon</a>
+                    <a href="https://perchance.org/ai-photo-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 AI Photo Generator</a>
+                    <a href="https://www.deepl.com/translator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Deep Translate</a>
+                    <a href="https://app.suno.ai/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Suno AI Music</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 4 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">👨‍💻 HUELLA DIGITAL</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://amiunique.org/fingerprint" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">☝️ Am I Unique?</a>
-                <a href="https://coveryourtracks.eff.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">☝️ Cover Your Tracks</a>
-                <a href="https://browserleaks.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⬛ Browser Leaks</a>
-                <a href="https://justgetmydata.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⏬ Just Get My Data</a>
-                <a href="https://justdeleteme.xyz/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">❌ Just Delete Me</a>
-                <a href="https://myactivity.google.com/myactivity" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Google Mi Actividad</a>
-                <a href="https://myaccount.google.com/profile" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Google Mi Perfil</a>
-                <a href="https://www.google.com/maps/contrib/112078719558973927678/contribute/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Google Mis Reseñas/Fotos</a>
-                <a href="https://www.google.es/alerts" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Google Sistema de Alertas</a>
-                <a href="https://myactivity.google.com/results-about-you" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Google Resultados sobre ti</a>
-                <a href="https://myactivity.google.com/dark-web-report/dashboard?hl=es" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Google Deep Web Scan</a>
+            <!-- Columna 4 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">👨‍💻 HUELLA DIGITAL</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://amiunique.org/fingerprint" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">☝️ Am I Unique?</a>
+                    <a href="https://coveryourtracks.eff.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">☝️ Cover Your Tracks</a>
+                    <a href="https://browserleaks.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⬛ Browser Leaks</a>
+                    <a href="https://justgetmydata.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⏬ Just Get My Data</a>
+                    <a href="https://justdeleteme.xyz/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">❌ Just Delete Me</a>
+                    <a href="https://myactivity.google.com/myactivity" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Google Mi Actividad</a>
+                    <a href="https://myaccount.google.com/profile" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Google Mi Perfil</a>
+                    <a href="https://www.google.com/maps/contrib/112078719558973927678/contribute/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Google Mis Reseñas/Fotos</a>
+                    <a href="https://www.google.es/alerts" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Google Sistema de Alertas</a>
+                    <a href="https://myactivity.google.com/results-about-you" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Google Resultados sobre
+                        ti</a>
+                    <a href="https://myactivity.google.com/dark-web-report/dashboard?hl=es" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Google Deep Web Scan</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 5 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🔑 CONTRASEÑAS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.eset.com/es/password-generator/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 ESET Password Generator</a>
-                <a href="https://www.security.org/how-secure-is-my-password/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">☑️ How secure is my password?</a>
-                <a href="https://password.kaspersky.com/es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">☑️ Kaspersky Password Check</a>
-                <a href="https://haveibeenpwned.com/Passwords" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Passwords</a>
-                <a href="https://cirt.net/passwords" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Vendors Default Passwords</a>
-                <a href="https://www.routerpasswords.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Router Default Passwords</a>
-                <a href="https://lucidar.me/en/security/files/100000-most-common-passwords.txt" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 100.000 Common Passwords</a>
-                <a href="https://en.wikipedia.org/wiki/Wikipedia:10,000_most_common_passwords" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 10.000 Common Passwords</a>
-                <a href="https://drive.google.com/drive/folders/14xB93b5YveOzCY7EuDrcL5ElpN-HCNse" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Drive Password Database</a>
-                <a href="https://github.com/zacheller/rockyou/blob/master/rockyou.txt.tar.gz" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Rockyou Wordlist</a>
-                <a href="https://mega.nz/file/nWJXzYzS#P1G8HDiMxq5wFaxeWGWx334Wp9wByj5kMEGLZkVX694" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Kaonashi Wordlist</a>
-                <a href="https://github.com/danielmiessler/SecLists" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍💻 Daniel Miessler SecList</a>
+            <!-- Columna 5 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🔑 CONTRASEÑAS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.eset.com/es/password-generator/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 ESET Password Generator</a>
+                    <a href="https://www.security.org/how-secure-is-my-password/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">☑️ How secure is my
+                        password?</a>
+                    <a href="https://password.kaspersky.com/es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">☑️ Kaspersky Password Check</a>
+                    <a href="https://haveibeenpwned.com/Passwords" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Passwords</a>
+                    <a href="https://cirt.net/passwords" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Vendors Default Passwords</a>
+                    <a href="https://www.routerpasswords.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Router Default Passwords</a>
+                    <a href="https://lucidar.me/en/security/files/100000-most-common-passwords.txt" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 100.000 Common Passwords</a>
+                    <a href="https://en.wikipedia.org/wiki/Wikipedia:10,000_most_common_passwords" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 10.000 Common Passwords</a>
+                    <a href="https://drive.google.com/drive/folders/14xB93b5YveOzCY7EuDrcL5ElpN-HCNse" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Drive Password Database</a>
+                    <a href="https://github.com/zacheller/rockyou/blob/master/rockyou.txt.tar.gz" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Rockyou Wordlist</a>
+                    <a href="https://mega.nz/file/nWJXzYzS#P1G8HDiMxq5wFaxeWGWx334Wp9wByj5kMEGLZkVX694" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔑 Kaonashi Wordlist</a>
+                    <a href="https://github.com/danielmiessler/SecLists" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍💻 Daniel Miessler
+                        SecList</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 6 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">👻 PROXY / VPN</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://hide.me/es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">👻 Hide.me (browser proxy)</a>
-                <a href="https://spys.one/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📃 spys.one (proxy list)</a>
-                <a href="https://hidemy.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📃 hidemy.io (proxy list)</a>
-                <a href="https://proxyscrape.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📃 ProxyScrape (proxy list)</a>
-                <a href="https://free-proxy-list.net/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📃 Free Proxy List (proxy list)</a>
-                <a href="https://chromewebstore.google.com/detail/vpn-gratis-para-chrome-vp/majdfhpaihoncoakbjgbdhglocklcgno" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎭 VEEPN (free Chrome VPN)</a>
-                <a href="https://addons.mozilla.org/en-US/firefox/addon/veepn-free-fast-security-vpn/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎭 VEEPN (free Firefox VPN)</a>
+            <!-- Columna 6 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">👻 PROXY / VPN</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://hide.me/es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">👻 Hide.me (browser proxy)</a>
+                    <a href="https://spys.one/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📃 spys.one (proxy list)</a>
+                    <a href="https://hidemy.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📃 hidemy.io (proxy list)</a>
+                    <a href="https://proxyscrape.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📃 ProxyScrape (proxy list)</a>
+                    <a href="https://free-proxy-list.net/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📃 Free Proxy List (proxy
+                        list)</a>
+                    <a href="https://chromewebstore.google.com/detail/vpn-gratis-para-chrome-vp/majdfhpaihoncoakbjgbdhglocklcgno"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎭 VEEPN (free
+                        Chrome VPN)</a>
+                    <a href="https://addons.mozilla.org/en-US/firefox/addon/veepn-free-fast-security-vpn/"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎭 VEEPN (free
+                        Firefox VPN)</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 7 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🧑 BUSCAR PERSONA</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://usersearch.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 UserSearch.org</a>
-                <a href="http://snitch.name/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 Snitch.name</a>
-                <a href="https://webmii.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 WebMii</a>
-                <a href="http://www.yasni.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 Yasni</a>
-                <a href="https://rocketreach.co/person" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚀 RocketReach</a>
-                <a href="https://www.spokeo.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⭕ Spokeo</a>
-                <a href="https://dehashed.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔲 DeHashed</a>
-                <a href="https://www.social-searcher.com/google-social-search/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google Social Search</a>
-                <a href="https://yandex.ru/people" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Yandex People Search</a>
-                <a href="https://instantusername.com/#/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚡ Instant Username</a>
-                <a href="https://breachdirectory.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧿 BreachDirectory</a>
-                <a href="https://searchpof.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🐟 SearchPof</a>
-                <a href="https://www.mapadeapellidos.eu/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Mapa de Apellidos</a>
-                <a href="https://www.letranif.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💳 Calcular Letra DNI</a>
+            <!-- Columna 7 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🧑 BUSCAR PERSONA</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://usersearch.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 UserSearch.org</a>
+                    <a href="http://snitch.name/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 Snitch.name</a>
+                    <a href="https://webmii.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 WebMii</a>
+                    <a href="http://www.yasni.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 Yasni</a>
+                    <a href="https://rocketreach.co/person" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🚀 RocketReach</a>
+                    <a href="https://www.spokeo.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⭕ Spokeo</a>
+                    <a href="https://dehashed.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔲 DeHashed</a>
+                    <a href="https://www.social-searcher.com/google-social-search/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google Social Search</a>
+                    <a href="https://yandex.ru/people" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Yandex People Search</a>
+                    <a href="https://instantusername.com/#/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚡ Instant Username</a>
+                    <a href="https://breachdirectory.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧿 BreachDirectory</a>
+                    <a href="https://searchpof.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🐟 SearchPof</a>
+                    <a href="https://www.mapadeapellidos.eu/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Mapa de Apellidos</a>
+                    <a href="https://www.letranif.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💳 Calcular Letra DNI</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 8 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">✉️ BUSCAR EMAIL</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://epieos.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟥 Epieos</a>
-                <a href="https://www.spokeo.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⭕ Spokeo</a>
-                <a href="https://dehashed.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔲 DeHashed</a>
-                <a href="https://emailrep.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✅ Email Reputation</a>
-                <a href="https://tools.emailhippo.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🦛 Email Hippo</a>
-                <a href="https://intelx.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⏸️ Intelligence X</a>
-                <a href="https://haveibeenpwned.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Emails</a>
-                <a href="https://breachdirectory.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧿 BreachDirectory</a>
-                <a href="https://maildump.co/email-finder" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ Email Finder</a>
-                <a href="https://mailinput.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ Email Verifyer</a>
-                <a href="https://maildump.co/domain-search" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ Email Domain Search</a>
-                <a href="https://hunter.io/users/sign_in" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🦊 Hunter.io</a>
-                <a href="https://outscraper.com/es/dominio-emails-search/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟦 Outscraper</a>
-                <a href="https://phonebook.cz/?c=e5aa960e-2fe6-4e04-966c-f38d1ae59534" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🈸 Phonebook.cz</a>
-                <a href="https://www.email-format.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📩 Email Format</a>
+            <!-- Columna 8 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">✉️ BUSCAR EMAIL</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://epieos.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟥 Epieos</a>
+                    <a href="https://www.spokeo.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⭕ Spokeo</a>
+                    <a href="https://dehashed.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔲 DeHashed</a>
+                    <a href="https://emailrep.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✅ Email Reputation</a>
+                    <a href="https://tools.emailhippo.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🦛 Email Hippo</a>
+                    <a href="https://intelx.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⏸️ Intelligence X</a>
+                    <a href="https://haveibeenpwned.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Emails</a>
+                    <a href="https://breachdirectory.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧿 BreachDirectory</a>
+                    <a href="https://maildump.co/email-finder" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ Email Finder</a>
+                    <a href="https://mailinput.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ Email Verifyer</a>
+                    <a href="https://maildump.co/domain-search" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ Email Domain Search</a>
+                    <a href="https://hunter.io/users/sign_in" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🦊 Hunter.io</a>
+                    <a href="https://outscraper.com/es/dominio-emails-search/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟦 Outscraper</a>
+                    <a href="https://phonebook.cz/?c=e5aa960e-2fe6-4e04-966c-f38d1ae59534" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🈸 Phonebook.cz</a>
+                    <a href="https://www.email-format.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📩 Email Format</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 9 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">✉️ BUSCAR EMAIL</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.experte.com/email-finder" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟡 Experte.com (email)</a>
-                <a href="https://github.com/Josue87/EmailFinder" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🐈 Email Finder - Josue87 (GitHub)</a>
-                <a href="https://github.com/GiJ03/Infoga" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🐈 Email OSINT - GiJ03 (GitHub)</a>
-                <a href="https://www.infoga.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟢 Infoga.io (email)</a>
-                <a href="https://findemail.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟣 FindEmail.io (email)</a>
-                <a href="https://anymailfinder.com/email-finder-by-domain" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ AnyMailFinder (domain emails)</a>
-                <a href="https://minelead.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">Ⓜ️ Minelead.io (email)</a>
+            <!-- Columna 9 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">✉️ BUSCAR EMAIL</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.experte.com/email-finder" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟡 Experte.com (email)</a>
+                    <a href="https://github.com/Josue87/EmailFinder" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🐈 Email Finder - Josue87
+                        (GitHub)</a>
+                    <a href="https://github.com/GiJ03/Infoga" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🐈 Email OSINT - GiJ03
+                        (GitHub)</a>
+                    <a href="https://www.infoga.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟢 Infoga.io (email)</a>
+                    <a href="https://findemail.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟣 FindEmail.io (email)</a>
+                    <a href="https://anymailfinder.com/email-finder-by-domain" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✉️ AnyMailFinder (domain
+                        emails)</a>
+                    <a href="https://minelead.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">Ⓜ️ Minelead.io (email)</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 10 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">📞 BUSCAR TELÉFONO</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://numeracionyoperadores.cnmc.es/numeracion" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟧 CNMC</a>
-                <a href="https://www.truecaller.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">#️⃣ TrueCaller</a>
-                <a href="https://epieos.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟥 Epieos</a>
-                <a href="https://www.spokeo.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⭕ Spokeo</a>
-                <a href="https://dehashed.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔲 DeHashed</a>
-                <a href="https://www.paginasamarillas.es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟨 Páginas Amarillas</a>
-                <a href="https://www.xtelefono.es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 Xtelefono.es</a>
-                <a href="https://www.abctelefonos.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✴️ ABCtelefonos</a>
-                <a href="https://www.google.com/android/find/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Google Android Find</a>
+            <!-- Columna 10 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">📞 BUSCAR TELÉFONO</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://numeracionyoperadores.cnmc.es/numeracion" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟧 CNMC</a>
+                    <a href="https://www.truecaller.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">#️⃣ TrueCaller</a>
+                    <a href="https://epieos.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟥 Epieos</a>
+                    <a href="https://www.spokeo.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⭕ Spokeo</a>
+                    <a href="https://dehashed.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔲 DeHashed</a>
+                    <a href="https://www.paginasamarillas.es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟨 Páginas Amarillas</a>
+                    <a href="https://www.xtelefono.es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 Xtelefono.es</a>
+                    <a href="https://www.abctelefonos.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✴️ ABCtelefonos</a>
+                    <a href="https://www.google.com/android/find/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Google Android Find</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 11 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🚘 BUSCAR VEHÍCULO</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.carfax.eu/es/comprobar-matricula" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🐱 Carfax</a>
-                <a href="https://motorgiga.com/coches/calcular-edad-matricula" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟧 MotorGiga</a>
-                <a href="https://play.google.com/store/apps/details?id=com.infovehiculo.nicolapps.infovehiculo&pli=1" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 InfoVehiculo Android</a>
-                <a href="https://sede.dgt.gob.es/es/vehiculos/informacion-de-vehiculos/informe-de-un-vehiculo/index.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📄 Informes Vehículos DGT</a>
-                <a href="https://www.autoescuelassanandres.com/tipos-de-matriculas-que-existen-en-espana/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de España</a>
-                <a href="https://www.matriculasdelmundo.com/europeas.php" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de Europa</a>
+            <!-- Columna 11 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🚘 BUSCAR VEHÍCULO</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.carfax.eu/es/comprobar-matricula" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🐱 Carfax</a>
+                    <a href="https://motorgiga.com/coches/calcular-edad-matricula" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟧 MotorGiga</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.infovehiculo.nicolapps.infovehiculo&pli=1"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 InfoVehiculo
+                        Android</a>
+                    <a href="https://sede.dgt.gob.es/es/vehiculos/informacion-de-vehiculos/informe-de-un-vehiculo/index.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📄 Informes
+                        Vehículos DGT</a>
+                    <a href="https://www.autoescuelassanandres.com/tipos-de-matriculas-que-existen-en-espana/"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de
+                        España</a>
+                    <a href="https://www.matriculasdelmundo.com/europeas.php" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de Europa</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 12 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🖥️ WEB ANÁLISIS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://web-check.xyz/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Web Check</a>
-                <a href="https://namechk.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Namechk (domain availability)</a>
-                <a href="https://www.whatweb.net/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌐 WhatWeb.net</a>
-                <a href="https://builtwith.com/es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟩 BuiltWith</a>
-                <a href="https://securitytrails.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Security Trails</a>
-                <a href="https://safeweb.norton.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟡 Norton Safeweb</a>
-                <a href="https://archive.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🏛️ Internet Archive</a>
-                <a href="https://centralops.net/co/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🈁 CentralOps.net</a>
-                <a href="https://transparencyreport.google.com/safe-browsing/search?hl=es" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📊 Google Transparency Report</a>
-                <a href="https://shdn.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ shdn.io</a>
-                <a href="https://urlscan.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ URLscan.io</a>
-                <a href="https://dnsdumpster.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ DNS Dumpster</a>
-                <a href="https://viewdns.info/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ ViewDNS.info</a>
-                <a href="https://chromewebstore.google.com/detail/wappalyzer-technology-pro/gppongmhjkpfnbhagpmjfkannfbllamg" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 Wappalyzer (Chrome addon)</a>
-                <a href="https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 Wappalyzer (Firefox addon)</a>
+            <!-- Columna 12 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🖥️ WEB ANÁLISIS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://web-check.xyz/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Web Check</a>
+                    <a href="https://namechk.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Namechk (domain
+                        availability)</a>
+                    <a href="https://www.whatweb.net/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌐 WhatWeb.net</a>
+                    <a href="https://builtwith.com/es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟩 BuiltWith</a>
+                    <a href="https://securitytrails.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Security Trails</a>
+                    <a href="https://safeweb.norton.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟡 Norton Safeweb</a>
+                    <a href="https://archive.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🏛️ Internet Archive</a>
+                    <a href="https://centralops.net/co/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🈁 CentralOps.net</a>
+                    <a href="https://transparencyreport.google.com/safe-browsing/search?hl=es" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📊 Google Transparency
+                        Report</a>
+                    <a href="https://shdn.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ shdn.io</a>
+                    <a href="https://urlscan.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ URLscan.io</a>
+                    <a href="https://dnsdumpster.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ DNS Dumpster</a>
+                    <a href="https://viewdns.info/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ ViewDNS.info</a>
+                    <a href="https://chromewebstore.google.com/detail/wappalyzer-technology-pro/gppongmhjkpfnbhagpmjfkannfbllamg"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 Wappalyzer
+                        (Chrome addon)</a>
+                    <a href="https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 Wappalyzer (Firefox
+                        addon)</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 13 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🌐 INTERNET TOOLS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.abuseipdb.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌐 AbuseIPdb</a>
-                <a href="https://browserleaks.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Browser Leaks</a>
-                <a href="https://www.criminalip.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 Criminal IP</a>
-                <a href="https://www.ipfingerprints.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ IPfingerprints.com</a>
-                <a href="https://gsuite.tools/traceroute" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 IP Visual Traceroute</a>
-                <a href="https://www.ipaddress.com/ip-lookup" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Geolocalizar IP</a>
-                <a href="https://talosintelligence.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 Cisco Talos</a>
-                <a href="https://www.ipqualityscore.com/free-ip-lookup-proxy-vpn-test" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔥 IPQS</a>
-                <a href="https://www.whois.com/whois/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌐 Whois Lookup</a>
-                <a href="https://www.virustotal.com/gui/home/upload" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">👾 Virus Total</a>
-                <a href="https://www.joesandbox.com/#windows" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">👾 Joe Sandbox Malware Analysis</a>
+            <!-- Columna 13 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🌐 INTERNET TOOLS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.abuseipdb.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌐 AbuseIPdb</a>
+                    <a href="https://browserleaks.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ Browser Leaks</a>
+                    <a href="https://www.criminalip.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 Criminal IP</a>
+                    <a href="https://www.ipfingerprints.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖥️ IPfingerprints.com</a>
+                    <a href="https://gsuite.tools/traceroute" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 IP Visual Traceroute</a>
+                    <a href="https://www.ipaddress.com/ip-lookup" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Geolocalizar IP</a>
+                    <a href="https://talosintelligence.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 Cisco Talos</a>
+                    <a href="https://www.ipqualityscore.com/free-ip-lookup-proxy-vpn-test" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔥 IPQS</a>
+                    <a href="https://www.whois.com/whois/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌐 Whois Lookup</a>
+                    <a href="https://www.virustotal.com/gui/home/upload" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">👾 Virus Total</a>
+                    <a href="https://www.joesandbox.com/#windows" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">👾 Joe Sandbox Malware
+                        Analysis</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 14 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🌐 INTERNET TOOLS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.carfax.eu/es/comprobar-matricula" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🐱 Carfax</a>
-                <a href="https://motorgiga.com/coches/calcular-edad-matricula" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟧 MotorGiga</a>
-                <a href="https://play.google.com/store/apps/details?id=com.infovehiculo.nicolapps.infovehiculo&pli=1" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 InfoVehiculo Android</a>
-                <a href="https://sede.dgt.gob.es/es/vehiculos/informacion-de-vehiculos/informe-de-un-vehiculo/index.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📄 Informes Vehículos DGT</a>
-                <a href="https://www.autoescuelassanandres.com/tipos-de-matriculas-que-existen-en-espana/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de España</a>
-                <a href="https://www.matriculasdelmundo.com/europeas.php" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de Europa</a>
+            <!-- Columna 14 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🌐 INTERNET TOOLS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.carfax.eu/es/comprobar-matricula" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🐱 Carfax</a>
+                    <a href="https://motorgiga.com/coches/calcular-edad-matricula" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟧 MotorGiga</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.infovehiculo.nicolapps.infovehiculo&pli=1"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 InfoVehiculo
+                        Android</a>
+                    <a href="https://sede.dgt.gob.es/es/vehiculos/informacion-de-vehiculos/informe-de-un-vehiculo/index.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📄 Informes
+                        Vehículos DGT</a>
+                    <a href="https://www.autoescuelassanandres.com/tipos-de-matriculas-que-existen-en-espana/"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de
+                        España</a>
+                    <a href="https://www.matriculasdelmundo.com/europeas.php" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📆 Matrículas de Europa</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 15 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🗺️ MAPAS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://earth.google.com/web/@45.16361723,0.4530888,3595.35306774a,10683284.83308792d,35y,0h,0t,0r/data=OgMKATA" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Google Earth</a>
-                <a href="https://www.google.es/maps/@40.6822932,-1.8788423,6z?entry=ttu" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Google Maps</a>
-                <a href="https://opentopomap.org/#map=7/40.292/-3.560" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Open Topo Maps</a>
-                <a href="https://www.openstreetmap.org/#map=9/40.3654/-3.7134" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Open Street Maps</a>
-                <a href="https://www.ign.es/iberpix/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ IGN Iberpix</a>
-                <a href="https://showmystreet.com/#ny8tb_-28lsq_8w.a_-9542" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🏙️ Show my Street</a>
-                <a href="https://livingatlas.arcgis.com/wayback/#active=16245&mapCenter=-3.68052%2C40.41590%2C12" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⏰ Wayback Imagery</a>
-                <a href="https://www.windy.com/es/-Radar-del-tiempo-radar?radar,40.351,-3.988,7" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💨 Windy</a>
-                <a href="https://visualizadores.ign.es/tproximos/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⛰️ IGN Terremotos</a>
-                <a href="https://map.safecast.org/?y=46.5&x=27.4&z=4&l=0&m=0" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">☢️ Radiación en Europa</a>
-                <a href="https://www.entsoe.eu/data/map/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚡ Red Eléctrica de Europa</a>
-                <a href="https://war.liveuamap.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌎 War Live Maps</a>
-                <a href="https://www.mapadeapellidos.eu/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Mapa de Apellidos</a>
+            <!-- Columna 15 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🗺️ MAPAS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://earth.google.com/web/@45.16361723,0.4530888,3595.35306774a,10683284.83308792d,35y,0h,0t,0r/data=OgMKATA"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Google
+                        Earth</a>
+                    <a href="https://www.google.es/maps/@40.6822932,-1.8788423,6z?entry=ttu" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Google Maps</a>
+                    <a href="https://opentopomap.org/#map=7/40.292/-3.560" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Open Topo Maps</a>
+                    <a href="https://www.openstreetmap.org/#map=9/40.3654/-3.7134" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Open Street Maps</a>
+                    <a href="https://www.ign.es/iberpix/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ IGN Iberpix</a>
+                    <a href="https://showmystreet.com/#ny8tb_-28lsq_8w.a_-9542" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🏙️ Show my Street</a>
+                    <a href="https://livingatlas.arcgis.com/wayback/#active=16245&mapCenter=-3.68052%2C40.41590%2C12"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⏰ Wayback
+                        Imagery</a>
+                    <a href="https://www.windy.com/es/-Radar-del-tiempo-radar?radar,40.351,-3.988,7" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💨 Windy</a>
+                    <a href="https://visualizadores.ign.es/tproximos/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⛰️ IGN Terremotos</a>
+                    <a href="https://map.safecast.org/?y=46.5&x=27.4&z=4&l=0&m=0" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">☢️ Radiación en Europa</a>
+                    <a href="https://www.entsoe.eu/data/map/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚡ Red Eléctrica de Europa</a>
+                    <a href="https://war.liveuamap.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌎 War Live Maps</a>
+                    <a href="https://www.mapadeapellidos.eu/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🗺️ Mapa de Apellidos</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 16 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">✈️ TRANSPORTES</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://infocar.dgt.es/etraffic/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 Mapa DGT</a>
-                <a href="https://sf01web.wixsite.com/mayusoeh" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 Waze Map</a>
-                <a href="https://www.dgt.es/conoce-el-estado-del-trafico/camaras-de-trafico/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Cámaras de Tráfico DGT</a>
-                <a href="https://www.flightradar24.com/41.40,-1.48/6" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✈️ Flight Radar 24</a>
-                <a href="https://mobility.portal.geops.io/world.geops.transit?baselayer=world.geops.travic&layers=paerke,strassennamen,haltekanten,haltestellen,pois,world.geops.traviclive&x=-409119.41&y=4924747.36&z=11.08" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚄 Train Tracker</a>
-                <a href="https://www.marinetraffic.com/en/ais/home/centerx:-2.6/centery:40.2/zoom:6" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚢 Marine Traffic</a>
-                <a href="https://www.passportindex.org/byRank.php?ccode=es" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📕 Passport Index</a>
+            <!-- Columna 16 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">✈️ TRANSPORTES</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://infocar.dgt.es/etraffic/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 Mapa DGT</a>
+                    <a href="https://sf01web.wixsite.com/mayusoeh" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🚘 Waze Map</a>
+                    <a href="https://www.dgt.es/conoce-el-estado-del-trafico/camaras-de-trafico/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Cámaras de Tráfico DGT</a>
+                    <a href="https://www.flightradar24.com/41.40,-1.48/6" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✈️ Flight Radar 24</a>
+                    <a href="https://mobility.portal.geops.io/world.geops.transit?baselayer=world.geops.travic&layers=paerke,strassennamen,haltekanten,haltestellen,pois,world.geops.traviclive&x=-409119.41&y=4924747.36&z=11.08"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚄 Train
+                        Tracker</a>
+                    <a href="https://www.marinetraffic.com/en/ais/home/centerx:-2.6/centery:40.2/zoom:6" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🚢 Marine Traffic</a>
+                    <a href="https://www.passportindex.org/byRank.php?ccode=es" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📕 Passport Index</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 17 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🖼️ IMÁGENES</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.google.es/imghp?hl=es&authuser=0&ogbl" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google Image Search</a>
-                <a href="https://yandex.com/images/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Yandex Image Search</a>
-                <a href="https://tineye.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Tineye</a>
-                <a href="https://facecheck.id/es" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 FaceCheck</a>
-                <a href="https://www.reverseimagesearch.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ ReverseImageSearch.com</a>
-                <a href="https://www.reverseimagesearch.org/es" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ ReverseImageSearch.org</a>
-                <a href="https://www.photopea.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟩 Photopea</a>
-                <a href="https://cleanup.pictures/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧽 Cleanup Pictures</a>
-                <a href="https://improvephoto.net/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌟 ImprovePhoto.net</a>
-                <a href="https://www.myheritage.nl/photo-enhancer" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ MyHeritage Enhancer</a>
-                <a href="https://mever.iti.gr/forensics/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟥 Image Verification Assistant</a>
-                <a href="https://29a.ch/photo-forensics/#forensic-magnifier" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ Image Forensics</a>
-                <a href="https://fotoforensics.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔘 FotoForensics.com</a>
-                <a href="https://www.georgeom.net/StegOnline/upload" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 StegOnline</a>
-                <a href="https://www.aperisolve.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🍉 AperiSolve</a>
+            <!-- Columna 17 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🖼️ IMÁGENES</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.google.es/imghp?hl=es&authuser=0&ogbl" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Google Image Search</a>
+                    <a href="https://yandex.com/images/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 Yandex Image Search</a>
+                    <a href="https://tineye.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Tineye</a>
+                    <a href="https://facecheck.id/es" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧑 FaceCheck</a>
+                    <a href="https://www.reverseimagesearch.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ ReverseImageSearch.com</a>
+                    <a href="https://www.reverseimagesearch.org/es" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ ReverseImageSearch.org</a>
+                    <a href="https://www.photopea.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟩 Photopea</a>
+                    <a href="https://cleanup.pictures/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧽 Cleanup Pictures</a>
+                    <a href="https://improvephoto.net/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌟 ImprovePhoto.net</a>
+                    <a href="https://www.myheritage.nl/photo-enhancer" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ MyHeritage Enhancer</a>
+                    <a href="https://mever.iti.gr/forensics/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟥 Image Verification
+                        Assistant</a>
+                    <a href="https://29a.ch/photo-forensics/#forensic-magnifier" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ Image Forensics</a>
+                    <a href="https://fotoforensics.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔘 FotoForensics.com</a>
+                    <a href="https://www.georgeom.net/StegOnline/upload" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 StegOnline</a>
+                    <a href="https://www.aperisolve.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🍉 AperiSolve</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 18 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🔮 FAKES</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://this-person-does-not-exist.com/es" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">😶 This Person Does Not Exist</a>
-                <a href="https://perchance.org/ai-photo-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 AI Photo Generator</a>
-                <a href="https://es.fakenamegenerator.com/gen-random-sp-sp.php" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔮 Fake Name Generator 1</a>
-                <a href="https://fauxid.com/fake-name-generator/spain" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔮 Fake Name Generator 2</a>
-                <a href="https://www.fakewhats.com/generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Whatsapp Chat 1</a>
-                <a href="https://fakeinfo.net/fake-whatsapp-chat-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Whatsapp Chat 2</a>
-                <a href="https://fakeinfo.net/fake-telegram-chat-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Telegram Chat</a>
-                <a href="https://fakeinfo.net/fake-linkedin-chat-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Telegram Chat</a>
-                <a href="https://fakeinfo.net/fake-skype-chat-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Skype Chat</a>
-                <a href="https://fakeinfo.net/fake-twitter-profile-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚹 Fake Twitter Profile</a>
-                <a href="https://fakeinfo.net/fake-youtube-channel-generator" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚹 Fake Youtube Channel</a>
-                <a href="https://thisrentaldoesnotexist.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🏠 This Rental Does Not Exist</a>
+            <!-- Columna 18 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🔮 FAKES</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://this-person-does-not-exist.com/es" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">😶 This Person Does Not
+                        Exist</a>
+                    <a href="https://perchance.org/ai-photo-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 AI Photo Generator</a>
+                    <a href="https://es.fakenamegenerator.com/gen-random-sp-sp.php" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔮 Fake Name Generator 1</a>
+                    <a href="https://fauxid.com/fake-name-generator/spain" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔮 Fake Name Generator 2</a>
+                    <a href="https://www.fakewhats.com/generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Whatsapp Chat 1</a>
+                    <a href="https://fakeinfo.net/fake-whatsapp-chat-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Whatsapp Chat 2</a>
+                    <a href="https://fakeinfo.net/fake-telegram-chat-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Telegram Chat</a>
+                    <a href="https://fakeinfo.net/fake-linkedin-chat-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Telegram Chat</a>
+                    <a href="https://fakeinfo.net/fake-skype-chat-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💬 Fake Skype Chat</a>
+                    <a href="https://fakeinfo.net/fake-twitter-profile-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🚹 Fake Twitter Profile</a>
+                    <a href="https://fakeinfo.net/fake-youtube-channel-generator" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🚹 Fake Youtube Channel</a>
+                    <a href="https://thisrentaldoesnotexist.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🏠 This Rental Does Not
+                        Exist</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 19 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🔊 AUDIO</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://wavacity.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎼 Wavacity.com</a>
-                <a href="https://www.audacityteam.org/download/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎼 Audacity (descarga)</a>
-                <a href="https://www.clipconverter.cc/es/3/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">▶️ Youtube2Mp3</a>
-                <a href="https://ytmp3.plus/VWCo/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">▶️ Youtube2Mp3</a>
-                <a href="https://online-audio-converter.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎵 Online Audio Converter</a>
-                <a href="https://app.suno.ai/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Suno AI Music</a>
+            <!-- Columna 19 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🔊 AUDIO</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://wavacity.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🎼 Wavacity.com</a>
+                    <a href="https://www.audacityteam.org/download/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🎼 Audacity (descarga)</a>
+                    <a href="https://www.clipconverter.cc/es/3/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">▶️ Youtube2Mp3</a>
+                    <a href="https://ytmp3.plus/VWCo/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">▶️ Youtube2Mp3</a>
+                    <a href="https://online-audio-converter.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🎵 Online Audio Converter</a>
+                    <a href="https://app.suno.ai/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🤖 Suno AI Music</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 20 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">💾 DE / CODIFICACIÓN</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.dcode.fr/shift-cipher" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🎟️ Shift Cypher</a>
-                <a href="https://cyberchef.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍🍳 Cyberchef.org</a>
-                <a href="https://www.perkley.com/cipher-wheel/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔘 Cipher Wheel</a>
-                <a href="https://www.dcode.fr/pigpen-cipher" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚜️ Mason Pigpen Cipher</a>
-                <a href="https://www.base64decode.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔢 Base64 De/Coder</a>
-                <a href="https://www.md5hashgenerator.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔢 MD5 Hash Generator</a>
-                <a href="https://www.diffchecker.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">✳️ Diff Checker</a>
-                <a href="https://md5hashing.net/hash_type_checker" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🈴 Hash Identifyer</a>
-                <a href="https://md5hashing.net/hash" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🈴 Hash / Unhash</a>
-                <a href="https://md5hashing.net/hash/md5" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🈴 MD5 Hash Calculate/Reverse</a>
-                <a href="https://www.devglan.com/online-tools/rsa-encryption-decryption" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⬜ RSA Encryption</a>
-                <a href="https://md5decrypt.net/en/Ntlm/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 NTLM Encrypt/Decrypt</a>
-                <a href="https://jwt.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 JSON Web Token Decoder</a>
-                <a href="https://sf01web.wixsite.com/mayusoeh" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔒 Red Snake (private encoder)</a>
+            <!-- Columna 20 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">💾 DE / CODIFICACIÓN</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.dcode.fr/shift-cipher" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🎟️ Shift Cypher</a>
+                    <a href="https://cyberchef.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍🍳 Cyberchef.org</a>
+                    <a href="https://www.perkley.com/cipher-wheel/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔘 Cipher Wheel</a>
+                    <a href="https://www.dcode.fr/pigpen-cipher" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚜️ Mason Pigpen Cipher</a>
+                    <a href="https://www.base64decode.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔢 Base64 De/Coder</a>
+                    <a href="https://www.md5hashgenerator.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔢 MD5 Hash Generator</a>
+                    <a href="https://www.diffchecker.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">✳️ Diff Checker</a>
+                    <a href="https://md5hashing.net/hash_type_checker" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🈴 Hash Identifyer</a>
+                    <a href="https://md5hashing.net/hash" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🈴 Hash / Unhash</a>
+                    <a href="https://md5hashing.net/hash/md5" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🈴 MD5 Hash
+                        Calculate/Reverse</a>
+                    <a href="https://www.devglan.com/online-tools/rsa-encryption-decryption" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⬜ RSA Encryption</a>
+                    <a href="https://md5decrypt.net/en/Ntlm/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 NTLM Encrypt/Decrypt</a>
+                    <a href="https://jwt.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟪 JSON Web Token Decoder</a>
+                    <a href="https://sf01web.wixsite.com/mayusoeh" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔒 Red Snake (private
+                        encoder)</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 21 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🔣 METADATOS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://onlineexifviewer.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Online Exif Viewer</a>
-                <a href="https://exifdata.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Exif Data Viewer</a>
-                <a href="https://www.metadata2go.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Metadata 2 Go</a>
-                <a href="https://exifmeta.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 ExifMeta</a>
-                <a href="https://github.com/opsdisk/metagoofil" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Metagoofil</a>
-                <a href="https://github.com/ElevenPaths/FOCA" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🐨 FOCA</a>
+            <!-- Columna 21 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🔣 METADATOS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://onlineexifviewer.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Online Exif Viewer</a>
+                    <a href="https://exifdata.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Exif Data Viewer</a>
+                    <a href="https://www.metadata2go.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Metadata 2 Go</a>
+                    <a href="https://exifmeta.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 ExifMeta</a>
+                    <a href="https://github.com/opsdisk/metagoofil" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔳 Metagoofil</a>
+                    <a href="https://github.com/ElevenPaths/FOCA" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🐨 FOCA</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 22 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🗃️ BASES DE DATOS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://boe.es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📒 BOE</a>
-                <a href="https://www.bocm.es/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📕 BOCM</a>
-                <a href="https://www.juntadeandalucia.es/eboja.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📗 BOJA</a>
-                <a href="https://www.poderjudicial.es/search/indexAN.jsp" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📓 CENDOJ</a>
-                <a href="https://librebor.me/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📓 LibreBor</a>
-                <a href="https://www.einforma.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📓 Einforma</a>
-                <a href="https://apps.db.ripe.net/db-web-ui/query?searchtext=" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔌 RIPE Database</a>
+            <!-- Columna 22 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🗃️ BASES DE DATOS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://boe.es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📒 BOE</a>
+                    <a href="https://www.bocm.es/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📕 BOCM</a>
+                    <a href="https://www.juntadeandalucia.es/eboja.html" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📗 BOJA</a>
+                    <a href="https://www.poderjudicial.es/search/indexAN.jsp" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📓 CENDOJ</a>
+                    <a href="https://librebor.me/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📓 LibreBor</a>
+                    <a href="https://www.einforma.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📓 Einforma</a>
+                    <a href="https://apps.db.ripe.net/db-web-ui/query?searchtext=" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔌 RIPE Database</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 23 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">📟 DIRECCIONES MAC</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://maclookup.app/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 MAC Address Lookup 1</a>
-                <a href="https://macvendors.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 MAC Address Lookup 2</a>
-                <a href="https://mac2vendor.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 OUI Database Lookup</a>
-                <a href="https://gist.githubusercontent.com/aallan/b4bb86db86079509e6159810ae9bd3e4/raw/846ae1b646ab0f4d646af9115e47365f4118e5f6/mac-vendor.txt" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Vendor List</a>
-                <a href="https://udger.com/resources/mac-address-vendor" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Vendor Index</a>
+            <!-- Columna 23 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">📟 DIRECCIONES MAC</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://maclookup.app/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 MAC Address Lookup 1</a>
+                    <a href="https://macvendors.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 MAC Address Lookup 2</a>
+                    <a href="https://mac2vendor.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔎 OUI Database Lookup</a>
+                    <a href="https://gist.githubusercontent.com/aallan/b4bb86db86079509e6159810ae9bd3e4/raw/846ae1b646ab0f4d646af9115e47365f4118e5f6/mac-vendor.txt"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Vendor
+                        List</a>
+                    <a href="https://udger.com/resources/mac-address-vendor" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📋 Vendor Index</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 24 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🗡️ INFO MILITAR</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.globalfirepower.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Global Firepower</a>
-                <a href="https://modernfirearms.net/ru/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔫 Modern Firearms</a>
-                <a href="https://camopedia.org/index.php?title=Main_Page" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🟩 Camopedia</a>
-                <a href="https://www.military.com/equipment/military-vehicles" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚙 Military Vehicle Photos</a>
-                <a href="https://en.wikipedia.org/wiki/Lists_of_currently_active_military_equipment_by_country" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚙 Military Vehicles by Country</a>
-                <a href="https://www.wdmma.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🛩️ Military Aircraft by Country</a>
-                <a href="https://military-database.de/nationen/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ Military Photo Database</a>
-                <a href="https://militaryimages.net/forums/photos-by-country.68/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ MilitaryImages.net</a>
-                <a href="https://war.liveuamap.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🌎 War Live Maps</a>
-                <a href="https://trueprepper.com/survival-pdfs-downloads/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📕 Survival PDF Library</a>
+            <!-- Columna 24 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🗡️ INFO MILITAR</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.globalfirepower.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌍 Global Firepower</a>
+                    <a href="https://modernfirearms.net/ru/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔫 Modern Firearms</a>
+                    <a href="https://camopedia.org/index.php?title=Main_Page" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🟩 Camopedia</a>
+                    <a href="https://www.military.com/equipment/military-vehicles" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🚙 Military Vehicle Photos</a>
+                    <a href="https://en.wikipedia.org/wiki/Lists_of_currently_active_military_equipment_by_country"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🚙 Military
+                        Vehicles by Country</a>
+                    <a href="https://www.wdmma.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🛩️ Military Aircraft by
+                        Country</a>
+                    <a href="https://military-database.de/nationen/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ Military Photo Database</a>
+                    <a href="https://militaryimages.net/forums/photos-by-country.68/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🖼️ MilitaryImages.net</a>
+                    <a href="https://war.liveuamap.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🌎 War Live Maps</a>
+                    <a href="https://trueprepper.com/survival-pdfs-downloads/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📕 Survival PDF Library</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 25 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🌍 WORLD WEB CAMS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/times-square.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York - Times Square (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/nyc-42th-street.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York - 42nd Street (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/new-york-manhattan.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York - Manhattan (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/nyc-brooklyn-bridge-manhattan.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York - Brooklyn (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/united-states/florida/st-augustine/vilano-beach.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Florida - Vilano Beach (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/france/ile-de-france/paris/tour-eiffel.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 París - Torre Eiffel (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/deutschland/brandenburg/kyritz/kyritz-brandenburg.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Brandenburgo - Kyritz (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/italia/lazio/roma/piazza-di-spagna.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Roma - Piazza Spagna (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/italia/lazio/roma/pantheon.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Roma - Panteón (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/poland/lesser-poland-voivodeship/krakow/krakow.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Polonia - Krakovia (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/united-kingdom/wales/cardiff/cardiff.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Inglaterra - Cardiff (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/israel/jerusalem-district/jerusalem/western-wall.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Jerusalén - Muro (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/egypt/cairo/cairo/great-pyramid-of-giza.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Egipto - Pirámides (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/vietnam/bac-trung-bo/nghe-an/hoang-mai-town-nghe-an.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Vietnam - Hoáng Mai (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/australia/new-south-wales/sydney/sydney.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Australia - Sydney (video)</a>
+            <!-- Columna 25 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🌍 WORLD WEB CAMS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/times-square.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York -
+                        Times Square (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/nyc-42th-street.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York -
+                        42nd Street (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/new-york-manhattan.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York -
+                        Manhattan (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/nyc-brooklyn-bridge-manhattan.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 New York -
+                        Brooklyn (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/united-states/florida/st-augustine/vilano-beach.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Florida -
+                        Vilano Beach (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/france/ile-de-france/paris/tour-eiffel.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 París - Torre
+                        Eiffel (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/deutschland/brandenburg/kyritz/kyritz-brandenburg.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Brandenburgo
+                        - Kyritz (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/italia/lazio/roma/piazza-di-spagna.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Roma - Piazza
+                        Spagna (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/italia/lazio/roma/pantheon.html" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Roma - Panteón (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/poland/lesser-poland-voivodeship/krakow/krakow.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Polonia -
+                        Krakovia (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/united-kingdom/wales/cardiff/cardiff.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Inglaterra -
+                        Cardiff (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/israel/jerusalem-district/jerusalem/western-wall.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Jerusalén -
+                        Muro (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/egypt/cairo/cairo/great-pyramid-of-giza.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Egipto -
+                        Pirámides (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/vietnam/bac-trung-bo/nghe-an/hoang-mai-town-nghe-an.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Vietnam -
+                        Hoáng Mai (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/australia/new-south-wales/sydney/sydney.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Australia -
+                        Sydney (video)</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 26 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">🌆 SPAIN WEB CAMS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://www.skylinewebcams.com/webcam/espana/comunidad-de-madrid/madrid/puerta-del-sol-tio-pepe.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Madrid - Puerta del Sol (video)</a>
-                <a href="https://www.skylinewebcams.com/es/webcam/espana/comunidad-de-madrid/madrid/madrid-plaza-del-callao.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Madrid - Plaza Callao (video)</a>
-                <a href="https://www.skylinewebcams.com/es/webcam/espana/comunidad-de-madrid/madrid/calle-alcala.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Madrid - Calle Alcalá (video)</a>
-                <a href="https://informo.madrid.es/cameras/Camara09303.jpg" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📷 Madrid - Moncloa (photo)</a>
-                <a href="http://185.133.99.214:8011/mjpg/video.mjpg" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 El Escorial - Monasterio (video)</a>
-                <a href="http://185.133.99.214:8010/mjpg/video.mjpg" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 El Escorial - Plaza (video)</a>
-                <a href="https://infocar.dgt.es/etraffic/data/camaras/1139.jpg" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📷 Alto del León (photo)</a>
-                <a href="https://infocar.dgt.es/etraffic/data/camaras/898.jpg" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📷 Villalba A-6 (photo)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/cantabria/penarrubia/penarrubia-cantabria.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Cantabria - Peñarrubia (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/cantabria/santillana-del-mar/santillana-del-mar-cantabria.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Cantabria - Santillana Mar (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/asturias/somiedo/la-peral-parque-natural-de-somiedo.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Asturias - Somiedo (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/andalucia/almeria/mojacar-plaza-nueva.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Almería - Mojacar (video)</a>
-                <a href="https://www.skylinewebcams.com/es/webcam/espana/andalucia/malaga/benalmadena.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Málaga - Templo Budista (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/andalucia/sevilla/plaza-del-triunfo.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Sevilla - Catedral (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/cantabria/santander/playa-del-sardinero.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Santander - El Sardinero (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/castiglia-la-mancia/toledo/toledo-puente-di-san-martin.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Toledo - Río Tajo (video)</a>
-                <a href="https://www.skylinewebcams.com/en/webcam/espana/aragon/zaragoza/anento.html" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Aragón - Anento (video)</a>
+            <!-- Columna 26 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🌆 SPAIN WEB CAMS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.skylinewebcams.com/webcam/espana/comunidad-de-madrid/madrid/puerta-del-sol-tio-pepe.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Madrid -
+                        Puerta del Sol (video)</a>
+                    <a href="https://www.skylinewebcams.com/es/webcam/espana/comunidad-de-madrid/madrid/madrid-plaza-del-callao.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Madrid -
+                        Plaza Callao (video)</a>
+                    <a href="https://www.skylinewebcams.com/es/webcam/espana/comunidad-de-madrid/madrid/calle-alcala.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Madrid -
+                        Calle Alcalá (video)</a>
+                    <a href="https://informo.madrid.es/cameras/Camara09303.jpg" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📷 Madrid - Moncloa (photo)</a>
+                    <a href="http://185.133.99.214:8011/mjpg/video.mjpg" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📹 El Escorial - Monasterio
+                        (video)</a>
+                    <a href="http://185.133.99.214:8010/mjpg/video.mjpg" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📹 El Escorial - Plaza
+                        (video)</a>
+                    <a href="https://infocar.dgt.es/etraffic/data/camaras/1139.jpg" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📷 Alto del León (photo)</a>
+                    <a href="https://infocar.dgt.es/etraffic/data/camaras/898.jpg" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">📷 Villalba A-6 (photo)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/cantabria/penarrubia/penarrubia-cantabria.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Cantabria -
+                        Peñarrubia (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/cantabria/santillana-del-mar/santillana-del-mar-cantabria.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Cantabria -
+                        Santillana Mar (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/asturias/somiedo/la-peral-parque-natural-de-somiedo.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Asturias -
+                        Somiedo (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/andalucia/almeria/mojacar-plaza-nueva.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Almería -
+                        Mojacar (video)</a>
+                    <a href="https://www.skylinewebcams.com/es/webcam/espana/andalucia/malaga/benalmadena.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Málaga -
+                        Templo Budista (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/andalucia/sevilla/plaza-del-triunfo.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Sevilla -
+                        Catedral (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/cantabria/santander/playa-del-sardinero.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Santander -
+                        El Sardinero (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/castiglia-la-mancia/toledo/toledo-puente-di-san-martin.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Toledo - Río
+                        Tajo (video)</a>
+                    <a href="https://www.skylinewebcams.com/en/webcam/espana/aragon/zaragoza/anento.html"
+                        target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">📹 Aragón -
+                        Anento (video)</a>
+                </div>
             </div>
-        </div>
 
-        <!-- Columna 27 -->
-        <div class="terminal-box" style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
-            <div class="terminal-header" style="font-size: 1.05rem;">☠️ HACKS & LEAKS</div>
-            <div style="padding: 16px 18px; font-size: 0.88rem;">
-                <a href="https://cracked.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💀 Cracked.io</a>
-                <a href="https://breachforums.cx/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💀 BreachForums.cx</a>
-                <a href="https://www.exploit-db.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🕷️ Exploit Database</a>
-                <a href="https://pastebin.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🗒️ Pastebin</a>
-                <a href="https://leak-lookup.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">💧 Leak Lookup</a>
-                <a href="https://leakcheck.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 Leak Check</a>
-                <a href="https://archive.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🏛️ Internet Archive</a>
-                <a href="https://intelx.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⏸️ Intelligence X</a>
-                <a href="https://phonebook.cz/?c=e5aa960e-2fe6-4e04-966c-f38d1ae59534" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🈸 Phonebook.cz</a>
-                <a href="https://haveibeenpwned.com/Passwords" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Passwords</a>
-                <a href="https://haveibeenpwned.com/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Emails</a>
-                <a href="https://breachdirectory.org/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🧿 BreachDirectory</a>
-                <a href="https://github.com/danielmiessler/SecLists" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍💻 Daniel Miessler SecList</a>
-                <a href="https://github.com/fardeen-ahmed/Bug-bounty-Writeups" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍💻 Bug Bounty Writeups</a>
-                <a href="https://security.snyk.io/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">🐺 Snyk Vulnerabilities</a>
-                <a href="https://book.hacktricks.xyz/" target="_blank" style="text-decoration: none; ; display: block; margin: 4px 0;">❌ HackTricks</a>
+            <!-- Columna 27 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">☠️ HACKS & LEAKS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://cracked.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💀 Cracked.io</a>
+                    <a href="https://breachforums.cx/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💀 BreachForums.cx</a>
+                    <a href="https://www.exploit-db.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🕷️ Exploit Database</a>
+                    <a href="https://pastebin.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🗒️ Pastebin</a>
+                    <a href="https://leak-lookup.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">💧 Leak Lookup</a>
+                    <a href="https://leakcheck.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🔵 Leak Check</a>
+                    <a href="https://archive.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🏛️ Internet Archive</a>
+                    <a href="https://intelx.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⏸️ Intelligence X</a>
+                    <a href="https://phonebook.cz/?c=e5aa960e-2fe6-4e04-966c-f38d1ae59534" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🈸 Phonebook.cz</a>
+                    <a href="https://haveibeenpwned.com/Passwords" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Passwords</a>
+                    <a href="https://haveibeenpwned.com/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">⚠️ Pwned Emails</a>
+                    <a href="https://breachdirectory.org/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🧿 BreachDirectory</a>
+                    <a href="https://github.com/danielmiessler/SecLists" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍💻 Daniel Miessler
+                        SecList</a>
+                    <a href="https://github.com/fardeen-ahmed/Bug-bounty-Writeups" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">👨‍💻 Bug Bounty Writeups</a>
+                    <a href="https://security.snyk.io/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">🐺 Snyk Vulnerabilities</a>
+                    <a href="https://book.hacktricks.xyz/" target="_blank"
+                        style="text-decoration: none; ; display: block; margin: 4px 0;">❌ HackTricks</a>
+                </div>
             </div>
-        </div>
 
-    </div>
-</section>
-  
+        </div>
+    </section>
+
     <!-- ---------- CONTENIDO ---------- -->
 
-<br><br>
+    <br><br>
 
-<footer>
-    <div class="footer-content">
+    <footer>
+        <div class="footer-content">
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -600,12 +1038,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -621,4 +1059,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

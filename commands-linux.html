@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LINUX COMMANDS - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
@@ -22,113 +25,353 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
 
-    <canvas id="matrix"></canvas>
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
-    <br><br><br><br><br>
-
-    <div style="text-align: center; margin-bottom: 0px;">
-        <i class="ti ti-terminal" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
-        <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">COMANDOS BÁSICOS LINUX</h2>
-    </div>
-
-    
-
-     <!-- ---------- CONTENIDO MARKDOWN ---------- -->
-
-    <section class="markdowns">
-
-    <div id="kalinstall"></div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- SCRIPT de Música -->
 
     <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
+
+    <canvas id="matrix"></canvas>
+
+    <br>
+
+    <!-- ---------- TITULO y ENLACES ------------------- -->
+
+    <section>
+
+        <div style="text-align: center; margin-bottom: 0px;">
+            <i class="ti ti-terminal" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">COMANDOS BÁSICOS LINUX</h2>
+        </div>
+
+        <br>
+
+        <p style="text-align: center;">Herramientas y utilidades web por categoría, para buscar información e
+            inteligencia de fuentes abiertas (y no tanto).</p>
+
+        <br><br><br>
+
+        <p style="text-align: center; text-decoration: underline; font-size: 1.05rem;">ÍNDICE DEL CONTENIDO EN ORDEN DE
+            APARICIÓN</p>
+
+        <br><br>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1140px; margin: 0 auto; gap: 40px 0px;">
+
+            <!-- Columna 1 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🌐 ENLACES EXTERNOS</div>
+                <div style="padding: 16px 18px; font-size: 0.88rem;">
+                    <a href="https://www.onworks.net/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 8px 0 4px 0;">🖥️ Emuladores OnWorks</a>
+                    <a href="https://kali.tools/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">🔧 Kali Tools Index</a>
+                    <a href="https://tldp.org/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">🐧 TLDP (The Linux Documentation
+                        Project)</a>
+                    <a href="https://gtfobins.github.io/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">🟥 GTFOBins</a>
+                    <a href="https://www.baeldung.com/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">🟪 Baeldung</a>
+                    <a href="https://ss64.com/bash/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">⬜ SS64 Bash</a>
+                    <a href="https://devdocs.io/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">👨‍💻 DevDocs.io (Bash)</a>
+                    <a href="https://chmod-calculator.com/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">✅ Chmod Calculator</a>
+                    <a href="https://crontab.guru/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">⏲️ Crontab Expression Editor</a>
+                    <a href="https://nmap.org/nsedoc/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">👁️ Nmap Script List</a>
+                    <a href="https://www.stationx.net/common-ports-cheat-sheet/" target="_blank"
+                        style="text-decoration: none; display: block; margin: 4px 0;">🔌 Ultimate Port CheatSheet
+                        (cheat.sh)</a>
+                </div>
+            </div>
+
+            <!-- Columna 2 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🚣‍♂️ NAVEGACIÓN</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">🗃️ Sistema de Archivos</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🗃️ Sistema de Directorios</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🎯 Rutas de Interés</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔎 Locate</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📝 ls (list content)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📁 cd (change directory)</span>
+                </div>
+            </div>
+
+            <!-- Columna 3 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">📁 ARCHIVOS Y FORMATOS</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">📁 Modificar Archivos</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📑 cat y similares</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📊 exiftool (metadatos)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🗜️ De/Compresión</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🗜️ Reducir peso binario del
+                        sistema</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔢 Base 64</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">6️⃣ Sistema Hexadecimal</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">5️⃣ md5sum</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">0️⃣ Sistema Binario</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">☑️ Openssl (cryptography)</span>
+                </div>
+            </div>
+
+            <!-- Columna 4 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🖥️ TERMINAL</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">🖥️ Interfaz</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🖥️ Comandos de Terminal</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">⌨️ Atajos de Teclado</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🏷️ export (variables de
+                        entorno)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🅰️ Alias</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">1️⃣ One-Liners</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🈂️ Tratamiento de la TTY</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">⚠️ zsh_history Fix</span>
+                </div>
+            </div>
+
+            <!-- Columna 5 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🗄️ SISTEMA OPERATIVO</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">❓ Comandos de Ayuda</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔁 Contramedidas</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🖥️ Sistema</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🐚 Shell</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📦 Instalar/Actualizar</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📀 Procesos del Sistema</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📋 Getent</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">⏲️ Tareas Cron</span>
+                </div>
+            </div>
+
+            <!-- Columna 6 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🅾️ OUTPUT</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">✏️ Edición de output</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔽 stdin (0)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔼 stdout (1)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">❌ stderr (2)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🗑️ /dev/null</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">▶️ echo y printf</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔎 grep</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">✂️ awk</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">✂️ cut</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔀 sed</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">💬 tr (translate)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">➗ Cálculo</span>
+                </div>
+            </div>
+
+            <!-- Columna 7 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">✏️ EDICIÓN DE TEXTO</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">📝 Editores de texto</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📝 Mousepad</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📝 Nano</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📝 Vim</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📋 Portapapeles</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🟨 Js-beautify</span>
+                </div>
+            </div>
+
+            <!-- Columna 8 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">👑 JERARQUÍA</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">🧑 Usuarios</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">👨‍👨‍👦 Grupos</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">✅ Permisos</span>
+                </div>
+            </div>
+
+            <!-- Columna 9 -->
+            <div class="terminal-box"
+                style="padding: 0; overflow: hidden; width: 100%; max-width: 360px; margin: 0 auto; line-height: 1.3;">
+                <div class="terminal-header" style="font-size: 1.05rem;">🌐 WEB</div>
+                <div style="padding: 16px 18px; font-size: 0.85rem;">
+                    <span style="display: block; margin: 4px 0; cursor: default;">🌐 Curl</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🌐 Wget</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🌐 Git</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🖼️ Descargar todas las imágenes
+                        web</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">📄 Local DNS (/etc/hosts)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🚦 Códigos de Estado</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">☑️ OpenSSL (certificates)</span>
+                    <span style="display: block; margin: 4px 0; cursor: default;">🔒 SSLscan (certificates)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---------- CONTENIDO MARKDOWN ---------- -->
+
+    <p style="text-align: center; text-decoration: underline; font-size: 1.05rem;">▼ CONTENIDO ▼</p>
+
+    <section class="markdowns">
+        <div id="linuxcommands"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/marked@latest/lib/marked.umd.min.js"></script>
+
+        <script>
             async function cargarMarkdown() {
-                const contenedor = document.getElementById('kalinstall');
-            
+                const contenedor = document.getElementById('linuxcommands');
+
                 try {
-                    const response = await fetch('https://raw.githubusercontent.com/MAyusoEH/mayusoeh.github.io/refs/heads/main/assets/markdowns/mkd_kalinstall.md');
-                
-                    if (!response.ok) throw new Error('Error al descargar el archivo');
+                    const response = await fetch('https://raw.githubusercontent.com/MAyusoEH/mayusoeh.github.io/refs/heads/main/assets/markdowns/mkd_linuxcommands.md');
+
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
                     const text = await response.text();
+
+                    marked.setOptions({
+                        gfm: true,
+                        breaks: true,        // Importante para saltos de línea
+                        headerIds: false
+                    });
+
                     contenedor.innerHTML = marked.parse(text);
-                
+
                 } catch (err) {
                     console.error('Error:', err);
-                    contenedor.innerHTML = `
-                        <p style="color: red; padding: 20px;">
-                            ⚠️ No se pudo cargar el contenido.<br>
-                            Prueba recargar la página.
-                        </p>`;
+                    contenedor.innerHTML = `<p style="color: #ff6b6b; padding: 30px;">⚠️ Error al cargar el contenido.</p>`;
                 }
             }
 
-            // Ejecutar cuando cargue la página
             window.onload = cargarMarkdown;
-    </script>
-
+        </script>
     </section>
-    
-<br><br><br>
 
-<footer>
-    <div class="footer-content">
+    <!-- ---------- CONTENIDO MARKDOWN END ---------- -->
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+    <br><br><br>
+
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -143,12 +386,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -164,4 +407,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

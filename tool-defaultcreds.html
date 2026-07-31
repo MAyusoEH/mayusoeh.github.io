@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEFAULT CREDENTIALS - MAYUSO ETHICAL HACKING</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
-    
+
 <body>
 
     <nav>
@@ -23,434 +26,501 @@
             <a href="index.html">/HOME</a>
             <a href="pentestools.html">/PENTESTOOLS</a>
             <a href="whoami.html">/WHOAMI</a>
+            <!-- Botón de Música -->
+            <button id="playBtn" class="play-button">
+                <i class="ti ti-player-play"></i>
+            </button>
         </div>
     </nav>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPT de Música -->
+
+    <script>
+        const music = document.getElementById('backgroundMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        // Recuperar estado al cargar la página
+        function loadMusicState() {
+            const isPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+            if (isPlaying) {
+                music.currentTime = currentTime;
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                    playBtn.classList.add('playing');
+                });
+            }
+        }
+
+        // Guardar estado cuando se reproduce o pausa
+        function saveMusicState() {
+            localStorage.setItem('musicPlaying', !music.paused);
+            localStorage.setItem('musicTime', music.currentTime);
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                playBtn.innerHTML = '<i class="ti ti-player-pause"></i>';
+                playBtn.classList.add('playing');
+            } else {
+                music.pause();
+                playBtn.innerHTML = '<i class="ti ti-player-play"></i>';
+                playBtn.classList.remove('playing');
+            }
+            saveMusicState();
+        });
+
+        // Guardar estado antes de cambiar de página
+        window.addEventListener('beforeunload', saveMusicState);
+
+        // Cargar estado al iniciar
+        window.addEventListener('load', loadMusicState);
+    </script>
 
     <canvas id="matrix"></canvas>
 
     <header>
-      <br>
+        <br>
     </header>
 
     <section>
-        <h2 style="font-family: 'Orbitron';">CREDENCIALES DEFAULT</h2>
+
+        <div style="text-align: center; margin-bottom: 0px;">
+            <i class="ti ti-lock" style="color: var(--accent); font-size: 2.4rem; margin-bottom: 0px;"></i>
+            <h2 style="font-family: 'Orbitron', sans-serif; margin: 0;">DEFAULT CREDENTIALS</h2>
+        </div>
+
         <br>
         <p style="text-align: center;">Buscador de credenciales por defecto ordenadas por fabricante/servicio.</p>
         <br><br>
 
         <div class="">
 
-<!-- TOOL START -->
-            
-<div class="credentials-container" style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 18px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
+            <!-- TOOL START -->
 
-<br>
-    
-    <select id="productCategory" onchange="displayCredentials()" 
-            style="width: 100%; padding: 8px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
-        <option value="">🔧 Selecciona un fabricante/servicio</option>
-    </select>
+            <div class="credentials-container"
+                style="background: #0f1626; border: 2px solid rgba(255, 0, 51, 0.45); border-radius: 10px; padding: 18px; width: 900px; max-width: 95%; margin: 15px auto; box-shadow: 0 0 15px rgba(255, 0, 51, 0.15); color: #e0f2fe;">
 
-    <div id="credentialsOutput" style="min-height: 150px;">
-        <p class="no-selection" style="color: #888; text-align: center; margin-top: 40px;">Selecciona un fabricante para ver credenciales por defecto.</p>
-        <table id="credentialsTable" style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
-            <thead>
-                <tr style="background: #1f2a3f;">
-                    <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">🧑‍💻 Usuario</th>
-                    <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">🔑 Contraseña</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+                <br>
 
-    <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
-        
-    </p>
-</div>
+                <select id="productCategory" onchange="displayCredentials()"
+                    style="width: 100%; padding: 8px; margin-bottom: 12px; background: #1a2333; border: 1px solid #555; color: white; border-radius: 6px; font-size: 0.80rem;">
+                    <option value="">🔧 Selecciona un fabricante/servicio</option>
+                </select>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const credentialsDatabase = [
-            { productvendor: "3COM", username: "admin", password: "admin" },
-            { productvendor: "3COM", username: "admin", password: "1234admin" },
-            { productvendor: "3COM", username: "admin", password: "password" },
-            { productvendor: "3COM", username: "root", password: "!root" },
-            { productvendor: "3COM", username: "manager", password: "manager" },
-            { productvendor: "ACTi", username: "admin", password: "123456" },
-            { productvendor: "ACTi", username: "Admin", password: "12345" },
-            { productvendor: "Actiontec", username: "admin", password: "password" },
-            { productvendor: "Actiontec", username: "admin", password: "admin" },
-            { productvendor: "Actiontec", username: "user", password: "user" },
-            { productvendor: "Adobe", username: "admin", password: "admin" },
-            { productvendor: "Adobe", username: "admin", password: "password" },
-            { productvendor: "Adobe", username: "root", password: "root" },
-            { productvendor: "Alcatel", username: "admin", password: "admin" },
-            { productvendor: "Alcatel", username: "root", password: "letacla" },
-            { productvendor: "Alcatel", username: "admin", password: "switch" },
-            { productvendor: "Alcatel", username: "admin", password: "alcatel" },
-            { productvendor: "Alcatel", username: "root", password: "root" },
-            { productvendor: "Alfresco", username: "admin", password: "admin" },
-            { productvendor: "Allied Telesis", username: "manager", password: "friend" },
-            { productvendor: "Apache", username: "admin", password: "admin" },
-            { productvendor: "Apache", username: "admin", password: "<blank>" },
-            { productvendor: "Apache", username: "admin", password: "j5Brn9" },
-            { productvendor: "Apache", username: "admin", password: "tomcat" },
-            { productvendor: "Apache", username: "root", password: "root" },
-            { productvendor: "Apache Tomcat", username: "admin", password: "admin" },
-            { productvendor: "Apache Tomcat", username: "admin", password: "<blank>" },
-            { productvendor: "Apache Tomcat", username: "admin", password: "j5Brn9" },
-            { productvendor: "Apache Tomcat", username: "admin", password: "tomcat" },
-            { productvendor: "Apache Tomcat", username: "tomcat", password: "s3cret" },
-            { productvendor: "Apache Tomcat", username: "tomcat", password: "tomcat" },
-            { productvendor: "Apache Tomcat", username: "role1", password: "role1" },
-            { productvendor: "Apache Tomcat", username: "role1", password: "tomcat" },
-            { productvendor: "Apache Tomcat", username: "role", password: "changethis" },
-            { productvendor: "Apache Tomcat", username: "root", password: "changethis" },
-            { productvendor: "Apache Tomcat", username: "tomcat", password: "changethis" },
-            { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "admin" },
-            { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "<blank>" },
-            { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "j5Brn9" },
-            { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "tomcat" },
-            { productvendor: "Apache Tomcat Host Manager (web)", username: "tomcat", password: "s3cret" },
-            { productvendor: "Apache Tomcat Host Manager (web)", username: "tomcat", password: "tomcat" },
-            { productvendor: "Apple", username: "root", password: "alpine" },
-            { productvendor: "Apple", username: "admin", password: "admin" },
-            { productvendor: "Apple", username: "root", password: "root" },
-            { productvendor: "Arecont Vision", username: "admin", password: "<blank>" },
-            { productvendor: "Arecont Vision", username: "admin", password: "arecont" },
-            { productvendor: "Arris", username: "admin", password: "password" },
-            { productvendor: "Arris", username: "admin", password: "arris" },
-            { productvendor: "Arris", username: "technician", password: "tech123" },
-            { productvendor: "Aruba", username: "admin", password: "admin" },
-            { productvendor: "Aruba", username: "admin", password: "password" },
-            { productvendor: "ASUS", username: "admin", password: "admin" },
-            { productvendor: "ASUS", username: "admin", password: "password" },
-            { productvendor: "ASUS", username: "<blank>", password: "admin" },
-            { productvendor: "Asterisk", username: "admin", password: "admin" },
-            { productvendor: "Atlassian", username: "admin", password: "admin" },
-            { productvendor: "Atlassian", username: "admin", password: "atlassian" },
-            { productvendor: "Avaya", username: "admin", password: "admin123" },
-            { productvendor: "Avaya", username: "root", password: "root" },
-            { productvendor: "Avaya", username: "admin", password: "password" },
-            { productvendor: "Axis", username: "root", password: "pass" },
-            { productvendor: "Axis", username: "root", password: "admin" },
-            { productvendor: "AVM", username: "<blank>", password: "0" },
-            { productvendor: "AVM", username: "admin", password: "admin" },
-            { productvendor: "Barracuda", username: "admin", password: "admin" },
-            { productvendor: "Barracuda", username: "ssladmin", password: "ssladmin" },
-            { productvendor: "Belkin", username: "admin", password: "admin" },
-            { productvendor: "Belkin", username: "admin", password: "password" },
-            { productvendor: "Billion", username: "admin", password: "admin" },
-            { productvendor: "Bluecoat", username: "admin", password: "admin" },
-            { productvendor: "Bluecoat", username: "admin", password: "bluecoat" },
-            { productvendor: "Bosch", username: "service", password: "service" },
-            { productvendor: "Brocade", username: "admin", password: "password" },
-            { productvendor: "Brocade", username: "root", password: "fibranne" },
-            { productvendor: "Check Point", username: "admin", password: "admin" },
-            { productvendor: "Cisco", username: "admin", password: "admin" },
-            { productvendor: "Cisco", username: "admin", password: "cisco" },
-            { productvendor: "Cisco", username: "cisco", password: "cisco" },
-            { productvendor: "Cisco", username: "root", password: "password" },
-            { productvendor: "Cisco", username: "admin", password: "changeme" },
-            { productvendor: "Citrix Systems (web)", username: "nsroot", password: "nsroot" },
-            { productvendor: "Citrix Systems (web)", username: "root", password: "rootadmin" },
-            { productvendor: "CNET", username: "admin", password: "admin" },
-            { productvendor: "CNET", username: "admin", password: "password" },
-            { productvendor: "CNET", username: "user", password: "user" },
-            { productvendor: "ColdFusion", username: "admin", password: "<blank>" },
-            { productvendor: "ColdFusion", username: "admin", password: "coldfusion" },
-            { productvendor: "Compaq", username: "administrator", password: "administrator" },
-            { productvendor: "Compaq", username: "admin", password: "admin" },
-            { productvendor: "Compaq", username: "root", password: "root" },
-            { productvendor: "Comtrend", username: "admin", password: "admin" },
-            { productvendor: "Comtrend", username: "admin", password: "1234" },
-            { productvendor: "D-Link", username: "admin", password: "admin" },
-            { productvendor: "D-Link", username: "admin", password: "1234" },
-            { productvendor: "D-Link", username: "admin", password: "password" },
-            { productvendor: "D-Link", username: "user", password: "user" },
-            { productvendor: "D-Link", username: "<blank>", password: "<blank>" },
-            { productvendor: "Dahua", username: "admin", password: "admin" },
-            { productvendor: "Dahua", username: "666666", password: "666666" },
-            { productvendor: "Dahua", username: "888888", password: "888888" },
-            { productvendor: "Dell", username: "root", password: "calvin" },
-            { productvendor: "Dell", username: "admin", password: "admin" },
-            { productvendor: "Dell", username: "administrator", password: "password" },
-            { productvendor: "Dell", username: "admin", password: "password" },
-            { productvendor: "Dell", username: "root", password: "admin" },
-            { productvendor: "Digium", username: "admin", password: "admin" },
-            { productvendor: "Digium", username: "admin", password: "digium" },
-            { productvendor: "DrayTek", username: "admin", password: "admin" },
-            { productvendor: "DrayTek", username: "admin", password: "draytek" },
-            { productvendor: "Drupal", username: "admin", password: "admin" },
-            { productvendor: "Edimax", username: "admin", password: "1234" },
-            { productvendor: "Edimax", username: "admin", password: "admin" },
-            { productvendor: "Extreme Networks", username: "admin", password: "admin" },
-            { productvendor: "Extreme Networks", username: "admin", password: "extreme" },
-            { productvendor: "F5", username: "admin", password: "admin" },
-            { productvendor: "F5", username: "root", password: "default" },
-            { productvendor: "Forcepoint", username: "admin", password: "admin" },
-            { productvendor: "Forcepoint", username: "admin", password: "forcepoint" },
-            { productvendor: "Fortinet", username: "admin", password: "<blank>" },
-            { productvendor: "Fortinet", username: "admin", password: "admin" },
-            { productvendor: "FreePBX", username: "admin", password: "admin" },
-            { productvendor: "GlassFish", username: "admin", password: "adminadmin" },
-            { productvendor: "Grandstream", username: "admin", password: "admin" },
-            { productvendor: "Grandstream", username: "admin", password: "1234" },
-            { productvendor: "Hikvision", username: "admin", password: "12345" },
-            { productvendor: "Hikvision", username: "admin", password: "admin" },
-            { productvendor: "HP", username: "admin", password: "admin" },
-            { productvendor: "HP", username: "Administrator", password: "<blank>" },
-            { productvendor: "HP", username: "admin", password: "password" },
-            { productvendor: "HP", username: "root", password: "password" },
-            { productvendor: "HP", username: "administrator", password: "admin" },
-            { productvendor: "Huawei", username: "admin", password: "admin" },
-            { productvendor: "Huawei", username: "root", password: "admin" },
-            { productvendor: "Huawei", username: "admin", password: "admin123" },
-            { productvendor: "IBM", username: "USERID", password: "PASSW0RD" },
-            { productvendor: "IBM", username: "admin", password: "admin" },
-            { productvendor: "IBM", username: "root", password: "pass" },
-            { productvendor: "IBM", username: "admin", password: "password" },
-            { productvendor: "IBM", username: "root", password: "<blank>" },
-            { productvendor: "IBM", username: "db2admin", password: "db2admin" },
-            { productvendor: "IBM", username: "superadmin", password: "secret" },
-            { productvendor: "IBM", username: "system", password: "manager" },
-            { productvendor: "Intel", username: "admin", password: "admin" },
-            { productvendor: "Intel", username: "admin", password: "password" },
-            { productvendor: "Intel", username: "root", password: "intel" },
-            { productvendor: "JBoss", username: "admin", password: "admin" },
-            { productvendor: "JBoss", username: "admin", password: "jboss" },
-            { productvendor: "Jenkins", username: "admin", password: "admin" },
-            { productvendor: "Jenkins", username: "admin", password: "jenkins" },
-            { productvendor: "Joomla", username: "admin", password: "admin" },
-            { productvendor: "Joomla", username: "admin", password: "joomla" },
-            { productvendor: "Juniper", username: "root", password: "<blank>" },
-            { productvendor: "Juniper", username: "admin", password: "admin" },
-            { productvendor: "Kali Linux OS", username: "root", password: "toor" },
-            { productvendor: "Kali Linux OS", username: "kali", password: "kali" },
-            { productvendor: "Kali Linux OS", username: "admin", password: "admin" },
-            { productvendor: "Liferay", username: "admin", password: "admin" },
-            { productvendor: "Liferay", username: "admin", password: "liferay" },
-            { productvendor: "Linksys", username: "admin", password: "admin" },
-            { productvendor: "Linksys", username: "<blank>", password: "admin" },
-            { productvendor: "Linux", username: "root", password: "root" },
-            { productvendor: "Linux", username: "admin", password: "admin" },
-            { productvendor: "Linux", username: "user", password: "user" },
-            { productvendor: "Linux", username: "root", password: "toor" },
-            { productvendor: "Linux", username: "root", password: "<blank>" },
-            { productvendor: "Linux", username: "admin", password: "password" },
-            { productvendor: "Linux", username: "user", password: "password" },
-            { productvendor: "Linux", username: "root", password: "password" },
-            { productvendor: "McAfee", username: "admin", password: "admin123" },
-            { productvendor: "McAfee", username: "admin", password: "mcafee" },
-            { productvendor: "MikroTik", username: "admin", password: "<blank>" },
-            { productvendor: "MikroTik", username: "admin", password: "admin" },
-            { productvendor: "Mitel", username: "system", password: "password" },
-            { productvendor: "MySQL", username: "root", password: "<blank>" },
-            { productvendor: "MySQL", username: "root", password: "root" },
-            { productvendor: "MySQL", username: "admin", password: "admin" },
-            { productvendor: "MySQL", username: "mysql", password: "<blank>" },
-            { productvendor: "MySQL", username: "root", password: "password" },
-            { productvendor: "MySQL", username: "admin", password: "password" },
-            { productvendor: "MySQL", username: "root", password: "mysql" },
-            { productvendor: "MySQL", username: "mysql", password: "mysql" },
-            { productvendor: "NETIS", username: "admin", password: "admin" },
-            { productvendor: "Netgear", username: "admin", password: "password" },
-            { productvendor: "Netgear", username: "admin", password: "1234" },
-            { productvendor: "Netgear", username: "admin", password: "admin" },
-            { productvendor: "Nginx", username: "admin", password: "admin" },
-            { productvendor: "Nginx", username: "admin", password: "nginx" },
-            { productvendor: "Oracle", username: "system", password: "manager" },
-            { productvendor: "Oracle", username: "sys", password: "change_on_install" },
-            { productvendor: "Oracle", username: "admin", password: "admin" },
-            { productvendor: "Oracle", username: "sys", password: "oracle" },
-            { productvendor: "Oracle", username: "system", password: "system" },
-            { productvendor: "Oracle", username: "root", password: "root" },
-            { productvendor: "Oracle", username: "admin", password: "password" },
-            { productvendor: "Oracle", username: "oracle", password: "oracle" },
-            { productvendor: "Palo Alto", username: "admin", password: "admin" },
-            { productvendor: "Palo Alto", username: "admin", password: "paloalto" },
-            { productvendor: "PfSense", username: "admin", password: "pfsense" },
-            { productvendor: "PfSense", username: "admin", password: "admin" },
-            { productvendor: "Polycom", username: "Polycom", password: "456" },
-            { productvendor: "Postgres", username: "postgres", password: "postgres" },
-            { productvendor: "Postgres", username: "admin", password: "admin" },
-            { productvendor: "Postgres", username: "root", password: "<blank>" },
-            { productvendor: "Postgres", username: "postgres", password: "<blank>" },
-            { productvendor: "Postgres", username: "admin", password: "password" },
-            { productvendor: "Postgres", username: "root", password: "password" },
-            { productvendor: "Postgres", username: "postgres", password: "password" },
-            { productvendor: "Postgres", username: "pgadmin", password: "pgadmin" },
-            { productvendor: "Pulse Secure", username: "admin", password: "admin" },
-            { productvendor: "Pulse Secure", username: "admin", password: "pulse" },
-            { productvendor: "QNAP", username: "admin", password: "admin" },
-            { productvendor: "QNAP", username: "admin", password: "<blank>" },
-            { productvendor: "Telnet", username: "admin", password: "admin" },
-            { productvendor: "Telnet", username: "root", password: "<blank>" },
-            { productvendor: "Telnet", username: "root", password: "root" },
-            { productvendor: "Telnet", username: "admin", password: "password" },
-            { productvendor: "Telnet", username: "user", password: "user" },
-            { productvendor: "Telnet", username: "root", password: "password" },
-            { productvendor: "Telnet", username: "admin", password: "<blank>" },
-            { productvendor: "Telnet", username: "user", password: "password" },
-            { productvendor: "Tenda", username: "admin", password: "admin" },
-            { productvendor: "Tenda", username: "admin", password: "password" },
-            { productvendor: "Thomson", username: "<blank>", password: "<blank>" },
-            { productvendor: "Thomson", username: "admin", password: "admin" },
-            { productvendor: "TP-Link", username: "admin", password: "admin" },
-            { productvendor: "TP-Link", username: "admin", password: "password" },
-            { productvendor: "TP-Link", username: "admin", password: "1234" },
-            { productvendor: "TRENDnet", username: "admin", password: "admin" },
-            { productvendor: "Ubiquiti", username: "ubnt", password: "ubnt" },
-            { productvendor: "Ubiquiti", username: "admin", password: "admin" },
-            { productvendor: "UNIX", username: "root", password: "root" },
-            { productvendor: "UNIX", username: "admin", password: "admin" },
-            { productvendor: "UNIX", username: "root", password: "<blank>" },
-            { productvendor: "UNIX", username: "admin", password: "password" },
-            { productvendor: "UNIX", username: "user", password: "user" },
-            { productvendor: "UNIX", username: "root", password: "toor" },
-            { productvendor: "UNIX", username: "user", password: "password" },
-            { productvendor: "UNIX", username: "admin", password: "<blank>" },
-            { productvendor: "Vivotek", username: "root", password: "<blank>" },
-            { productvendor: "Vivotek", username: "root", password: "vivotek" },
-            { productvendor: "VMware", username: "root", password: "<blank>" },
-            { productvendor: "VMware", username: "root", password: "vmware" },
-            { productvendor: "WatchGuard", username: "admin", password: "admin" },
-            { productvendor: "WatchGuard", username: "admin", password: "1234" },
-            { productvendor: "Webmin", username: "admin", password: "admin" },
-            { productvendor: "Weblogic", username: "weblogic", password: "weblogic" },
-            { productvendor: "Weblogic", username: "weblogic", password: "weblogic1" },
-            { productvendor: "Windows RDP", username: "Administrator", password: "<blank>" },
-            { productvendor: "Windows RDP", username: "admin", password: "admin" },
-            { productvendor: "Windows RDP", username: "Administrator", password: "password" },
-            { productvendor: "Windows RDP", username: "admin", password: "password" },
-            { productvendor: "Windows RDP", username: "root", password: "root" },
-            { productvendor: "Windows RDP", username: "Administrator", password: "admin" },
-            { productvendor: "Windows RDP", username: "user", password: "user" },
-            { productvendor: "Windows RDP", username: "root", password: "<blank>" },
-            { productvendor: "WordPress", username: "admin", password: "admin" },
-            { productvendor: "Yeastar", username: "admin", password: "password" },
-            { productvendor: "Yeastar", username: "admin", password: "admin" },
-            { productvendor: "Yeastar", username: "root", password: "yeastar" },
-            { productvendor: "Yealink", username: "admin", password: "admin" },
-            { productvendor: "Yealink", username: "admin", password: "1234" },
-            { productvendor: "ZTE", username: "admin", password: "admin" },
-            { productvendor: "Zyxel", username: "admin", password: "1234" },
-            { productvendor: "Zyxel", username: "admin", password: "admin" }
-        ];
+                <div id="credentialsOutput" style="min-height: 150px;">
+                    <p class="no-selection" style="color: #888; text-align: center; margin-top: 40px;">Selecciona un
+                        fabricante para ver credenciales por defecto.</p>
+                    <table id="credentialsTable"
+                        style="display: none; width: 100%; border-collapse: collapse; font-size: 0.80rem; background: #1a2333;">
+                        <thead>
+                            <tr style="background: #1f2a3f;">
+                                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">🧑‍💻 Usuario
+                                </th>
+                                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #444;">🔑 Contraseña
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
 
-        const select = document.getElementById('productCategory');
-        const table = document.getElementById('credentialsTable');
-        const tbody = table.querySelector('tbody');
-        const noSelection = document.querySelector('.no-selection');
+                <p style="font-size: 0.8rem; color: #777; text-align: center; margin-top: 12px;">
 
-        // Rellenar select con fabricantes únicos
-        const vendors = [...new Set(credentialsDatabase.map(item => item.productvendor))].sort();
+                </p>
+            </div>
 
-        vendors.forEach(vendor => {
-            const option = document.createElement('option');
-            option.value = vendor;
-            option.textContent = vendor;
-            select.appendChild(option);
-        });
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const credentialsDatabase = [
+                        { productvendor: "3COM", username: "admin", password: "admin" },
+                        { productvendor: "3COM", username: "admin", password: "1234admin" },
+                        { productvendor: "3COM", username: "admin", password: "password" },
+                        { productvendor: "3COM", username: "root", password: "!root" },
+                        { productvendor: "3COM", username: "manager", password: "manager" },
+                        { productvendor: "ACTi", username: "admin", password: "123456" },
+                        { productvendor: "ACTi", username: "Admin", password: "12345" },
+                        { productvendor: "Actiontec", username: "admin", password: "password" },
+                        { productvendor: "Actiontec", username: "admin", password: "admin" },
+                        { productvendor: "Actiontec", username: "user", password: "user" },
+                        { productvendor: "Adobe", username: "admin", password: "admin" },
+                        { productvendor: "Adobe", username: "admin", password: "password" },
+                        { productvendor: "Adobe", username: "root", password: "root" },
+                        { productvendor: "Alcatel", username: "admin", password: "admin" },
+                        { productvendor: "Alcatel", username: "root", password: "letacla" },
+                        { productvendor: "Alcatel", username: "admin", password: "switch" },
+                        { productvendor: "Alcatel", username: "admin", password: "alcatel" },
+                        { productvendor: "Alcatel", username: "root", password: "root" },
+                        { productvendor: "Alfresco", username: "admin", password: "admin" },
+                        { productvendor: "Allied Telesis", username: "manager", password: "friend" },
+                        { productvendor: "Apache", username: "admin", password: "admin" },
+                        { productvendor: "Apache", username: "admin", password: "<blank>" },
+                        { productvendor: "Apache", username: "admin", password: "j5Brn9" },
+                        { productvendor: "Apache", username: "admin", password: "tomcat" },
+                        { productvendor: "Apache", username: "root", password: "root" },
+                        { productvendor: "Apache Tomcat", username: "admin", password: "admin" },
+                        { productvendor: "Apache Tomcat", username: "admin", password: "<blank>" },
+                        { productvendor: "Apache Tomcat", username: "admin", password: "j5Brn9" },
+                        { productvendor: "Apache Tomcat", username: "admin", password: "tomcat" },
+                        { productvendor: "Apache Tomcat", username: "tomcat", password: "s3cret" },
+                        { productvendor: "Apache Tomcat", username: "tomcat", password: "tomcat" },
+                        { productvendor: "Apache Tomcat", username: "role1", password: "role1" },
+                        { productvendor: "Apache Tomcat", username: "role1", password: "tomcat" },
+                        { productvendor: "Apache Tomcat", username: "role", password: "changethis" },
+                        { productvendor: "Apache Tomcat", username: "root", password: "changethis" },
+                        { productvendor: "Apache Tomcat", username: "tomcat", password: "changethis" },
+                        { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "admin" },
+                        { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "<blank>" },
+                        { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "j5Brn9" },
+                        { productvendor: "Apache Tomcat Host Manager (web)", username: "admin", password: "tomcat" },
+                        { productvendor: "Apache Tomcat Host Manager (web)", username: "tomcat", password: "s3cret" },
+                        { productvendor: "Apache Tomcat Host Manager (web)", username: "tomcat", password: "tomcat" },
+                        { productvendor: "Apple", username: "root", password: "alpine" },
+                        { productvendor: "Apple", username: "admin", password: "admin" },
+                        { productvendor: "Apple", username: "root", password: "root" },
+                        { productvendor: "Arecont Vision", username: "admin", password: "<blank>" },
+                        { productvendor: "Arecont Vision", username: "admin", password: "arecont" },
+                        { productvendor: "Arris", username: "admin", password: "password" },
+                        { productvendor: "Arris", username: "admin", password: "arris" },
+                        { productvendor: "Arris", username: "technician", password: "tech123" },
+                        { productvendor: "Aruba", username: "admin", password: "admin" },
+                        { productvendor: "Aruba", username: "admin", password: "password" },
+                        { productvendor: "ASUS", username: "admin", password: "admin" },
+                        { productvendor: "ASUS", username: "admin", password: "password" },
+                        { productvendor: "ASUS", username: "<blank>", password: "admin" },
+                        { productvendor: "Asterisk", username: "admin", password: "admin" },
+                        { productvendor: "Atlassian", username: "admin", password: "admin" },
+                        { productvendor: "Atlassian", username: "admin", password: "atlassian" },
+                        { productvendor: "Avaya", username: "admin", password: "admin123" },
+                        { productvendor: "Avaya", username: "root", password: "root" },
+                        { productvendor: "Avaya", username: "admin", password: "password" },
+                        { productvendor: "Axis", username: "root", password: "pass" },
+                        { productvendor: "Axis", username: "root", password: "admin" },
+                        { productvendor: "AVM", username: "<blank>", password: "0" },
+                        { productvendor: "AVM", username: "admin", password: "admin" },
+                        { productvendor: "Barracuda", username: "admin", password: "admin" },
+                        { productvendor: "Barracuda", username: "ssladmin", password: "ssladmin" },
+                        { productvendor: "Belkin", username: "admin", password: "admin" },
+                        { productvendor: "Belkin", username: "admin", password: "password" },
+                        { productvendor: "Billion", username: "admin", password: "admin" },
+                        { productvendor: "Bluecoat", username: "admin", password: "admin" },
+                        { productvendor: "Bluecoat", username: "admin", password: "bluecoat" },
+                        { productvendor: "Bosch", username: "service", password: "service" },
+                        { productvendor: "Brocade", username: "admin", password: "password" },
+                        { productvendor: "Brocade", username: "root", password: "fibranne" },
+                        { productvendor: "Check Point", username: "admin", password: "admin" },
+                        { productvendor: "Cisco", username: "admin", password: "admin" },
+                        { productvendor: "Cisco", username: "admin", password: "cisco" },
+                        { productvendor: "Cisco", username: "cisco", password: "cisco" },
+                        { productvendor: "Cisco", username: "root", password: "password" },
+                        { productvendor: "Cisco", username: "admin", password: "changeme" },
+                        { productvendor: "Citrix Systems (web)", username: "nsroot", password: "nsroot" },
+                        { productvendor: "Citrix Systems (web)", username: "root", password: "rootadmin" },
+                        { productvendor: "CNET", username: "admin", password: "admin" },
+                        { productvendor: "CNET", username: "admin", password: "password" },
+                        { productvendor: "CNET", username: "user", password: "user" },
+                        { productvendor: "ColdFusion", username: "admin", password: "<blank>" },
+                        { productvendor: "ColdFusion", username: "admin", password: "coldfusion" },
+                        { productvendor: "Compaq", username: "administrator", password: "administrator" },
+                        { productvendor: "Compaq", username: "admin", password: "admin" },
+                        { productvendor: "Compaq", username: "root", password: "root" },
+                        { productvendor: "Comtrend", username: "admin", password: "admin" },
+                        { productvendor: "Comtrend", username: "admin", password: "1234" },
+                        { productvendor: "D-Link", username: "admin", password: "admin" },
+                        { productvendor: "D-Link", username: "admin", password: "1234" },
+                        { productvendor: "D-Link", username: "admin", password: "password" },
+                        { productvendor: "D-Link", username: "user", password: "user" },
+                        { productvendor: "D-Link", username: "<blank>", password: "<blank>" },
+                        { productvendor: "Dahua", username: "admin", password: "admin" },
+                        { productvendor: "Dahua", username: "666666", password: "666666" },
+                        { productvendor: "Dahua", username: "888888", password: "888888" },
+                        { productvendor: "Dell", username: "root", password: "calvin" },
+                        { productvendor: "Dell", username: "admin", password: "admin" },
+                        { productvendor: "Dell", username: "administrator", password: "password" },
+                        { productvendor: "Dell", username: "admin", password: "password" },
+                        { productvendor: "Dell", username: "root", password: "admin" },
+                        { productvendor: "Digium", username: "admin", password: "admin" },
+                        { productvendor: "Digium", username: "admin", password: "digium" },
+                        { productvendor: "DrayTek", username: "admin", password: "admin" },
+                        { productvendor: "DrayTek", username: "admin", password: "draytek" },
+                        { productvendor: "Drupal", username: "admin", password: "admin" },
+                        { productvendor: "Edimax", username: "admin", password: "1234" },
+                        { productvendor: "Edimax", username: "admin", password: "admin" },
+                        { productvendor: "Extreme Networks", username: "admin", password: "admin" },
+                        { productvendor: "Extreme Networks", username: "admin", password: "extreme" },
+                        { productvendor: "F5", username: "admin", password: "admin" },
+                        { productvendor: "F5", username: "root", password: "default" },
+                        { productvendor: "Forcepoint", username: "admin", password: "admin" },
+                        { productvendor: "Forcepoint", username: "admin", password: "forcepoint" },
+                        { productvendor: "Fortinet", username: "admin", password: "<blank>" },
+                        { productvendor: "Fortinet", username: "admin", password: "admin" },
+                        { productvendor: "FreePBX", username: "admin", password: "admin" },
+                        { productvendor: "GlassFish", username: "admin", password: "adminadmin" },
+                        { productvendor: "Grandstream", username: "admin", password: "admin" },
+                        { productvendor: "Grandstream", username: "admin", password: "1234" },
+                        { productvendor: "Hikvision", username: "admin", password: "12345" },
+                        { productvendor: "Hikvision", username: "admin", password: "admin" },
+                        { productvendor: "HP", username: "admin", password: "admin" },
+                        { productvendor: "HP", username: "Administrator", password: "<blank>" },
+                        { productvendor: "HP", username: "admin", password: "password" },
+                        { productvendor: "HP", username: "root", password: "password" },
+                        { productvendor: "HP", username: "administrator", password: "admin" },
+                        { productvendor: "Huawei", username: "admin", password: "admin" },
+                        { productvendor: "Huawei", username: "root", password: "admin" },
+                        { productvendor: "Huawei", username: "admin", password: "admin123" },
+                        { productvendor: "IBM", username: "USERID", password: "PASSW0RD" },
+                        { productvendor: "IBM", username: "admin", password: "admin" },
+                        { productvendor: "IBM", username: "root", password: "pass" },
+                        { productvendor: "IBM", username: "admin", password: "password" },
+                        { productvendor: "IBM", username: "root", password: "<blank>" },
+                        { productvendor: "IBM", username: "db2admin", password: "db2admin" },
+                        { productvendor: "IBM", username: "superadmin", password: "secret" },
+                        { productvendor: "IBM", username: "system", password: "manager" },
+                        { productvendor: "Intel", username: "admin", password: "admin" },
+                        { productvendor: "Intel", username: "admin", password: "password" },
+                        { productvendor: "Intel", username: "root", password: "intel" },
+                        { productvendor: "JBoss", username: "admin", password: "admin" },
+                        { productvendor: "JBoss", username: "admin", password: "jboss" },
+                        { productvendor: "Jenkins", username: "admin", password: "admin" },
+                        { productvendor: "Jenkins", username: "admin", password: "jenkins" },
+                        { productvendor: "Joomla", username: "admin", password: "admin" },
+                        { productvendor: "Joomla", username: "admin", password: "joomla" },
+                        { productvendor: "Juniper", username: "root", password: "<blank>" },
+                        { productvendor: "Juniper", username: "admin", password: "admin" },
+                        { productvendor: "Kali Linux OS", username: "root", password: "toor" },
+                        { productvendor: "Kali Linux OS", username: "kali", password: "kali" },
+                        { productvendor: "Kali Linux OS", username: "admin", password: "admin" },
+                        { productvendor: "Liferay", username: "admin", password: "admin" },
+                        { productvendor: "Liferay", username: "admin", password: "liferay" },
+                        { productvendor: "Linksys", username: "admin", password: "admin" },
+                        { productvendor: "Linksys", username: "<blank>", password: "admin" },
+                        { productvendor: "Linux", username: "root", password: "root" },
+                        { productvendor: "Linux", username: "admin", password: "admin" },
+                        { productvendor: "Linux", username: "user", password: "user" },
+                        { productvendor: "Linux", username: "root", password: "toor" },
+                        { productvendor: "Linux", username: "root", password: "<blank>" },
+                        { productvendor: "Linux", username: "admin", password: "password" },
+                        { productvendor: "Linux", username: "user", password: "password" },
+                        { productvendor: "Linux", username: "root", password: "password" },
+                        { productvendor: "McAfee", username: "admin", password: "admin123" },
+                        { productvendor: "McAfee", username: "admin", password: "mcafee" },
+                        { productvendor: "MikroTik", username: "admin", password: "<blank>" },
+                        { productvendor: "MikroTik", username: "admin", password: "admin" },
+                        { productvendor: "Mitel", username: "system", password: "password" },
+                        { productvendor: "MySQL", username: "root", password: "<blank>" },
+                        { productvendor: "MySQL", username: "root", password: "root" },
+                        { productvendor: "MySQL", username: "admin", password: "admin" },
+                        { productvendor: "MySQL", username: "mysql", password: "<blank>" },
+                        { productvendor: "MySQL", username: "root", password: "password" },
+                        { productvendor: "MySQL", username: "admin", password: "password" },
+                        { productvendor: "MySQL", username: "root", password: "mysql" },
+                        { productvendor: "MySQL", username: "mysql", password: "mysql" },
+                        { productvendor: "NETIS", username: "admin", password: "admin" },
+                        { productvendor: "Netgear", username: "admin", password: "password" },
+                        { productvendor: "Netgear", username: "admin", password: "1234" },
+                        { productvendor: "Netgear", username: "admin", password: "admin" },
+                        { productvendor: "Nginx", username: "admin", password: "admin" },
+                        { productvendor: "Nginx", username: "admin", password: "nginx" },
+                        { productvendor: "Oracle", username: "system", password: "manager" },
+                        { productvendor: "Oracle", username: "sys", password: "change_on_install" },
+                        { productvendor: "Oracle", username: "admin", password: "admin" },
+                        { productvendor: "Oracle", username: "sys", password: "oracle" },
+                        { productvendor: "Oracle", username: "system", password: "system" },
+                        { productvendor: "Oracle", username: "root", password: "root" },
+                        { productvendor: "Oracle", username: "admin", password: "password" },
+                        { productvendor: "Oracle", username: "oracle", password: "oracle" },
+                        { productvendor: "Palo Alto", username: "admin", password: "admin" },
+                        { productvendor: "Palo Alto", username: "admin", password: "paloalto" },
+                        { productvendor: "PfSense", username: "admin", password: "pfsense" },
+                        { productvendor: "PfSense", username: "admin", password: "admin" },
+                        { productvendor: "Polycom", username: "Polycom", password: "456" },
+                        { productvendor: "Postgres", username: "postgres", password: "postgres" },
+                        { productvendor: "Postgres", username: "admin", password: "admin" },
+                        { productvendor: "Postgres", username: "root", password: "<blank>" },
+                        { productvendor: "Postgres", username: "postgres", password: "<blank>" },
+                        { productvendor: "Postgres", username: "admin", password: "password" },
+                        { productvendor: "Postgres", username: "root", password: "password" },
+                        { productvendor: "Postgres", username: "postgres", password: "password" },
+                        { productvendor: "Postgres", username: "pgadmin", password: "pgadmin" },
+                        { productvendor: "Pulse Secure", username: "admin", password: "admin" },
+                        { productvendor: "Pulse Secure", username: "admin", password: "pulse" },
+                        { productvendor: "QNAP", username: "admin", password: "admin" },
+                        { productvendor: "QNAP", username: "admin", password: "<blank>" },
+                        { productvendor: "Telnet", username: "admin", password: "admin" },
+                        { productvendor: "Telnet", username: "root", password: "<blank>" },
+                        { productvendor: "Telnet", username: "root", password: "root" },
+                        { productvendor: "Telnet", username: "admin", password: "password" },
+                        { productvendor: "Telnet", username: "user", password: "user" },
+                        { productvendor: "Telnet", username: "root", password: "password" },
+                        { productvendor: "Telnet", username: "admin", password: "<blank>" },
+                        { productvendor: "Telnet", username: "user", password: "password" },
+                        { productvendor: "Tenda", username: "admin", password: "admin" },
+                        { productvendor: "Tenda", username: "admin", password: "password" },
+                        { productvendor: "Thomson", username: "<blank>", password: "<blank>" },
+                        { productvendor: "Thomson", username: "admin", password: "admin" },
+                        { productvendor: "TP-Link", username: "admin", password: "admin" },
+                        { productvendor: "TP-Link", username: "admin", password: "password" },
+                        { productvendor: "TP-Link", username: "admin", password: "1234" },
+                        { productvendor: "TRENDnet", username: "admin", password: "admin" },
+                        { productvendor: "Ubiquiti", username: "ubnt", password: "ubnt" },
+                        { productvendor: "Ubiquiti", username: "admin", password: "admin" },
+                        { productvendor: "UNIX", username: "root", password: "root" },
+                        { productvendor: "UNIX", username: "admin", password: "admin" },
+                        { productvendor: "UNIX", username: "root", password: "<blank>" },
+                        { productvendor: "UNIX", username: "admin", password: "password" },
+                        { productvendor: "UNIX", username: "user", password: "user" },
+                        { productvendor: "UNIX", username: "root", password: "toor" },
+                        { productvendor: "UNIX", username: "user", password: "password" },
+                        { productvendor: "UNIX", username: "admin", password: "<blank>" },
+                        { productvendor: "Vivotek", username: "root", password: "<blank>" },
+                        { productvendor: "Vivotek", username: "root", password: "vivotek" },
+                        { productvendor: "VMware", username: "root", password: "<blank>" },
+                        { productvendor: "VMware", username: "root", password: "vmware" },
+                        { productvendor: "WatchGuard", username: "admin", password: "admin" },
+                        { productvendor: "WatchGuard", username: "admin", password: "1234" },
+                        { productvendor: "Webmin", username: "admin", password: "admin" },
+                        { productvendor: "Weblogic", username: "weblogic", password: "weblogic" },
+                        { productvendor: "Weblogic", username: "weblogic", password: "weblogic1" },
+                        { productvendor: "Windows RDP", username: "Administrator", password: "<blank>" },
+                        { productvendor: "Windows RDP", username: "admin", password: "admin" },
+                        { productvendor: "Windows RDP", username: "Administrator", password: "password" },
+                        { productvendor: "Windows RDP", username: "admin", password: "password" },
+                        { productvendor: "Windows RDP", username: "root", password: "root" },
+                        { productvendor: "Windows RDP", username: "Administrator", password: "admin" },
+                        { productvendor: "Windows RDP", username: "user", password: "user" },
+                        { productvendor: "Windows RDP", username: "root", password: "<blank>" },
+                        { productvendor: "WordPress", username: "admin", password: "admin" },
+                        { productvendor: "Yeastar", username: "admin", password: "password" },
+                        { productvendor: "Yeastar", username: "admin", password: "admin" },
+                        { productvendor: "Yeastar", username: "root", password: "yeastar" },
+                        { productvendor: "Yealink", username: "admin", password: "admin" },
+                        { productvendor: "Yealink", username: "admin", password: "1234" },
+                        { productvendor: "ZTE", username: "admin", password: "admin" },
+                        { productvendor: "Zyxel", username: "admin", password: "1234" },
+                        { productvendor: "Zyxel", username: "admin", password: "admin" }
+                    ];
 
-        function displayCredentials() {
-            const selectedVendor = select.value;
-            tbody.innerHTML = '';
+                    const select = document.getElementById('productCategory');
+                    const table = document.getElementById('credentialsTable');
+                    const tbody = table.querySelector('tbody');
+                    const noSelection = document.querySelector('.no-selection');
 
-            if (selectedVendor) {
-                noSelection.style.display = 'none';
-                table.style.display = 'table';
+                    // Rellenar select con fabricantes únicos
+                    const vendors = [...new Set(credentialsDatabase.map(item => item.productvendor))].sort();
 
-                const filtered = credentialsDatabase.filter(item => item.productvendor === selectedVendor);
+                    vendors.forEach(vendor => {
+                        const option = document.createElement('option');
+                        option.value = vendor;
+                        option.textContent = vendor;
+                        select.appendChild(option);
+                    });
 
-                filtered.forEach(cred => {
-                    const row = document.createElement('tr');
-                    const user = cred.username === "<blank>" ? "[vacío]" : cred.username;
-                    const pass = cred.password === "<blank>" ? "[vacío]" : cred.password;
-                    row.innerHTML = `
+                    function displayCredentials() {
+                        const selectedVendor = select.value;
+                        tbody.innerHTML = '';
+
+                        if (selectedVendor) {
+                            noSelection.style.display = 'none';
+                            table.style.display = 'table';
+
+                            const filtered = credentialsDatabase.filter(item => item.productvendor === selectedVendor);
+
+                            filtered.forEach(cred => {
+                                const row = document.createElement('tr');
+                                const user = cred.username === "<blank>" ? "[vacío]" : cred.username;
+                                const pass = cred.password === "<blank>" ? "[vacío]" : cred.password;
+                                row.innerHTML = `
                         <td style="padding: 8px; border-bottom: 1px solid #333;">${user}</td>
                         <td style="padding: 8px; border-bottom: 1px solid #333; color: #ffcc00;">${pass}</td>
                     `;
-                    tbody.appendChild(row);
+                                tbody.appendChild(row);
+                            });
+                        } else {
+                            noSelection.style.display = 'block';
+                            table.style.display = 'none';
+                        }
+                    }
+
+                    select.addEventListener('change', displayCredentials);
                 });
-            } else {
-                noSelection.style.display = 'block';
-                table.style.display = 'none';
-            }
-        }
+            </script>
 
-        select.addEventListener('change', displayCredentials);
-    });
-</script>
+            <!-- TOOL END -->
 
-<!-- TOOL END -->
-
-</div>
-</section>
+        </div>
+    </section>
 
     <a href="pentestools.html" class="card-button">
         <i class="ti ti-device-imac-cog" style="color: var(--accent); margin-right: 10px; font-size: 1.4rem;"></i>
         Volver a Pentesting Tools
     </a>
-    
-        <br><br><br><br>
 
-<footer>
-    <div class="footer-content">
+    <br><br><br><br>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
-            <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
-            <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
-            <a href="aitools.html" class="footer-link">AI Tools</a>
+    <footer>
+        <div class="footer-content">
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">HERRAMIENTAS</strong>
+                <a href="pentestools.html" class="footer-link">Pentesting Tools</a><br>
+                <a href="osintools.html" class="footer-link">OSINT Tools </a><br>
+                <a href="aitools.html" class="footer-link">AI Tools</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
+                <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
+                <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
+                <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
+                <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
+                <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
+                <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
+                <a href="writeups.html" class="footer-link">CTF Writeups</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
+                <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
+                <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
+                <a href="parches.html" class="footer-link">Parches</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
+                <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
+                <a href="whoami.html" class="footer-link">Whoami</a>
+            </div>
+
+            <div>
+                <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
+                <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
+                <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
+                <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
+            </div>
         </div>
-        
-        <div>
-            <strong style="display:block; margin-bottom:12px;">APUNTES</strong>
-            <a href="replinux.html" class="footer-link">Repositorio Linux</a><br>
-            <a href="repwindows.html" class="footer-link">Repositorio Windows</a><br>
-            <a href="pentestingweb.html" class="footer-link">Pentesting Web</a><br>
-            <a href="autoproteccion.html" class="footer-link">Autoprotección Digital</a><br>
-            <a href="ejpt.html" class="footer-link">EJPTv2*</a><br>
-            <a href="howtoattack.html" class="footer-link">Guía de Ataque*</a><br>
-            <a href="writeups.html" class="footer-link">CTF Writeups</a>
+
+        <div
+            style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
+            <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
+
+            <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+            <script
+                type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09'); kofiwidget2.draw();</script>
+
+            <div>
+                <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com"
+                        style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
+            </div>
         </div>
 
-        <div>
-            <strong style="display:block; margin-bottom:12px;">MISCELÁNEA</strong>
-            <a href="ctf.html" class="footer-link">Mi Reto CTF</a><br>
-            <a href="wallpapers.html" class="footer-link">Wallpapers</a><br>
-            <a href="parches.html" class="footer-link">Parches</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">Hacking Music</a><br>
-            <a href="terminal.html" class="footer-link">Terminal Linux</a><br>
-            <a href="whoami.html" class="footer-link">Whoami</a>
-        </div>
-
-        <div>
-            <strong style="display:block; margin-bottom:12px;">REDES SOCIALES</strong>
-            <a href="https://www.linkedin.com/in/mayuso-eh/" target="_blank" class="footer-link">LinkedIn</a><br>
-            <a href="https://github.com/MAyusoEH" target="_blank" class="footer-link">GitHub</a><br>
-            <a href="https://www.youtube.com/@SF01Ghost" target="_blank" class="footer-link">YouTube</a>
-        </div>
-    </div>
-
-    <div style="margin-top:50px; display:flex; align-items:center; justify-content:center; gap:25px; flex-wrap:wrap;">
-        <img src="assets/img/mayured.png" alt="Logo" style="height:80px;">
-
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script type='text/javascript'>kofiwidget2.init('Invítame a un café', '#cc2525', 'O4O31LGS09');kofiwidget2.draw();</script>
-
-        <div>
-            <p style="margin:8px 0 4px 0; color: var(--text)">Contacto: <a href="mailto:sf01ghost@gmail.com" style="color:#E3E3E3;">sf01ghost@gmail.com</a></p>
-        </div>
-    </div>
-
-    <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
-        © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
-    </p>
-    <br>
-</footer>
+        <p style="margin-top:20px; font-size:0.85em; opacity:0.8; color: var(--text)">
+            © 2026 Miguel Ángel Ayuso Jiménez • This work is licensed under CC BY-NC-ND 4.0
+        </p>
+        <br>
+    </footer>
 
     <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
         ↑
@@ -465,12 +535,12 @@
         }
         resize();
         window.addEventListener('resize', resize);
-      
+
         const chars = '01アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const fontSize = 13;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
-      
+
         function draw() {
             ctx.fillStyle = 'rgba(10, 10, 18, 0.06)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -486,4 +556,5 @@
         setInterval(draw, 35);
     </script>
 </body>
+
 </html>
