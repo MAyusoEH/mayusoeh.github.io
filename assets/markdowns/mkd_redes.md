@@ -133,8 +133,9 @@ Fácil, solo hay que saber que la red más pequeña empieza por /32, y de ahí p
 
 Sabemos que la más pequeña (/32) tiene solo 1 dirección IP. Pues de ahí en adelante, se van duplicando exponencialmente como si se tratara de los valores del sistema binario:
 
- 1      2      4      8      16      32      64      128      256      512      1024     ...     HOSTS
-/32    /31    /30    /29    /28     /27     /26      /25      /24      /23      /22      ...     CIDR
+| Hosts | 1   | 2   | 4   | 8   | 16  | 32  | 64  | 128 | 256 | 512 | 1024 |
+|-------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|------|
+| CIDR  | /32 | /31 | /30 | /29 | /28 | /27 | /26 | /25 | /24 | /23 | /22  |
 
 _(Nota: los hosts utilizables es siempre el número total de hosts menos 2)._
 
