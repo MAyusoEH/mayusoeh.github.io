@@ -1,7 +1,3 @@
-[[mkd_ejpt]]
-
---------------------
-
 ### 👨‍💻 WORDLISTS EXTRA
   
 ##### Wordlists SECLISTS de DanielMiessler:
