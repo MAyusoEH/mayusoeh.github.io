@@ -1,6 +1,4 @@
-### VER DIRECCIÓN IP PROPIA
-
---------------------
+### 🖥️ VER DIRECCIÓN IP PROPIA
 
 En WINDOWS:
 ```
@@ -28,7 +26,7 @@ Binario:         1100 0000      1010 1000       0000 0001     0000 0001
 Máscara:            255        .         255        .         255        .         0           =       /24        (256 hosts)
 
 
----
+---------------
 
 ### Clases de direcciones IP (A, B y C)
 
@@ -48,7 +46,7 @@ El sistema de clases (classful) divide el espacio de direcciones según el valor
 
 _(Nota: hoy en día el sistema de clases está prácticamente abandonado en favor de CIDR, que permite crear MÁSCARAS DE RED DE LONGITUD VARIABLE)._
 
----
+-----------------
 
 ### DHCP (Dynamic Host Configuration Protocol)
 
@@ -60,7 +58,7 @@ Ventajas:
 - Facilita la administración (no hay que configurar manualmente cada equipo).
 - Las direcciones se prestan por un tiempo limitado (lease time). Suelen cambiar si el equipo administrador de IPs es reiniciado.
 
----
+--------------------
 
 ### CIDR (Classless Inter-Domain Routing)
 
@@ -135,7 +133,7 @@ Sabemos que la más pequeña (/32) tiene solo 1 dirección IP. Pues de ahí en a
 
 _(Nota: los hosts utilizables es siempre el número total de hosts menos 2)._
 
-_______________________
+------------------
 
 ### ENVÍO DE PAQUETES EN UNA RED
 
@@ -149,6 +147,5 @@ Hay **varios tipos** según el destino del paquete. Los principales son estos:
 |**Anycast**|Anycast|Al dispositivo **más cercano** del grupo|Se usa en DNS y CDNs|
 
 
----------------
 
 
