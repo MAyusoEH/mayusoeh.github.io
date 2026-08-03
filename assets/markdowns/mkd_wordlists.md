@@ -1,6 +1,6 @@
 ### 👨‍💻 WORDLISTS EXTRA
   
-##### Wordlists SECLISTS de DanielMiessler:
+Wordlists SECLISTS de DanielMiessler:
 ```
 git clone https://github.com/danielmiessler/SecLists.git
 ```
