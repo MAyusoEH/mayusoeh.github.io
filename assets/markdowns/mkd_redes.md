@@ -1,4 +1,4 @@
-### 🖥️ VER DIRECCIÓN IP PROPIA
+### 🖥️ Visualizar por consola dirección IP propia
 
 En WINDOWS:
 ```
