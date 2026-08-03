@@ -1,13 +1,13 @@
-[[mkd_ejpt]]
+### VER DIRECCIÓN IP PROPIA
 
 --------------------
 
-Ver mi IP en WINDOWS:
+En WINDOWS:
 ```
 ipconfig
 ```
 
-Ver mi IP en LINUX:
+En LINUX:
 ```
 ifconfig
 ```
@@ -148,5 +148,7 @@ Hay **varios tipos** según el destino del paquete. Los principales son estos:
 |**Multicast**|Multidifusión|A un **grupo** de dispositivos|224.0.0.1 (todos los routers)|
 |**Anycast**|Anycast|Al dispositivo **más cercano** del grupo|Se usa en DNS y CDNs|
 
+
 ---------------
+
 
