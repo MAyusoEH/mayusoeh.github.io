@@ -11,7 +11,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 👨 **USERS**                                                              |                                                          |
 | ------------------------------------------------------------------------- | -------------------------------------------------------- |
-| Path                                                                      | Descripción                                              |
+| 📁 RUTA                                                                     | 📄 DESCRIPCIÓN                                        |
 | /usr/share/wordlists/dirb/others/names.txt                                | Lista de nombres de usuarios comunes.                    |
 | /usr/share/wordlists/metasploit/namelist.txt                              | Nombres de usuarios para pruebas de fuerza bruta.        |
 | /usr/share/wordlists/dirb/others/best110.txt                              | 110 nombres de usuarios más comunes.                     |
@@ -32,7 +32,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 🔑 **USER PASSWORDS**                                                             |                                            |
 | --------------------------------------------------------------------------------- | ------------------------------------------ |
-| Path                                                                              | Descripción                                |
+| 📁 RUTA                                                                           | 📄 DESCRIPCIÓN                            |
 | /usr/share/wordlists/metasploit/password.lst                                      | Lista de contraseñas comunes.              |
 | /usr/share/wordlists/legion/root-userpass.txt                                     | Contraseñas para usuarios root.            |
 | /usr/share/wordlists/dirb/others/names.txt                                        | Nombres usados como contraseñas.           |
@@ -55,7 +55,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 🛜 **WIFI / ROUTER PASSWORDS**                            |                                             |
 | --------------------------------------------------------- | ------------------------------------------- |
-| Path                                                      | Descripción                                 |
+| 📁 RUTA                                                   | 📄 DESCRIPCIÓN                             |
 | /usr/share/wordlists/wifite.txt                           | Contraseñas comunes para WiFi (Wifite).     |
 | /usr/share/wordlists/fern-wifi/common.txt                 | Contraseñas para WiFi (Fern).               |
 | /usr/share/wordlists/legion/routers-userpass.txt          | Contraseñas para routers.                   |
@@ -64,7 +64,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 💾 **SERVICES PASSWORDS**                                                         |                                                    |
 | --------------------------------------------------------------------------------- | -------------------------------------------------- |
-| Path                                                                              | Descripción                                        |
+| 📁 RUTA                                                                          | 📄 DESCRIPCIÓN                                     |
 | /usr/share/wordlists/metasploit/dlink_telnet_backdoor.txt                         | Contraseñas por defecto para D-Link Telnet.        |
 | /usr/share/wordlists/metasploit/default_pass_for_services_unhash.txt              | Contraseñas por defecto para servicios.            |
 | /usr/share/wordlists/metasploit/flask_secret_keys.txt                             | Claves secretas por defecto para Flask.            |
@@ -102,8 +102,9 @@ git clone https://github.com/danielmiessler/SecLists.git
 | /usr/share/wordlists/seclists/Passwords/Default-Credentials/default-passwords.txt | Contraseñas por defecto para servicios (SecLists). |
 | /usr/share/wordlists/seclists/Miscellaneous/wordpress-default.txt                 | Contraseñas por defecto para WordPress (SecLists). |
 
-| 👨​🔑 **USER:PASS COMBINATIONS**                                         | Descripción                                             |
+| 👨​🔑 **USER:PASS COMBINATIONS**                                         |                                                         |
 | ------------------------------------------------------------------------ | ------------------------------------------------------- |
+| 📁 RUTA                                                                  | 📄 DESCRIPCIÓN                                         |
 | /usr/share/wordlists/metasploit/root_userpass.txt                        | Combinaciones usuario/contraseña para root.             |
 | /usr/share/wordlists/metasploit/mirai_user_pass.txt                      | Combinaciones usuario/contraseña para Mirai.            |
 | /usr/share/wordlists/metasploit/routers_userpass.txt                     | Combinaciones usuario/contraseña para routers.          |
@@ -120,7 +121,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 🌐 **DOMAINS / SUBDOMAINS**                                                   |                                                   |
 | ----------------------------------------------------------------------------- | ------------------------------------------------- |
-| Path                                                                          | Descripción                                       |
+| 📁 RUTA                                                                      | 📄 DESCRIPCIÓN                                    |
 | /usr/share/wordlists/amass/all.txt                                            | Lista de dominios y subdominios para enumeración. |
 | /usr/share/wordlists/nmap.lst                                                 | Lista de nombres de hosts para Nmap.              |
 | /usr/share/wordlists/dnsmap.txt                                               | Lista para enumeración DNS.                       |
@@ -148,7 +149,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 🖥️ **HOST NAMES**                                                     |                                               |
 | ---------------------------------------------------------------------- | --------------------------------------------- |
-| Path                                                                   | Descripción                                   |
+| 📁 RUTA                                                                | 📄 DESCRIPCIÓN                               |
 | /usr/share/wordlists/nmap.lst                                          | Lista de nombres de hosts para Nmap.          |
 | /usr/share/wordlists/dirb/others/names.txt                             | Nombres de hosts para enumeración.            |
 | /usr/share/wordlists/amass/jhaddix_all.txt                             | Lista completa de nombres de hosts (JHaddix). |
@@ -167,7 +168,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 📄 **FILE EXTENSIONS**                                     |                                    |
 | ---------------------------------------------------------- | ---------------------------------- |
-| Path                                                       | Descripción                        |
+| 📁 RUTA                                                    | 📄 DESCRIPCIÓN                    |
 | /usr/share/wordlists/dirb/extensions_common.n.txt          | Extensiones comunes de archivos.   |
 | /usr/share/wordlists/dirb/mutations_common.n.txt           | Mutaciones de extensiones comunes. |
 | /usr/share/wordlists/wfuzz/general/extensions_common_n.txt | Extensiones para fuzzing.          |
@@ -175,7 +176,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 📁📄 **DIRECTORIES / FILES**                                           |                                                   |
 | ---------------------------------------------------------------------- | ------------------------------------------------- |
-| Path                                                                   | Descripción                                       |
+| 📁 RUTA                                                               | 📄 DESCRIPCIÓN                                    |
 | /usr/share/wordlists/amass/jhaddix_all.txt                             | Lista completa de directorios/archivos (JHaddix). |
 | /usr/share/wordlists/dirb/big.txt                                      | Lista extensa de directorios/archivos.            |
 | /usr/share/wordlists/wfuzz/general/big.txt                             | Lista extensa de directorios/archivos (WFuzz).    |
@@ -209,7 +210,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 💉 **INJECTION PAYLOADS**                                             |                                             |
 | --------------------------------------------------------------------- | ------------------------------------------- |
-| Path                                                                  | Descripción                                 |
+| 📁 RUTA                                                              | 📄 DESCRIPCIÓN                              |
 | /usr/share/wordlists/dirb/others/names.txt                            | Nombres para payloads de inyección.         |
 | /usr/share/wordlists/dirb/others/best110.txt                          | Top 110 payloads de inyección.              |
 | /usr/share/wordlists/dirb/others/best1050.txt                         | Top 1050 payloads de inyección.             |
@@ -227,7 +228,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | 🔠🔢 **CHARACTERS / NUMBERS**                            |                                                  |
 | -------------------------------------------------------- | ------------------------------------------------ |
-| Path                                                     | Descripción                                      |
+| 📁 RUTA                                                  | 📄 DESCRIPCIÓN                                  |
 | /usr/share/wordlists/dirb/stress/alphanum_case.txt       | Caracteres alfanuméricos sensibles a mayúsculas. |
 | /usr/share/wordlists/dirb/stress/alphanum_case_extra.txt | Alfanuméricos ampliados sensibles a mayúsculas.  |
 | /usr/share/wordlists/dirb/stress/char.txt                | Caracteres para pruebas de stress.               |
@@ -240,7 +241,7 @@ git clone https://github.com/danielmiessler/SecLists.git
 
 | ⚠️ **VULNERABILITIES**                                     |                                          |
 | ---------------------------------------------------------- | ---------------------------------------- |
-| Path                                                       | Descripción                              |
+| 📁 RUTA                                                   | 📄 DESCRIPCIÓN                           |
 | /usr/share/wordlists/dirb/vulns/apache.txt                 | Vulnerabilidades conocidas para Apache.  |
 | /usr/share/wordlists/dirb/vulns/axis.txt                   | Vulnerabilidades conocidas para Axis.    |
 | /usr/share/wordlists/dirb/vulns/cgis.txt                   | Vulnerabilidades en scripts CGI.         |
