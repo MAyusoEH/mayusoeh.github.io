@@ -18,10 +18,10 @@ Una dirección IP (Internet Protocol) es un identificador numérico único que s
 
 En IPv4 (la más común) tiene 32 bits y se escribe en notación decimal con puntos, dividida en 4 octetos (ej: 192.168.1.10). Cada octeto va de 0 a 255.
 
-Valores posicionales sistema binario:            256 128  64  32  16  8  4  2  1
-Valores de un octeto:                                              8    7    6    5   4  3  2  1
+Valores posicionales sistema binario:       256 128  64  32  16  8  4  2  1
+Valores de un octeto:                        8    7    6    5   4  3  2  1
 
-IP:                      192         .        168        .           1          .         1
+IP:                192         .         168        .          1         .         1
 Binario:         1100 0000      1010 1000       0000 0001     0000 0001
 Máscara:            255        .         255        .         255        .         0           =       /24        (256 hosts)
 
@@ -128,8 +128,8 @@ Fácil, solo hay que saber que la red más pequeña empieza por /32, y de ahí p
 
 Sabemos que la más pequeña (/32) tiene solo 1 dirección IP. Pues de ahí en adelante, se van duplicando exponencialmente como si se tratara de los valores del sistema binario:
 
-  1       2        4       8       16     32      64   128   256    512   1024   ...    HOSTS
-/32    /31    /30    /29    /28    /27    /26    /25    /24    /23    /22     ...    CIDR
+ 1      2      4      8      16      32      64      128      256      512      1024     ...     HOSTS
+/32    /31    /30    /29    /28     /27     /26      /25      /24      /23      /22      ...     CIDR
 
 _(Nota: los hosts utilizables es siempre el número total de hosts menos 2)._
 
