@@ -1,7 +1,3 @@
-[[mkd_ejpt]]
-
--------------
-
 Una Dirección MAC es la DIRECCIÓN FÍSICA ÚNICA DE UNA INTERFAZ.
 
 EJEMPLO DE DIRECCIÓN MAC:
