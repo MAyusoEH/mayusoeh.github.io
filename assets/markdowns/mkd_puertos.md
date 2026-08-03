@@ -1,7 +1,3 @@
-[[mkd_ejpt]]
-
--------------
-
 ### 1. Puertos Bien Conocidos (0-1023)
 
 | Puerto  | Protocolo/s      | Servicio             | Descripción                                              |
