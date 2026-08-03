@@ -1,10 +1,3 @@
----
-
----
-[[mkd_ejpt]]
-
-------------------------
-
 ### 🐚 ¿QUÉ ES UNA REVERSE SHELL?  
   
  Una reverse shell es una conexión remota donde el objetivo (víctima) establece una conexión de vuelta al atacante. Una vez que se establece esta conexión, el atacante puede ejecutar comandos en la máquina víctima como si tuviera una terminal interactiva.  
