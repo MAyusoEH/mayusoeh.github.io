@@ -19,10 +19,13 @@ Una dirección IP (Internet Protocol) es un identificador numérico único que s
 En IPv4 (la más común) tiene 32 bits y se escribe en notación decimal con puntos, dividida en 4 octetos (ej: 192.168.1.10). Cada octeto va de 0 a 255.
 
 Valores posicionales sistema binario:       256 128  64  32  16  8  4  2  1
+
 Valores de un octeto:                        8    7    6    5   4  3  2  1
 
 IP:                192         .         168        .          1         .         1
+
 Binario:         1100 0000      1010 1000       0000 0001     0000 0001
+
 Máscara:            255        .         255        .         255        .         0           =       /24        (256 hosts)
 
 
