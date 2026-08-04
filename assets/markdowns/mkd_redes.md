@@ -1,28 +1,30 @@
 ### 🖥️ Visualizar por consola dirección IP propia
 
-En WINDOWS:
+Ver mi IP en WINDOWS:
 ```
 ipconfig
 ```
 
-En LINUX:
+Ver mi IP en LINUX:
 ```
 ifconfig
 ```
 
 ---------------------
 
-### Direcciones IP
+### 🌐 Direcciones IPv4
 
 Una dirección IP (Internet Protocol) es un identificador numérico único que se asigna a cada dispositivo conectado a una red para que pueda comunicarse.
 
 En IPv4 (la más común) tiene 32 bits y se escribe en notación decimal con puntos, dividida en 4 octetos (ej: 192.168.1.10). Cada octeto va de 0 a 255.
 
+Prueba con esta versión limpia en markdown estándar:
+
 | Valores posicionales binario | (256) | 128 | 64  | 32  | 16  | 8   | 4   | 2   | 1   |
 | ---------------------------- | ----- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Posiciones de un octeto      | (9)   | 8   | 7   | 6   | 5   | 4   | 3   | 2   | 1   |
 
-##### Tabla correspondiente a CIDR /24 (256 hosts):
+Tabla correspondiente a CIDR /24 (256 hosts):
 
 |             | Octeto 1 | Octeto 2 | Octeto 3 | Octeto 4 |
 | ----------- | -------- | -------- | -------- | -------- |
@@ -31,11 +33,11 @@ En IPv4 (la más común) tiene 32 bits y se escribe en notación decimal con pun
 | **Máscara** | 255      | 255      | 255      | 0        |
 
 
----------------
+---
 
-### Clases de direcciones IP (A, B y C)
+### 🌐 CLASES de direcciones IPv4 (A, B y C)
 
-El sistema de clases (classful) divide el espacio de direcciones según el valor del primer octeto:
+El sistema de clases [CLASSFULL] divide el espacio de direcciones según el valor del primer octeto:
 
 | Clase | Rango del 1.er octeto | Máscara por defecto | Bits de red / Bits de host | Nº aproximado de redes | Nº aproximado de hosts por red | Uso típico                      |
 | ----- | --------------------- | ------------------- | -------------------------- | ---------------------- | ------------------------------ | ------------------------------- |
@@ -51,9 +53,23 @@ El sistema de clases (classful) divide el espacio de direcciones según el valor
 
 _(Nota: hoy en día el sistema de clases está prácticamente abandonado en favor de CIDR, que permite crear MÁSCARAS DE RED DE LONGITUD VARIABLE)._
 
------------------
+---
 
-### DHCP (Dynamic Host Configuration Protocol)
+### 🌐 TIPOS de direcciones IPv4 (Privadas - Públicas)
+
+Direcciones IP PRIVADAS:
+
+| Clase | Rango de direcciones          | CIDR           | Hosts aproximados | Uso más común               |
+| ----- | ----------------------------- | -------------- | ----------------- | --------------------------- |
+| A     | 10.0.0.0 – 10.255.255.255     | 10.0.0.0/8     | 16.7 millones     | Redes grandes / empresas    |
+| B     | 172.16.0.0 – 172.31.255.255   | 172.16.0.0/12  | 1 millón          | Redes medianas              |
+| C     | 192.168.0.0 – 192.168.255.255 | 192.168.0.0/16 | 65.536            | Redes domésticas y pequeñas |
+|       |                               |                |                   |                             |
+
+
+---------------
+
+### 📟 DHCP (Dynamic Host Configuration Protocol)
 
 Es el protocolo que permite a un ROUTER o SERVIDOR asignar automáticamente direcciones IP (y otros parámetros de red como máscara, puerta de enlace y DNS) a los dispositivos de la red.
 
@@ -63,9 +79,9 @@ Ventajas:
 - Facilita la administración (no hay que configurar manualmente cada equipo).
 - Las direcciones se prestan por un tiempo limitado (lease time). Suelen cambiar si el equipo administrador de IPs es reiniciado.
 
---------------------
+---
 
-### CIDR (Classless Inter-Domain Routing)
+### 🧮 CIDR (Classless Inter-Domain Routing)
 
 Es el sistema actual de asignación de direcciones que **sustituye a las clases A/B/C**.
 
@@ -139,9 +155,9 @@ Sabemos que la más pequeña (/32) tiene solo 1 dirección IP. Pues de ahí en a
 
 _(Nota: los hosts utilizables es siempre el número total de hosts menos 2)._
 
-------------------
+_______________________
 
-### ENVÍO DE PAQUETES EN UNA RED
+### 📬 ENVÍO DE PAQUETES EN UNA RED
 
 Hay **varios tipos** según el destino del paquete. Los principales son estos:
 
@@ -152,6 +168,21 @@ Hay **varios tipos** según el destino del paquete. Los principales son estos:
 |**Multicast**|Multidifusión|A un **grupo** de dispositivos|224.0.0.1 (todos los routers)|
 |**Anycast**|Anycast|Al dispositivo **más cercano** del grupo|Se usa en DNS y CDNs|
 
+---------------
+
+### 🖥️ AJUSTES DE RED EN VIRTUAL BOX
+
+Hay **varios
+
+| Tipo de conexión                  | ¿Internet? | ¿Habla con el Host? | ¿Habla entre VMs? | Explicación breve                                                                            | Uso recomendado                              |
+| --------------------------------- | ---------- | ------------------- | ----------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| **NAT**                           | Sí         | Limitada            | No                | La VM sale a Internet usando la IP del host. El host no puede conectarse fácilmente a la VM. | Uso diario, navegar, actualizar paquetes     |
+| **Adaptador puente**              | Sí         | Sí                  | Sí                | La VM se conecta directamente a la red física (como un PC más). Obtiene IP del router.       | Servidores, pentesting, pruebas de red real  |
+| **Red interna**                   | No         | No                  | Sí                | Solo las VMs que están en la misma red interna se ven entre sí. El host no participa.        | Aislar VMs (ej. cliente ↔ servidor)          |
+| **Adaptador sólo anfitrión**      | No         | Sí                  | Sí                | Crea una red privada entre el host y las VMs. Sin salida a Internet.                         | Laboratorio interno, desarrollo              |
+| **Controlador genérico**          | Depende    | Depende             | Depende           | Permite usar controladores de red especiales (UDP Tunnel, VDE, etc.). Poco usado.            | Casos muy específicos / avanzados            |
+| **Red NAT**                       | Sí         | Limitada            | Sí                | Igual que NAT pero permite que varias VMs se comuniquen entre ellas.                         | Varias VMs que necesitan Internet + hablarse |
+| **Red en la nube (EXPERIMENTAL)** | Sí         | Depende             | Depende           | Conecta la VM a redes cloud (aún en fase experimental).                                      | Pruebas con nubes (poco estable)             |
 
 
 
